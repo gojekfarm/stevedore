@@ -1,0 +1,71 @@
+#! /usr/bin/env bash
+
+set -ex
+
+go mod vendor
+
+mkdir -p pkg/internal/mocks
+mkdir -p pkg/internal/mocks/http
+mkdir -p pkg/internal/mocks/helm
+mkdir -p pkg/internal/mocks/chart
+mkdir -p pkg/internal/mocks/upstaller
+mkdir -p pkg/internal/mocks/dependency_builder
+mkdir -p pkg/internal/mocks/client-go/kubernetes
+mkdir -p pkg/internal/mocks/client-go/kubernetes/typed/core/v1
+mkdir -p pkg/internal/mocks/client-go/kubernetes/typed/rbac/v1
+mkdir -p pkg/internal/mocks/os
+mockgen -destination pkg/internal/mocks/environment.go -package mocks -source pkg/config/environment.go
+mockgen -destination pkg/internal/mocks/afero.go -package mocks -source vendor/github.com/spf13/afero/afero.go
+mockgen -destination pkg/internal/mocks/helm/client.go -package mocks -source pkg/helm/client.go
+mockgen -destination pkg/internal/mocks/helm/helm.go -package mocks -source pkg/helm/helm.go
+mockgen -destination pkg/internal/mocks/chart/dependency_builder.go -package chartMocks -source pkg/stevedore/dependency_builder.go
+mockgen -destination pkg/internal/mocks/chart/chart_builder.go -package chartMocks -source pkg/stevedore/chart_builder.go
+mockgen -destination pkg/internal/mocks/file_utils.go -package mocks -source pkg/stevedore/file_utils.go
+mockgen -destination pkg/internal/mocks/chart_manager.go -package mocks -source pkg/stevedore/chart_manager.go
+mockgen -destination pkg/internal/mocks/upstaller/upstaller.go -package upstaller -source pkg/stevedore/upstaller.go
+mockgen -destination pkg/internal/mocks/http/client.go -package mocks -source pkg/http/client.go
+mockgen -destination pkg/internal/mocks/client-go/kubernetes/clientset.go -package mocks -source vendor/k8s.io/client-go/kubernetes/clientset.go
+mockgen k8s.io/client-go/kubernetes/typed/core/v1 CoreV1Interface > pkg/internal/mocks/client-go/kubernetes/typed/core/v1/core_client.go
+mockgen k8s.io/client-go/kubernetes/typed/core/v1 NamespaceInterface > pkg/internal/mocks/client-go/kubernetes/typed/core/v1/namespace.go
+mockgen k8s.io/client-go/kubernetes/typed/core/v1 ServiceAccountInterface > pkg/internal/mocks/client-go/kubernetes/typed/core/v1/serviceaccount.go
+mockgen k8s.io/client-go/kubernetes/typed/rbac/v1 RbacV1Interface  > pkg/internal/mocks/client-go/kubernetes/typed/rbac/v1/rbac_client.go
+mockgen k8s.io/client-go/kubernetes/typed/rbac/v1 RoleBindingInterface > pkg/internal/mocks/client-go/kubernetes/typed/rbac/v1/rolebinding.go
+mockgen k8s.io/client-go/kubernetes/typed/rbac/v1 ClusterRoleBindingInterface > pkg/internal/mocks/client-go/kubernetes/typed/rbac/v1/clusterrolebinding.go
+mockgen -destination pkg/internal/mocks/tiller_installer.go -package mocks -source pkg/stevedore/init/tiller_installer.go
+mockgen -destination pkg/internal/mocks/resource.go -package mocks -source pkg/stevedore/k8s/resources/resource.go
+mockgen os FileInfo > pkg/internal/mocks/os/file_utils.go
+
+
+mkdir -p pkg/internal/mocks/plugin
+mockgen -destination pkg/internal/mocks/plugin/types.go -package mockPlugin -source pkg/plugin/types.go
+
+mkdir -p cmd/internal/mocks
+mkdir -p cmd/internal/mocks/mockProvider
+mkdir -p cmd/internal/mocks/mockManifest
+mockgen -destination cmd/internal/mocks/afero.go -package mocks -source vendor/github.com/spf13/afero/afero.go
+mockgen -destination cmd/internal/mocks/environment.go -package mocks -source pkg/config/environment.go
+mockgen -destination cmd/internal/mocks/info.go -package mocks -source pkg/file/info.go
+mockgen -destination cmd/internal/mocks/file_utils.go -package mocks -source pkg/stevedore/file_utils.go
+mockgen -destination cmd/internal/mocks/mockProvider/context_provider.go -package mockProvider -source client/provider/context_provider.go
+mockgen -destination cmd/internal/mocks/mockProvider/ignore_provider.go -package mockProvider -source client/provider/ignore_provider.go
+mockgen -destination cmd/internal/mocks/mockProvider/override_provider.go -package mockProvider -source client/provider/override_provider.go
+mockgen -destination cmd/internal/mocks/mockProvider/env_provider.go -package mockProvider -source client/provider/env_provider.go
+mockgen -destination cmd/internal/mocks/mockManifest/reporter.go -package mockManifest -source cmd/manifest/reporter.go
+mockgen -destination cmd/internal/mocks/mockManifest/provider.go -package mockManifest -source pkg/manifest/provider.go
+
+
+mkdir -p client/internal/mocks/mockProvider
+mockgen -destination client/internal/mocks/environment.go -package mocks -source pkg/config/environment.go
+mockgen -destination client/internal/mocks/mockProvider/context_provider.go -package mockProvider -source client/provider/context_provider.go
+mockgen -destination client/internal/mocks/mockProvider/ignore_provider.go -package mockProvider -source client/provider/ignore_provider.go
+mockgen -destination client/internal/mocks/mockProvider/override_provider.go -package mockProvider -source client/provider/override_provider.go
+mockgen -destination client/internal/mocks/mockProvider/env_provider.go -package mockProvider -source client/provider/env_provider.go
+mockgen -destination client/internal/mocks/afero.go -package mocks -source vendor/github.com/spf13/afero/afero.go
+mockgen -destination client/internal/mocks/info.go -package mocks -source pkg/file/info.go
+
+mkdir -p client/internal/mocks/micro/go-micro/
+mockgen -destination client/internal/mocks/micro/go-micro/config.go -package mocks -source vendor/github.com/micro/go-micro/config/config.go
+mockgen -destination client/internal/mocks/micro/go-micro/reader.go -package mocks -source vendor/github.com/micro/go-micro/config/reader/reader.go
+
+mkdir -p cmd/internal/mocks/mockPlugin
+mockgen -destination cmd/internal/mocks/mockPlugin/types.go -package mockPlugin -source pkg/plugin/types.go

@@ -1,0 +1,29 @@
+{
+  "docs": {
+    "Overview": ["overview"],
+    "Getting started": ["installation", "configuration"],
+    "Concepts": [
+      "workflow",
+      "architecture",
+      "matches",
+      "context",
+      "overrides",
+      "envs",
+      "external_config_store",
+      "dependencies"],
+      "Guides and examples": ["guides_and_examples"],
+      "Reference" : [
+        "reference/cli_commands",
+        {
+          "type": "subcategory",
+          "label": "Stevedore Files",
+          "ids": [
+            "reference/manifest_file_reference"
+          ]
+        }
+      ]
+  },
+  "docs-other": {
+    "First Category": ["doc4", "doc5"]
+  }
+}

@@ -110,6 +110,8 @@ func (actionCmd *Command) CobraCommand() (*cobra.Command, error) {
 		Use:   actionCmd.name,
 		Short: shortDesc,
 		Long:  longDesc,
+		SilenceUsage: true,
+		SilenceErrors: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if _, err := os.Stat(actionCmd.overridesPath); actionCmd.overridesPath != "" && os.IsNotExist(err) {
 				return fmt.Errorf("invalid file path. Provide a valid path to stevedore manifests using --overrides-path")

@@ -145,6 +145,7 @@ contexts:
 		defer ctrl.Finish()
 
 		mockFs := mocks.NewMockFs(ctrl)
+		mockFs.EXPECT().Stat(ConfigFileName)
 		mockFs.EXPECT().Open(ConfigFileName).Return(nil, fmt.Errorf("error when reading file"))
 
 		mockEnvironment := mocks.NewMockEnvironment(ctrl)

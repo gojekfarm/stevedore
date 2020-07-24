@@ -70,9 +70,11 @@ func (command Command) CobraCommand(fs afero.Fs, cfgFile *string, localStore sto
 		return nil, err
 	}
 	cmd := cobra.Command{
-		Use:   command.name,
-		Short: command.shortDesc,
-		Long:  command.longDesc,
+		Use:           command.name,
+		Short:         command.shortDesc,
+		Long:          command.longDesc,
+		SilenceErrors: true,
+		SilenceUsage:  true,
 		RunE: func(cmd *cobra.Command, args []string) error {
 			manifestProvider, err := manifestPlugin.ManifestProvider()
 			if err != nil {

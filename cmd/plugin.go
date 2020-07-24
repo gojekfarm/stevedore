@@ -26,9 +26,11 @@ var pluginCmd = &cobra.Command{
 }
 
 var pluginListCmd = &cobra.Command{
-	Use:     "list",
-	Aliases: []string{"ls"},
-	Short:   "List stevedore plugins",
+	Use:           "list",
+	Aliases:       []string{"ls"},
+	Short:         "List stevedore plugins",
+	SilenceErrors: true,
+	SilenceUsage:  true,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		pluginLoader, err := plugin.GetPluginLoader()
 		if err != nil {

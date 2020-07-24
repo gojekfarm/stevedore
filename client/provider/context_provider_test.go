@@ -64,7 +64,7 @@ contexts:
 		context, err := contextProvider.Context()
 
 		if assert.Error(t, err) {
-			assert.Equal(t, "[currentContext] [NewConfigurationFromFile] error when reading from file: open /mock/contextFile: file does not exist", err.Error())
+			assert.Equal(t, "current context is not set", err.Error())
 		}
 		assert.Equal(t, stevedore.Context{}, context)
 	})

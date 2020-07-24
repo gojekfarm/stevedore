@@ -5,6 +5,7 @@ import (
 	"github.com/gojek/stevedore/cmd/cli"
 	"github.com/gojek/stevedore/pkg/config"
 	"os"
+	"path/filepath"
 
 	"gopkg.in/yaml.v2"
 
@@ -13,6 +14,9 @@ import (
 
 // ContextEnv is holds the env key for stevedore context
 const ContextEnv = "STEVEDORE_CONTEXT"
+
+const defaultFileMode = 0660
+const defaultDirMode = 0770
 
 // Configuration config to wrap all stevedore contexts and store config
 type Configuration struct {
@@ -29,19 +33,27 @@ type AppConfigStore struct {
 
 // NewConfigurationFromFile loads stevedore config from file
 func NewConfigurationFromFile(fs afero.Fs, filename string, env config.Environment) (*Configuration, error) {
-	data, err := afero.ReadFile(fs, filename)
 	stevedoreConfig := &Configuration{filename: filename, fs: fs}
+	ok, err := afero.Exists(fs, filename)
 	if err != nil {
-		return nil, fmt.Errorf("[NewConfigurationFromFile] error when reading from file: %v", err)
+		return nil, err
 	}
 
-	if err = yaml.Unmarshal(data, stevedoreConfig); err != nil {
-		return nil, fmt.Errorf("[NewConfigurationFromFile] error when unmarshalling from file: %v", err)
+	if ok {
+		data, err := afero.ReadFile(fs, filename)
+		if err != nil {
+			return nil, fmt.Errorf("[NewConfigurationFromFile] error when reading from file: %v", err)
+		}
+
+		if err = yaml.Unmarshal(data, stevedoreConfig); err != nil {
+			return nil, fmt.Errorf("[NewConfigurationFromFile] error when unmarshalling from file: %v", err)
+		}
+
+		if current, ok := OverriddenContext(env); ok {
+			stevedoreConfig.Current = current
+		}
 	}
 
-	if current, ok := OverriddenContext(env); ok {
-		stevedoreConfig.Current = current
-	}
 	return stevedoreConfig, nil
 }
 
@@ -116,7 +128,13 @@ func (s *Configuration) CurrentContext() (Context, error) {
 }
 
 func (s *Configuration) save() error {
-	f, err := s.fs.OpenFile(s.filename, os.O_TRUNC|os.O_WRONLY, os.ModeAppend)
+	dir, _ := filepath.Split(s.filename)
+	err := s.fs.MkdirAll(dir, defaultDirMode)
+	if err != nil {
+		return err
+	}
+
+	f, err := s.fs.OpenFile(s.filename, os.O_CREATE|os.O_TRUNC|os.O_WRONLY, defaultFileMode)
 	if err != nil {
 		return fmt.Errorf("[save] error when opening file %v", err)
 	}

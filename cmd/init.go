@@ -46,6 +46,8 @@ For every inferred namespace this command will:
 1. create a ServiceAccount called tiller
 2. binds tiller ServiceAccount to the "cluster-admin" ClusterRole as RoleBinding
 3. install tiller server and configures it to use the tiller ServiceAccount created in 1`,
+		SilenceErrors: true,
+		SilenceUsage:  true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			manifestsPath, err := cmd.Flags().GetString("manifests-path")
 			if err != nil {

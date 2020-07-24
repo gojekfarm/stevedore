@@ -39,9 +39,11 @@ type readFileContent func(reader io.Reader) (fmt.Formatter, error)
 type contentFetcher func(fs afero.Fs) (fileContents, error)
 
 var fmtCmd = &cobra.Command{
-	Use:   "fmt",
-	Short: "Format stevedore yaml(s)",
-	Long:  `Format stevedore yaml(s) and save it back`,
+	Use:           "fmt",
+	Short:         "Format stevedore yaml(s)",
+	Long:          `Format stevedore yaml(s) and save it back`,
+	SilenceErrors: true,
+	SilenceUsage:  true,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var all fileContents
 		fetchers := getFetchers()

@@ -24,8 +24,10 @@ var configCmd = &cobra.Command{
 }
 
 var configViewCmd = &cobra.Command{
-	Use:   "view",
-	Short: "Display complete configuration",
+	Use:           "view",
+	Short:         "Display complete configuration",
+	SilenceErrors: true,
+	SilenceUsage:  true,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		stevedoreConfig, err := stevedore.NewConfigurationFromFile(fs, cfgFile, localStore)
 		if err != nil {
@@ -36,9 +38,11 @@ var configViewCmd = &cobra.Command{
 }
 
 var configGetContextsCmd = &cobra.Command{
-	Use:   "get-contexts <optional-context-name>",
-	Short: "Describe one or many contexts",
-	Args:  cobra.MaximumNArgs(1),
+	Use:           "get-contexts <optional-context-name>",
+	Short:         "Describe one or many contexts",
+	Args:          cobra.MaximumNArgs(1),
+	SilenceErrors: true,
+	SilenceUsage:  true,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var givenContext string
 		if len(args) == 1 && strings.TrimSpace(args[0]) != "" {
@@ -79,8 +83,10 @@ var configGetContextsCmd = &cobra.Command{
 }
 
 var configUseContextCmd = &cobra.Command{
-	Use:   "use-context CONTEXT_NAME",
-	Short: "Sets the current-context in a stevedore config file",
+	Use:           "use-context CONTEXT_NAME",
+	Short:         "Sets the current-context in a stevedore config file",
+	SilenceErrors: true,
+	SilenceUsage:  true,
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 1 {
 			return fmt.Errorf("provide a single CONTEXT_NAME")
@@ -146,8 +152,10 @@ func (errors contextErrors) Error() string {
 }
 
 var configAddContextCmd = &cobra.Command{
-	Use:   "add-context",
-	Short: "Adds context to stevedore config file",
+	Use:           "add-context",
+	Short:         "Adds context to stevedore config file",
+	SilenceErrors: true,
+	SilenceUsage:  true,
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		err := ctx.IsValid()
 		if ctxErrs, ok := err.(validator.ValidationErrors); ok {
@@ -155,7 +163,6 @@ var configAddContextCmd = &cobra.Command{
 		}
 		return err
 	},
-	SilenceErrors: true,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		stevedoreConfig, err := stevedore.NewConfigurationFromFile(fs, cfgFile, localStore)
 		if err != nil {
@@ -187,8 +194,10 @@ var configAddContextCmd = &cobra.Command{
 }
 
 var configDeleteContextCmd = &cobra.Command{
-	Use:   "delete-context CONTEXT_NAME",
-	Short: "Delete the specified context from the stevedore config",
+	Use:           "delete-context CONTEXT_NAME",
+	Short:         "Delete the specified context from the stevedore config",
+	SilenceErrors: true,
+	SilenceUsage:  true,
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 1 {
 			return fmt.Errorf("provide a single CONTEXT_NAME")
@@ -212,8 +221,10 @@ var configDeleteContextCmd = &cobra.Command{
 }
 
 var configRenameContextCmd = &cobra.Command{
-	Use:   "rename-context OLD_CONTEXT_NAME NEW_CONTEXT_NAME",
-	Short: "Renames a context from the stevedore config file",
+	Use:           "rename-context OLD_CONTEXT_NAME NEW_CONTEXT_NAME",
+	Short:         "Renames a context from the stevedore config file",
+	SilenceErrors: true,
+	SilenceUsage:  true,
 	PreRunE: func(cmd *cobra.Command, args []string) error {
 		if len(args) != 2 {
 			return fmt.Errorf("provide both OLD_CONTEXT_NAME and NEW_CONTEXT_NAME")
@@ -239,8 +250,10 @@ var configRenameContextCmd = &cobra.Command{
 }
 
 var configShowContextCmd = &cobra.Command{
-	Use:   "show-context",
-	Short: "Shows the current-context",
+	Use:           "show-context",
+	Short:         "Shows the current-context",
+	SilenceErrors: true,
+	SilenceUsage:  true,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		stevedoreConfig, err := stevedore.NewConfigurationFromFile(fs, cfgFile, localStore)
 		if err != nil {

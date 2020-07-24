@@ -126,7 +126,6 @@ const (
 
 var addCtxtErrors = map[string]string{
 	"Name":              fmt.Sprintf("Provide a name for stevedore context using --%s", nameFlag),
-	"Type":              fmt.Sprintf("Provide a valid type (services|components|readonly) for stevedore context using --%s", typeFlag),
 	"Environment":       fmt.Sprintf("Provide a environment for stevedore context using --%s", environmentFlag),
 	"EnvironmentType":   fmt.Sprintf("Provide a environment type for stevedore context using --%s", environmentTypeFlag),
 	"KubernetesContext": fmt.Sprintf("Provide a kubecontext for stevedore context using --%s", kubeContextFlag),
@@ -274,7 +273,7 @@ func init() {
 	rootCmd.AddCommand(configCmd)
 
 	configAddContextCmd.PersistentFlags().StringVar(&ctx.Name, nameFlag, "", "Stevedore context name")
-	configAddContextCmd.PersistentFlags().StringVar(&ctx.Type, typeFlag, "", "Type of kubernetes cluster of the stevedore context (eg. components|services|readonly)")
+	configAddContextCmd.PersistentFlags().StringVar(&ctx.Type, typeFlag, "", "Type of kubernetes cluster of the stevedore context")
 	configAddContextCmd.PersistentFlags().StringVar(&ctx.Environment, environmentFlag, "", "Environment of the stevedore context")
 	configAddContextCmd.PersistentFlags().StringVar(&ctx.EnvironmentType, environmentTypeFlag, "", "Type of Environment of stevedore context (eg. staging|production)")
 	configAddContextCmd.PersistentFlags().StringVar(&ctx.KubernetesContext, kubeContextFlag, "", "Kubernetes cluster of the stevedore context")

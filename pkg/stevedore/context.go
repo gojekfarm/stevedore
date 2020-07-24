@@ -10,7 +10,7 @@ import (
 // It wraps information needed at a kubernetes cluster level
 type Context struct {
 	Name              string `yaml:"name" validate:"required"`
-	Type              string `yaml:"type" validate:"required,any=services/components/readonly"`
+	Type              string `yaml:"type"`
 	Environment       string `yaml:"environment" validate:"required"`
 	KubernetesContext string `yaml:"kubernetesContext" validate:"required"`
 	EnvironmentType   string `yaml:"environmentType" validate:"required"`

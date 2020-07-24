@@ -38,7 +38,6 @@ func TestContextValid(t *testing.T) {
 		context      Context
 		errorMessage string
 		name         string
-		valid        bool
 	}
 
 	emptyScenarios := []scenario{
@@ -62,38 +61,6 @@ func TestContextValid(t *testing.T) {
 			context:      Context{Name: "components", KubernetesContext: "components", Environment: "env", Type: "components"},
 			errorMessage: "Key: 'Context.EnvironmentType' Error:Field validation for 'EnvironmentType' failed on the 'required' tag",
 		},
-		{
-			name:         "type is not provided",
-			context:      Context{Name: "components", KubernetesContext: "components", Environment: "env", EnvironmentType: "staging"},
-			errorMessage: "Key: 'Context.Type' Error:Field validation for 'Type' failed on the 'required' tag",
-		},
-	}
-
-	typeScenarios := []scenario{
-		{
-			name:         "should return error if type is not components|services|readonly",
-			context:      Context{Name: "components", KubernetesContext: "components", Environment: "env", EnvironmentType: "staging", Type: "bla"},
-			errorMessage: "Key: 'Context.Type' Error:Field validation for 'Type' failed on the 'any' tag",
-			valid:        false,
-		},
-		{
-			name:         "should not return error if type is components",
-			context:      Context{Name: "components", KubernetesContext: "components", Environment: "env", EnvironmentType: "staging", Type: "components"},
-			errorMessage: "Key: 'Context.Type' Error:Field validation for 'Type' failed on the 'any' tag",
-			valid:        true,
-		},
-		{
-			name:         "should not return error if type is services",
-			context:      Context{Name: "components", KubernetesContext: "components", Environment: "env", EnvironmentType: "staging", Type: "services"},
-			errorMessage: "Key: 'Context.Type' Error:Field validation for 'Type' failed on the 'any' tag",
-			valid:        true,
-		},
-		{
-			name:         "should not return error if type is readonly",
-			context:      Context{Name: "components", KubernetesContext: "components", Environment: "env", EnvironmentType: "staging", Type: "readonly"},
-			errorMessage: "Key: 'Context.Type' Error:Field validation for 'Type' failed on the 'any' tag",
-			valid:        true,
-		},
 	}
 
 	for _, s := range emptyScenarios {
@@ -102,20 +69,6 @@ func TestContextValid(t *testing.T) {
 
 			if assert.Error(t, err) {
 				assert.Contains(t, err.Error(), s.errorMessage)
-			}
-		})
-	}
-
-	for _, s := range typeScenarios {
-		t.Run(s.name, func(c *testing.T) {
-			err := s.context.IsValid()
-
-			if s.valid {
-				assert.NoError(t, err)
-			} else {
-				if assert.Error(t, err) {
-					assert.Contains(t, err.Error(), s.errorMessage)
-				}
 			}
 		})
 	}

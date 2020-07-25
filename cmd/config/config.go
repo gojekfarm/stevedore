@@ -49,7 +49,7 @@ func FilePath() (string, error) {
 		return "", fmt.Errorf("unable to find home directory: %v", err)
 	}
 
-	return filepath.Join(home, ".stevedore", "config"), nil
+	return filepath.Join(home, ".config", "stevedore", "config"), nil
 }
 
 // SetPluginDirPath sets the path of stevedore plugins directory
@@ -67,5 +67,5 @@ func PluginDirPath() (string, error) {
 		return "", fmt.Errorf("unable to find home directory: %v", err)
 	}
 
-	return filepath.Join(home, ".stevedore", "plugins"), nil
+	return filepath.Join(home, ".config", "stevedore", "plugins"), nil
 }

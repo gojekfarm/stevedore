@@ -5,7 +5,7 @@ help: ## Prints help (only for targets with comments)
 APP=stevedore
 SRC_PACKAGES=$(shell go list -mod=vendor ./... | grep -v "vendor" | grep -v "swagger")
 VERSION?=2.3
-HELM_VERSION?=2.16.9
+HELM_VERSION?=v2.16.9
 BUILD?=$(shell git describe --always --dirty 2> /dev/null)
 GOLINT:=$(shell command -v golint 2> /dev/null)
 APP_EXECUTABLE="./out/$(APP)"

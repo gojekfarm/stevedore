@@ -6,6 +6,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/gojek/stevedore/cmd/cli"
+
 	"github.com/fatih/color"
 	"github.com/gojek/stevedore/log"
 	"github.com/gojek/stevedore/pkg/helm"
@@ -89,7 +91,7 @@ func getFormattedFileName(file string) string {
 }
 
 func createTable(writer io.Writer, headers []string, displayRowLine bool) *tablewriter.Table {
-	table := tablewriter.NewWriter(writer)
+	table := cli.NewTableRenderer(writer)
 	table.SetHeader(headers)
 	table.SetRowLine(displayRowLine)
 	return table

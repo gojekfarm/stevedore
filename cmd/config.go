@@ -14,7 +14,6 @@ import (
 
 	"github.com/gojek/stevedore/pkg/stevedore"
 
-	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 )
 
@@ -54,8 +53,8 @@ var configGetContextsCmd = &cobra.Command{
 			return err
 		}
 
-		table := tablewriter.NewWriter(os.Stdout)
-		table.SetHeader([]string{"CURRENT", "NAME", "TYPE", "ENVIRONMENT", "ENVIRONMENT TYPE", "KUBERNETES CONTEXT"})
+		table := cli.NewTableRenderer(os.Stdout)
+		table.SetHeader([]string{"CURRENT", "NAME", "KUBERNETES CONTEXT", "TYPE", "ENVIRONMENT", "ENVIRONMENT TYPE"})
 
 		if givenContext != "" {
 			for _, ctx := range stevedoreConfig.Contexts {
@@ -64,7 +63,7 @@ var configGetContextsCmd = &cobra.Command{
 					current = "*"
 				}
 				if ctx.Name == givenContext {
-					table.Append([]string{current, ctx.Name, ctx.Type, ctx.Environment, ctx.EnvironmentType, ctx.KubernetesContext})
+					table.Append([]string{current, ctx.Name, ctx.KubernetesContext, ctx.Type, ctx.Environment, ctx.EnvironmentType})
 					break
 				}
 			}
@@ -74,7 +73,7 @@ var configGetContextsCmd = &cobra.Command{
 				if ctx.Name == stevedoreConfig.Current {
 					current = "*"
 				}
-				table.Append([]string{current, ctx.Name, ctx.Type, ctx.Environment, ctx.EnvironmentType, ctx.KubernetesContext})
+				table.Append([]string{current, ctx.Name, ctx.KubernetesContext, ctx.Type, ctx.Environment, ctx.EnvironmentType})
 			}
 		}
 		table.Render()
@@ -175,7 +174,7 @@ var configAddContextCmd = &cobra.Command{
 
 		fmt.Println("Successfully added the below context:")
 
-		table := tablewriter.NewWriter(os.Stdout)
+		table := cli.NewTableRenderer(os.Stdout)
 		table.Append([]string{"Name", ctx.Name})
 		table.Append([]string{"Type", ctx.Type})
 		table.Append([]string{"Environment", ctx.Environment})
@@ -187,7 +186,7 @@ var configAddContextCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		fmt.Printf("Successfully switched to context: %s\n", ctx.Name)
+		fmt.Printf("\nSuccessfully switched to context: %s\n", ctx.Name)
 		return nil
 	},
 }

@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"github.com/olekukonko/tablewriter"
 	"io"
 	"os"
 
@@ -38,6 +39,24 @@ func RenderAsYaml(writer io.Writer, value interface{}) {
 	}
 	content := string(bytes)
 	_, _ = fmt.Fprint(writer, content)
+}
+
+// NewTableRenderer returns tablewriter.Table
+// without any default settings
+func NewTableRenderer(writer io.Writer) *tablewriter.Table {
+	table := tablewriter.NewWriter(writer)
+	table.SetAutoWrapText(false)
+	table.SetAutoFormatHeaders(true)
+	table.SetAlignment(tablewriter.ALIGN_LEFT)
+	table.SetBorder(false)
+	table.SetCenterSeparator("")
+	table.SetColumnSeparator("")
+	table.SetHeaderAlignment(tablewriter.ALIGN_LEFT)
+	table.SetHeaderLine(false)
+	table.SetNoWhiteSpace(true)
+	table.SetTablePadding("\t")
+	table.SetRowSeparator("")
+	return table
 }
 
 // PrintYaml convert value as yaml and render into OutputStream()

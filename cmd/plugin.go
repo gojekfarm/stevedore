@@ -8,7 +8,6 @@ import (
 	"github.com/gojek/stevedore/cmd/config"
 	"github.com/gojek/stevedore/cmd/plugin"
 	pkgPlugin "github.com/gojek/stevedore/pkg/plugin"
-	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"io"
@@ -47,7 +46,7 @@ var pluginListCmd = &cobra.Command{
 			return nil
 		}
 
-		table := tablewriter.NewWriter(os.Stdout)
+		table := cli.NewTableRenderer(os.Stdout)
 		table.SetHeader([]string{"NAME", "TYPE", "VERSION"})
 
 		for _, pluginInfo := range pluginInfos {

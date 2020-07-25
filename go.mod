@@ -73,13 +73,12 @@ require (
 	github.com/json-iterator/go v1.1.7
 	github.com/manifoldco/promptui v0.3.2
 	github.com/mattn/go-isatty v0.0.7 // indirect
-	github.com/mattn/go-runewidth v0.0.4 // indirect
 	github.com/mgutz/ansi v0.0.0-20170206155736-9520e82c474b // indirect
 	github.com/micro/go-micro v1.6.0
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/mapstructure v1.1.2
 	github.com/nicksnyder/go-i18n v1.10.0 // indirect
-	github.com/olekukonko/tablewriter v0.0.1
+	github.com/olekukonko/tablewriter v0.0.5-0.20200416053754-163badb3bac6
 	github.com/rubenv/sql-migrate v0.0.0-20190327083759-54bad0a9b051 // indirect
 	github.com/sirupsen/logrus v1.4.2
 	github.com/soheilhy/cmux v0.1.4 // indirect

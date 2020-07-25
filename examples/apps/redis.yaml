@@ -1,0 +1,12 @@
+kind: StevedoreManifest
+version: 2
+deployTo:
+  - contextName: minikube
+    environmentType: dev
+spec:
+  - release:
+      name: redis
+      namespace: default
+      chart: stable/redis
+      values:
+        password: ${REDIS_PASSWORD}

@@ -1,0 +1,16 @@
+kind: StevedoreOverride
+version: 2
+spec:
+  - matches:
+      environmentType: dev
+    values:
+      master:
+        resources:
+          requests:
+            memory: 256Mi 
+            cpu: 100m
+      slave:
+        resources:
+          requests:
+            memory: 256Mi 
+            cpu: 100m

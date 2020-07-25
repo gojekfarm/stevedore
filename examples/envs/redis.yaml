@@ -1,0 +1,7 @@
+kind: StevedoreEnv
+version: 2
+spec:
+  - matches:
+      environmentType: dev
+    env:
+      REDIS_PASSWORD: niRYsQTI90

@@ -1,6 +1,8 @@
 package helm
 
-import "github.com/cucumber/godog/gherkin"
+import (
+	"github.com/cucumber/messages-go/v10"
+)
 
 // Repo represents helm repo
 type Repo struct {
@@ -34,7 +36,7 @@ func (repos Repos) Diff(with Repos) Repos {
 }
 
 // NewRepos create list of HelmRepo from gherkin.DataTable
-func NewRepos(helmRepos *gherkin.DataTable) Repos {
+func NewRepos(helmRepos *messages.PickleStepArgument_PickleTable) Repos {
 	result := make(Repos, 0, len(helmRepos.Rows)-1)
 	for _, row := range helmRepos.Rows[1:] {
 		if len(row.Cells) != 2 {

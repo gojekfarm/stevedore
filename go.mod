@@ -48,7 +48,8 @@ require (
 	github.com/chartmuseum/helm-push v0.7.1
 	github.com/coreos/go-systemd v0.0.0-20181012123002-c6f51f82210d // indirect
 	github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f // indirect
-	github.com/cucumber/godog v0.8.1
+	github.com/cucumber/godog v0.10.0
+	github.com/cucumber/messages-go/v10 v10.0.3
 	github.com/databus23/helm-diff v2.11.1-0.20190520134353-33ee5a32d005+incompatible
 	github.com/docker/docker v1.13.1 // indirect
 	github.com/docker/spdystream v0.0.0-20181023171402-6480d4af844c // indirect
@@ -85,7 +86,7 @@ require (
 	github.com/spf13/afero v1.2.2
 	github.com/spf13/cobra v0.0.5
 	github.com/spf13/pflag v1.0.5
-	github.com/stretchr/testify v1.4.0
+	github.com/stretchr/testify v1.6.1
 	github.com/tmc/grpc-websocket-proxy v0.0.0-20171017195756-830351dc03c6 // indirect
 	github.com/ziutek/mymysql v1.5.4 // indirect
 	go.uber.org/atomic v1.3.2 // indirect
@@ -98,7 +99,7 @@ require (
 	gopkg.in/gorp.v1 v1.7.2 // indirect
 	gopkg.in/h2non/gock.v1 v1.0.14
 	gopkg.in/square/go-jose.v2 v2.3.1 // indirect
-	gopkg.in/yaml.v2 v2.2.4
+	gopkg.in/yaml.v2 v2.2.8
 	k8s.io/api v0.0.0
 	k8s.io/apimachinery v0.0.0
 	k8s.io/client-go v0.0.0

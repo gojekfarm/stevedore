@@ -7,9 +7,10 @@ import (
 	"os"
 	"testing"
 
+	"github.com/cucumber/messages-go/v10"
+
 	"github.com/cucumber/godog"
 	"github.com/cucumber/godog/colors"
-	"github.com/cucumber/godog/gherkin"
 	"github.com/gojek/stevedore/internal/cli/helm"
 	"github.com/gojek/stevedore/internal/helpers"
 )
@@ -22,7 +23,7 @@ func iHaveToInstallIntoMyCluster(_ string, _ string, _ string) error {
 	return godog.ErrPending
 }
 
-func iHaveFollowingHelmRepos(helmRepos *gherkin.DataTable) error {
+func iHaveFollowingHelmRepos(helmRepos *messages.PickleStepArgument_PickleTable) error {
 	repos := helm.NewRepos(helmRepos)
 	return helpers.AddHelmRepos(repos)
 }
@@ -31,29 +32,37 @@ func iRefreshHelmLocalCache() error {
 	return helpers.UpdateHelmRepo()
 }
 
-func FeatureContext(s *godog.Suite) {
-	s.Step(`^I have a kubernetes cluster with name "([^"]*)" and version "([^"]*)"$`, iHaveAKubernetesClusterWithNameAndVersion)
-	s.Step(`^I have following helm repos:$`, iHaveFollowingHelmRepos)
-	s.Step(`^I refresh helm local cache$`, iRefreshHelmLocalCache)
-	s.Step(`^I have to install "([^"]*)" into cluster "([^"]*)" as "([^"]*)"$`, iHaveToInstallIntoMyCluster)
+func InitializeTestSuite(ctx *godog.TestSuiteContext) {
+	ctx.BeforeSuite(func() {})
 }
 
-var opt = godog.Options{
+func InitializeScenario(ctx *godog.ScenarioContext) {
+	ctx.BeforeScenario(func(*godog.Scenario) {})
+	ctx.Step(`^I have a kubernetes cluster with name "([^"]*)" and version "([^"]*)"$`, iHaveAKubernetesClusterWithNameAndVersion)
+	ctx.Step(`^I have following helm repos:$`, iHaveFollowingHelmRepos)
+	ctx.Step(`^I refresh helm local cache$`, iRefreshHelmLocalCache)
+	ctx.Step(`^I have to install "([^"]*)" into cluster "([^"]*)" as "([^"]*)"$`, iHaveToInstallIntoMyCluster)
+}
+
+var opts = godog.Options{
 	Output: colors.Colored(os.Stdout),
-	//Format: "progress", // can define default values
+	Format: "progress", // can define default values
 }
 
 func init() {
-	godog.BindFlags("godog.", flag.CommandLine, &opt)
+	godog.BindFlags("godog.", flag.CommandLine, &opts)
 }
 
 func TestMain(m *testing.M) {
 	flag.Parse()
-	opt.Paths = flag.Args()
+	opts.Paths = flag.Args()
 
-	status := godog.RunWithOptions("godogs", func(s *godog.Suite) {
-		FeatureContext(s)
-	}, opt)
+	status := godog.TestSuite{
+		Name:                 "godogs",
+		TestSuiteInitializer: InitializeTestSuite,
+		ScenarioInitializer:  InitializeScenario,
+		Options:              &opts,
+	}.Run()
 
 	if st := m.Run(); st > status {
 		status = st

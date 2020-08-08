@@ -6,10 +6,8 @@ import (
 	"io"
 	"os"
 	"sort"
-	"sync"
+	"strconv"
 	"time"
-
-	"github.com/cucumber/godog/gherkin"
 )
 
 func init() {
@@ -17,36 +15,15 @@ func init() {
 }
 
 func junitFunc(suite string, out io.Writer) Formatter {
-	return &junitFormatter{
-		basefmt: basefmt{
-			suiteName: suite,
-			started:   timeNowFunc(),
-			indent:    2,
-			out:       out,
-		},
-		lock: new(sync.Mutex),
-	}
+	return &junitFormatter{basefmt: newBaseFmt(suite, out)}
 }
 
 type junitFormatter struct {
-	basefmt
-	lock *sync.Mutex
-}
-
-func (f *junitFormatter) Node(n interface{}) {
-	f.lock.Lock()
-	defer f.lock.Unlock()
-	f.basefmt.Node(n)
-}
-
-func (f *junitFormatter) Feature(ft *gherkin.Feature, p string, c []byte) {
-	f.lock.Lock()
-	defer f.lock.Unlock()
-	f.basefmt.Feature(ft, p, c)
+	*basefmt
 }
 
 func (f *junitFormatter) Summary() {
-	suite := buildJUNITPackageSuite(f.suiteName, f.started, f.features)
+	suite := f.buildJUNITPackageSuite()
 
 	_, err := io.WriteString(f.out, xml.Header)
 	if err != nil {
@@ -60,114 +37,96 @@ func (f *junitFormatter) Summary() {
 	}
 }
 
-func (f *junitFormatter) Passed(step *gherkin.Step, match *StepDef) {
-	f.lock.Lock()
-	defer f.lock.Unlock()
-	f.basefmt.Passed(step, match)
+func junitTimeDuration(from, to time.Time) string {
+	return strconv.FormatFloat(to.Sub(from).Seconds(), 'f', -1, 64)
 }
 
-func (f *junitFormatter) Skipped(step *gherkin.Step, match *StepDef) {
-	f.lock.Lock()
-	defer f.lock.Unlock()
-	f.basefmt.Skipped(step, match)
-}
+func (f *junitFormatter) buildJUNITPackageSuite() junitPackageSuite {
+	features := f.storage.mustGetFeatures()
+	sort.Sort(sortFeaturesByName(features))
 
-func (f *junitFormatter) Undefined(step *gherkin.Step, match *StepDef) {
-	f.lock.Lock()
-	defer f.lock.Unlock()
-	f.basefmt.Undefined(step, match)
-}
+	testRunStartedAt := f.storage.mustGetTestRunStarted().StartedAt
 
-func (f *junitFormatter) Failed(step *gherkin.Step, match *StepDef, err error) {
-	f.lock.Lock()
-	defer f.lock.Unlock()
-	f.basefmt.Failed(step, match, err)
-}
-
-func (f *junitFormatter) Pending(step *gherkin.Step, match *StepDef) {
-	f.lock.Lock()
-	defer f.lock.Unlock()
-	f.basefmt.Pending(step, match)
-}
-
-func (f *junitFormatter) Sync(cf ConcurrentFormatter) {
-	if source, ok := cf.(*junitFormatter); ok {
-		f.lock = source.lock
-	}
-}
-
-func (f *junitFormatter) Copy(cf ConcurrentFormatter) {
-	if source, ok := cf.(*junitFormatter); ok {
-		for _, v := range source.features {
-			f.features = append(f.features, v)
-		}
-		for _, v := range source.failed {
-			f.failed = append(f.failed, v)
-		}
-		for _, v := range source.passed {
-			f.passed = append(f.passed, v)
-		}
-		for _, v := range source.skipped {
-			f.skipped = append(f.skipped, v)
-		}
-		for _, v := range source.undefined {
-			f.undefined = append(f.undefined, v)
-		}
-		for _, v := range source.pending {
-			f.pending = append(f.pending, v)
-		}
-	}
-}
-
-func buildJUNITPackageSuite(suiteName string, startedAt time.Time, features []*feature) junitPackageSuite {
 	suite := junitPackageSuite{
-		Name:       suiteName,
+		Name:       f.suiteName,
 		TestSuites: make([]*junitTestSuite, len(features)),
-		Time:       timeNowFunc().Sub(startedAt).String(),
+		Time:       junitTimeDuration(testRunStartedAt, timeNowFunc()),
 	}
 
-	sort.Sort(sortByName(features))
+	for idx, feature := range features {
+		pickles := f.storage.mustGetPickles(feature.Uri)
+		sort.Sort(sortPicklesByID(pickles))
 
-	for idx, feat := range features {
 		ts := junitTestSuite{
-			Name:      feat.Name,
-			Time:      feat.finishedAt().Sub(feat.startedAt()).String(),
-			TestCases: make([]*junitTestCase, len(feat.Scenarios)),
+			Name:      feature.Feature.Name,
+			TestCases: make([]*junitTestCase, len(pickles)),
 		}
 
-		for idx, scenario := range feat.Scenarios {
+		var testcaseNames = make(map[string]int)
+		for _, pickle := range pickles {
+			testcaseNames[pickle.Name] = testcaseNames[pickle.Name] + 1
+		}
+
+		firstPickleStartedAt := testRunStartedAt
+		lastPickleFinishedAt := testRunStartedAt
+
+		var outlineNo = make(map[string]int)
+		for idx, pickle := range pickles {
 			tc := junitTestCase{}
-			tc.Name = scenario.Name
-			tc.Time = scenario.finishedAt().Sub(scenario.startedAt()).String()
+
+			pickleResult := f.storage.mustGetPickleResult(pickle.Id)
+
+			if idx == 0 {
+				firstPickleStartedAt = pickleResult.StartedAt
+			}
+
+			lastPickleFinishedAt = pickleResult.StartedAt
+
+			if len(pickle.Steps) > 0 {
+				lastStep := pickle.Steps[len(pickle.Steps)-1]
+				lastPickleStepResult := f.storage.mustGetPickleStepResult(lastStep.Id)
+				lastPickleFinishedAt = lastPickleStepResult.finishedAt
+			}
+
+			tc.Time = junitTimeDuration(pickleResult.StartedAt, lastPickleFinishedAt)
+
+			tc.Name = pickle.Name
+			if testcaseNames[tc.Name] > 1 {
+				outlineNo[tc.Name] = outlineNo[tc.Name] + 1
+				tc.Name += fmt.Sprintf(" #%d", outlineNo[tc.Name])
+			}
 
 			ts.Tests++
 			suite.Tests++
 
-			for _, step := range scenario.Steps {
-				switch step.typ {
+			pickleStepResults := f.storage.mustGetPickleStepResultsByPickleID(pickle.Id)
+			for _, stepResult := range pickleStepResults {
+				pickleStep := f.storage.mustGetPickleStep(stepResult.PickleStepID)
+
+				switch stepResult.Status {
 				case passed:
 					tc.Status = passed.String()
 				case failed:
 					tc.Status = failed.String()
 					tc.Failure = &junitFailure{
-						Message: fmt.Sprintf("%s %s: %s", step.step.Type, step.step.Text, step.err),
+						Message: fmt.Sprintf("Step %s: %s", pickleStep.Text, stepResult.err),
 					}
 				case skipped:
 					tc.Error = append(tc.Error, &junitError{
 						Type:    "skipped",
-						Message: fmt.Sprintf("%s %s", step.step.Type, step.step.Text),
+						Message: fmt.Sprintf("Step %s", pickleStep.Text),
 					})
 				case undefined:
 					tc.Status = undefined.String()
 					tc.Error = append(tc.Error, &junitError{
 						Type:    "undefined",
-						Message: fmt.Sprintf("%s %s", step.step.Type, step.step.Text),
+						Message: fmt.Sprintf("Step %s", pickleStep.Text),
 					})
 				case pending:
 					tc.Status = pending.String()
 					tc.Error = append(tc.Error, &junitError{
 						Type:    "pending",
-						Message: fmt.Sprintf("%s %s: TODO: write pending definition", step.step.Type, step.step.Text),
+						Message: fmt.Sprintf("Step %s: TODO: write pending definition", pickleStep.Text),
 					})
 				}
 			}
@@ -183,6 +142,8 @@ func buildJUNITPackageSuite(suiteName string, startedAt time.Time, features []*f
 
 			ts.TestCases[idx] = &tc
 		}
+
+		ts.Time = junitTimeDuration(firstPickleStartedAt, lastPickleFinishedAt)
 
 		suite.TestSuites[idx] = &ts
 	}

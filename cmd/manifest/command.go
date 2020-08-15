@@ -107,10 +107,10 @@ func (actionCmd *Command) CobraCommand() (*cobra.Command, error) {
 		return nil, err
 	}
 	cmd := cobra.Command{
-		Use:   actionCmd.name,
-		Short: shortDesc,
-		Long:  longDesc,
-		SilenceUsage: true,
+		Use:           actionCmd.name,
+		Short:         shortDesc,
+		Long:          longDesc,
+		SilenceUsage:  true,
 		SilenceErrors: true,
 		PreRunE: func(cmd *cobra.Command, args []string) error {
 			if _, err := os.Stat(actionCmd.overridesPath); actionCmd.overridesPath != "" && os.IsNotExist(err) {

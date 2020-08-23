@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	pkgHttp "github.com/gojek/stevedore/pkg/http"
+	"helm.sh/helm/v3/pkg/repo"
 	"net/http"
 	"net/url"
 	"path"
@@ -13,7 +14,6 @@ import (
 	"github.com/blang/semver"
 	"github.com/chartmuseum/helm-push/pkg/helm"
 	"github.com/gojek/stevedore/log"
-	"k8s.io/helm/pkg/repo"
 )
 
 var initialVersion = "0.0.1"
@@ -81,7 +81,8 @@ func (db DefaultDependencyBuilder) Build(ctx context.Context, manifests Manifest
 
 // UpdateRepo updates the chart repository
 func (db DefaultDependencyBuilder) UpdateRepo() error {
-	return db.chartRepository.DownloadIndexFile(helmHome().Cache())
+	_, err := db.chartRepository.DownloadIndexFile() //TODO
+	return err
 }
 
 // BuildChart will Build the dependency chart for given releaseSpecification and push to Repo

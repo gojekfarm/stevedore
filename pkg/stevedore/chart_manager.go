@@ -3,15 +3,15 @@ package stevedore
 import (
 	"context"
 	"fmt"
+	"helm.sh/helm/v3/pkg/chart"
+	"helm.sh/helm/v3/pkg/chart/loader"
+	"helm.sh/helm/v3/pkg/chartutil"
+	"helm.sh/helm/v3/pkg/cli"
+	"helm.sh/helm/v3/pkg/downloader"
+	"helm.sh/helm/v3/pkg/getter"
 	"os"
 
 	"github.com/chartmuseum/helm-push/pkg/chartmuseum"
-	"k8s.io/helm/pkg/chartutil"
-	"k8s.io/helm/pkg/downloader"
-	"k8s.io/helm/pkg/getter"
-	"k8s.io/helm/pkg/helm/environment"
-	"k8s.io/helm/pkg/helm/helmpath"
-	"k8s.io/helm/pkg/proto/hapi/chart"
 )
 
 // ChartManager will help in Build/Archive/Upload Chart
@@ -30,11 +30,10 @@ type DefaultChartManager struct {
 //
 // If the lockfile is not present, this will run a Manager.Update()
 func (cm DefaultChartManager) Build(ctx context.Context, chartPath string) error {
-	var settings = environment.EnvSettings{}
+	var settings = cli.New()
 	manager := downloader.Manager{
 		Out:        os.Stderr,
 		ChartPath:  chartPath,
-		HelmHome:   helmHome(),
 		Keyring:    keyring(),
 		SkipUpdate: false,
 		Getters:    getter.All(settings),
@@ -56,7 +55,7 @@ func (cm DefaultChartManager) Load(ctx context.Context, chartPath string) (*char
 	case <-ctx.Done():
 		return nil, fmt.Errorf("chart load operation aborted")
 	default:
-		return chartutil.LoadDir(chartPath)
+		return loader.LoadDir(chartPath)
 	}
 }
 
@@ -84,10 +83,6 @@ func (cm DefaultChartManager) UploadChart(ctx context.Context, name, url string)
 		_, err = client.UploadChartPackage(name, true)
 		return err
 	}
-}
-
-func helmHome() helmpath.Home {
-	return helmpath.Home(os.ExpandEnv("$HOME/.helm"))
 }
 
 func keyring() string {

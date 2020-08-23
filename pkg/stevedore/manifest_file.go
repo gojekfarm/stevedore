@@ -109,28 +109,6 @@ func (manifestFiles ManifestFiles) Enrich(
 	return result, ignoredComponents, nil
 }
 
-// AllNamespaces uniquely return namespaces found in all the manifests
-func (manifestFiles ManifestFiles) AllNamespaces() []string {
-	var namespaces []string
-	for _, result := range manifestFiles {
-		for _, releaseSpecification := range result.Manifest.Spec {
-			namespace := releaseSpecification.Release.TillerNamespace()
-			contains := false
-			for _, ns := range namespaces {
-				if ns == namespace {
-					contains = true
-					break
-				}
-			}
-			if !contains {
-				namespaces = append(namespaces, namespace)
-			}
-		}
-	}
-
-	return namespaces
-}
-
 // HasBuildStep returns whether the chart has to be built for the releaseSpecification
 func (manifestFiles ManifestFiles) HasBuildStep() bool {
 	for _, manifestFile := range manifestFiles {

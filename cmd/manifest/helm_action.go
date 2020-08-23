@@ -5,7 +5,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/gojek/stevedore/cmd/cli"
-	"github.com/gojek/stevedore/pkg/helm"
 	"github.com/gojek/stevedore/pkg/stevedore"
 )
 
@@ -32,10 +31,7 @@ func (action HelmAction) Do() (Info, error) {
 	manifestFiles := action.info.ManifestFiles
 	opts := stevedore.Opts{DryRun: action.dryRun, Parallel: action.parallel, Filter: action.filter}
 
-	createHelmClients := func(namespaces []string) (helm.Clients, error) {
-		return helm.NewHelmClients(namespaces, action.info.KubernetesContext, action.kubeconfig)
-	}
-	responses, err := stevedore.CreateResponse(context.TODO(), manifestFiles, opts, action.helmRepoName, createHelmClients, action.helmTimeout)
+	responses, err := stevedore.CreateResponse(context.TODO(), manifestFiles, opts, action.helmRepoName, action.helmTimeout)
 
 	if err != nil {
 		return Info{}, err

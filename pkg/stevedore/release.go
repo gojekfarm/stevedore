@@ -1,8 +1,5 @@
 package stevedore
 
-// PrivilegedNamespace is assumed to be namespace whose tiller will have cluster wide access
-const PrivilegedNamespace = "kube-system"
-
 // ChartSpec is to represent chart name and their dependencies
 type ChartSpec struct {
 	// Name of helm chart to be build/published/installed
@@ -33,9 +30,7 @@ type Release struct {
 	// and while applying we can assert that apply is done immediately after plan.
 	CurrentReleaseVersion int32 `json:"currentReleaseVersion,omitempty" yaml:"currentReleaseVersion,omitempty"`
 	// Required: true
-	Values Values `json:"values" yaml:"values"`
-	// Set to true to use privileged kube-system tiller to upstall the release
-	Privileged     bool `json:"privileged,omitempty" yaml:"privileged,omitempty"`
+	Values         Values `json:"values" yaml:"values"`
 	usedSubstitute Substitute
 	overrides      Overrides
 }
@@ -80,14 +75,6 @@ func (release Release) Replace(with Substitute) (Release, error) {
 // Overrides returns values enriched by overrides
 func (release Release) Overrides() Overrides {
 	return release.overrides
-}
-
-// TillerNamespace return the namespace of tiller to be used for helm interactions
-func (release Release) TillerNamespace() string {
-	if release.Privileged {
-		return PrivilegedNamespace
-	}
-	return release.Namespace
 }
 
 // HasBuildStep returns whether the chart has to be built

@@ -11,10 +11,9 @@ import (
 func TestComponentEnrichValues(t *testing.T) {
 	t.Run("should return enriched release with final merged values given the overrides", func(t *testing.T) {
 		release := Release{
-			Name:       "x-stevedore",
-			Namespace:  "ns",
-			Chart:      "chart/x-stevedore-dependencies",
-			Privileged: true,
+			Name:      "x-stevedore",
+			Namespace: "ns",
+			Chart:     "chart/x-stevedore-dependencies",
 			Values: Values{
 				"key1": "baseValueForK1",
 				"key2": "baseValueForK2",
@@ -31,10 +30,9 @@ func TestComponentEnrichValues(t *testing.T) {
 		}
 
 		expected := Release{
-			Name:       "x-stevedore",
-			Namespace:  "ns",
-			Chart:      "chart/x-stevedore-dependencies",
-			Privileged: true,
+			Name:      "x-stevedore",
+			Namespace: "ns",
+			Chart:     "chart/x-stevedore-dependencies",
 			Values: Values{
 				"key1": "secondOverrideForK1",
 				"key2": "thirdOverrideForK2",
@@ -83,20 +81,18 @@ func TestComponentOverrides(t *testing.T) {
 func TestComponentReplace(t *testing.T) {
 	t.Run("should replace values", func(t *testing.T) {
 		release := Release{
-			Name:       "x-stevedore",
-			Namespace:  "ns",
-			Chart:      "chart/x-stevedore-dependencies",
-			Privileged: true,
+			Name:      "x-stevedore",
+			Namespace: "ns",
+			Chart:     "chart/x-stevedore-dependencies",
 			Values: Values{
 				"name": "${NAME}",
 			},
 		}
 
 		expected := Release{
-			Name:       "x-stevedore",
-			Namespace:  "ns",
-			Chart:      "chart/x-stevedore-dependencies",
-			Privileged: true,
+			Name:      "x-stevedore",
+			Namespace: "ns",
+			Chart:     "chart/x-stevedore-dependencies",
 			Values: Values{
 				"name": "x-service",
 			},
@@ -128,26 +124,6 @@ func TestComponentReplace(t *testing.T) {
 		}
 		assert.NotNil(t, actual)
 		assert.True(t, cmp.Equal(release, actual, cmpopts.IgnoreUnexported(Release{})))
-	})
-}
-
-func TestComponentTillerNamespace(t *testing.T) {
-	t.Run("should return namespace if not priviliged", func(t *testing.T) {
-		release := Release{
-			Namespace:  "ns",
-			Privileged: false,
-		}
-
-		assert.Equal(t, "ns", release.TillerNamespace())
-	})
-
-	t.Run("should return kube-system if priviliged", func(t *testing.T) {
-		release := Release{
-			Namespace:  "ns",
-			Privileged: true,
-		}
-
-		assert.Equal(t, "kube-system", release.TillerNamespace())
 	})
 }
 

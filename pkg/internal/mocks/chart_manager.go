@@ -7,7 +7,7 @@ package mocks
 import (
 	context "context"
 	gomock "github.com/golang/mock/gomock"
-	chart "k8s.io/helm/pkg/proto/hapi/chart"
+	chart "helm.sh/helm/v3/pkg/chart"
 	reflect "reflect"
 )
 

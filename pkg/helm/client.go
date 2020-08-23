@@ -3,185 +3,215 @@ package helm
 import (
 	"context"
 	"fmt"
-	"github.com/spf13/afero"
-	"k8s.io/client-go/rest"
-	"k8s.io/helm/pkg/downloader"
-	"k8s.io/helm/pkg/getter"
-	"k8s.io/helm/pkg/helm/helmpath"
-	"math"
-	"os"
-	"strings"
-	"time"
-
 	"github.com/databus23/helm-diff/diff"
 	"github.com/databus23/helm-diff/manifest"
-	"github.com/gojek/stevedore/log"
-	"k8s.io/client-go/kubernetes"
-	"k8s.io/helm/pkg/chartutil"
-	"k8s.io/helm/pkg/helm"
-	helmEnv "k8s.io/helm/pkg/helm/environment"
-	"k8s.io/helm/pkg/helm/portforwarder"
-	"k8s.io/helm/pkg/kube"
-	"k8s.io/helm/pkg/proto/hapi/chart"
+	"github.com/pkg/errors"
+	"gopkg.in/yaml.v3"
+	"helm.sh/helm/v3/pkg/action"
+	"helm.sh/helm/v3/pkg/chart"
+	"helm.sh/helm/v3/pkg/chart/loader"
+	"helm.sh/helm/v3/pkg/cli"
+	"helm.sh/helm/v3/pkg/downloader"
+	"helm.sh/helm/v3/pkg/getter"
+	"helm.sh/helm/v3/pkg/release"
+	"helm.sh/helm/v3/pkg/storage/driver"
+	"k8s.io/cli-runtime/pkg/genericclioptions"
+	"log"
+	"os"
+	"strings"
 )
 
 // Client is an abstraction through which helm can be interacted with
 type Client interface {
 	Upstall(ctx context.Context, releaseName, chartName, chartVersion string, plannedReleaseVersion int32, namespace, values string, dryRun bool, timeout int64) (UpstallResponse, error)
-	Close()
 }
 
 // DefaultClient is an implementation of helm.Client
 type DefaultClient struct {
-	helm.Interface
-	tillerTunnel *kube.Tunnel
 }
+
+func debug(format string, v ...interface{}) {
+	if settings.Debug {
+		format = fmt.Sprintf("[debug] %s\n", format)
+		_ = log.Output(2, fmt.Sprintf(format, v...))
+	}
+}
+
+var settings = cli.New()
 
 // Upstall can install a new release or upgrade if already present
 func (c *DefaultClient) Upstall(ctx context.Context, releaseName, chartName, chartVersion string, plannedReleaseVersion int32, namespace, values string, dryRun bool, timeout int64) (UpstallResponse, error) {
-	keyring := ""
-	chartDownloader := downloader.ChartDownloader{
-		HelmHome: helmpath.Home(HomePath()),
-		Out:      os.Stdout,
-		Keyring:  keyring,
-		Getters:  getter.All(helmEnv.EnvSettings{}),
+	cfg := &action.Configuration{}
+	helmDriver := os.Getenv("HELM_DRIVER")
+	configFlags := genericclioptions.ConfigFlags{
+		Namespace:   &namespace,
+		Context:     &settings.KubeContext,
+		BearerToken: &settings.KubeToken,
+		APIServer:   &settings.KubeAPIServer,
+		KubeConfig:  &settings.KubeConfig,
 	}
-	chartVerifier := DefaultChartVerifier{}
-	chartPath, err := LocateChartPath(afero.NewOsFs(), chartName, chartVersion, false, keyring, &chartDownloader, chartVerifier)
-	if err != nil {
-		return UpstallResponse{}, fmt.Errorf("[Upstall] error when locating chart %s: %v", chartName, err)
+	if err := cfg.Init(&configFlags, namespace, helmDriver, debug); err != nil {
+		log.Fatal(err)
 	}
-
-	loadedChart, err := SafeLoadChart(chartPath)
-
-	if err != nil {
-		return UpstallResponse{}, fmt.Errorf("[Upstall] error when loading chart from path %s: %v", chartPath, err)
-	}
-
-	chartVersion = loadedChart.Metadata.Version
-
-	var existingSpecs map[string]*manifest.MappingResult
-	var newSpecs map[string]*manifest.MappingResult
-
-	select {
-	case <-ctx.Done():
-		return UpstallResponse{}, fmt.Errorf("[Upstall] fetching of release details was aborted abruptly")
-	default:
-	}
-
-	existingReleaseResponse, err := c.ReleaseContent(releaseName)
-	var newInstall bool
-	if err != nil && strings.Contains(err.Error(), fmt.Sprintf("release: %q not found", releaseName)) {
-		newInstall = true
-	} else if err != nil {
-		return UpstallResponse{}, fmt.Errorf("[Upstall] error when checking for existing release: %v", err)
-	}
-
-	if newInstall {
-		select {
-		case <-ctx.Done():
-			return UpstallResponse{}, fmt.Errorf("[Upstall] release %s installation aborted abruptly", releaseName)
-		default:
-		}
-		installReleaseResponse, err := c.InstallReleaseFromChart(
-			loadedChart,
-			namespace,
-			helm.ReleaseName(releaseName),
-			helm.InstallDryRun(dryRun),
-			helm.ValueOverrides([]byte(values)),
-			helm.InstallTimeout(timeout),
-		)
-
+	histClient := action.NewHistory(cfg)
+	histClient.Max = 1
+	if _, err := histClient.Run(releaseName); err == driver.ErrReleaseNotFound {
+		releaseValue, err := install(cfg, releaseName, namespace, chartName, values, dryRun)
 		if err != nil {
-			return UpstallResponse{}, fmt.Errorf("[Upstall] error when installing release %s: %v", releaseName, err)
+			return UpstallResponse{}, fmt.Errorf("error installing: %v", err)
 		}
+		existingSpecs := make(map[string]*manifest.MappingResult)
+		newSpecs := manifest.Parse(releaseValue.Manifest, namespace)
+		var buffer strings.Builder
+		hasDiff := diff.Manifests(existingSpecs, newSpecs, []string{}, true, 5, &buffer)
+		return UpstallResponse{
+			ExistingSpecs:         existingSpecs,
+			NewSpecs:              newSpecs,
+			HasDiff:               hasDiff,
+			Diff:                  buffer.String(),
+			ChartVersion:          chartVersion,
+			CurrentReleaseVersion: int32(releaseValue.Version),
+		}, nil
+	}
+	client := action.NewGet(cfg)
+	newRelease, err := upgrade(cfg, releaseName, namespace, chartName, values, dryRun)
 
-		newRelease := installReleaseResponse.Release
-
-		existingSpecs = make(map[string]*manifest.MappingResult)
-		newSpecs = manifest.ParseRelease(newRelease, true)
-	} else {
-		if plannedReleaseVersion == 0 {
-			plannedReleaseVersion = existingReleaseResponse.GetRelease().GetVersion()
-		} else {
-			currentReleaseVersion := existingReleaseResponse.GetRelease().GetVersion()
-			if plannedReleaseVersion != currentReleaseVersion {
-				errMsg := fmt.Sprintf("Release version mismatch: Planned Version - %d, Current version - %d", plannedReleaseVersion, currentReleaseVersion)
-				return UpstallResponse{}, fmt.Errorf("[Upstall] error when installing release %s: %v", releaseName, errMsg)
-			}
-		}
-
-		select {
-		case <-ctx.Done():
-			return UpstallResponse{}, fmt.Errorf("[Upstall] release %s upgrade aborted abruptly", releaseName)
-		default:
-		}
-		upgradeReleaseResponse, err := c.UpdateReleaseFromChart(
-			releaseName,
-			loadedChart,
-			helm.UpgradeDryRun(dryRun),
-			helm.UpdateValueOverrides([]byte(values)),
-			helm.UpgradeTimeout(timeout),
-		)
-
-		if err != nil {
-			return UpstallResponse{}, fmt.Errorf("[Upstall] error when upgrading release %s: %v", releaseName, err)
-		}
-
-		existingRelease := existingReleaseResponse.Release
-		newRelease := upgradeReleaseResponse.Release
-
-		existingSpecs = manifest.ParseRelease(existingRelease, true)
-		newSpecs = manifest.ParseRelease(newRelease, true)
+	if err != nil {
+		return UpstallResponse{}, fmt.Errorf("error upgrading: %v", err)
 	}
 
+	existingRelease, err := client.Run(releaseName)
+	if err != nil {
+		return UpstallResponse{}, fmt.Errorf("error getting current release: %v", err)
+	}
+	existingSpecs := manifest.Parse(existingRelease.Manifest, namespace)
+	newSpecs := manifest.Parse(newRelease.Manifest, namespace)
 	var buffer strings.Builder
-	hasDiff := diff.DiffManifests(existingSpecs, newSpecs, []string{}, 5, &buffer)
-	return UpstallResponse{existingSpecs, newSpecs, hasDiff, buffer.String(), chartVersion, plannedReleaseVersion}, nil
-}
-
-// Close the tunnel created by the client
-func (c *DefaultClient) Close() {
-	c.tillerTunnel.Close()
-}
-
-// NewHelmClient creates a helm client by loading kube context and port-forwarding to the
-// tiller of the given tillerNamespace
-func NewHelmClient(tillerNamespace string, client kubernetes.Interface, clientConfig *rest.Config) (Client, error) {
-	tillerTunnel, err := portforwarder.New(tillerNamespace, client, clientConfig)
-	if err != nil {
-		return nil, fmt.Errorf("error port-forwarding tiller pod in namespace %s due to %v", tillerNamespace, err)
-	}
-
-	tillerHost := fmt.Sprintf("127.0.0.1:%d", tillerTunnel.Local)
-	options := []helm.Option{
-		helm.Host(tillerHost),
-		helm.ConnectTimeout(int64(10)),
-	}
-
-	return &DefaultClient{
-		Interface:    helm.NewClient(options...),
-		tillerTunnel: tillerTunnel,
+	hasDiff := diff.Manifests(existingSpecs, newSpecs, []string{}, true, 5, &buffer)
+	return UpstallResponse{
+		ExistingSpecs:         existingSpecs,
+		NewSpecs:              newSpecs,
+		HasDiff:               hasDiff,
+		Diff:                  buffer.String(),
+		ChartVersion:          chartVersion,
+		CurrentReleaseVersion: int32(newRelease.Version),
 	}, nil
 }
 
-const maxLoadRetries = 3
+func install(cfg *action.Configuration, releaseName string, namespace string, chartName string, values string, dryRun bool) (*release.Release, error) {
+	client := action.NewInstall(cfg)
+	client.DryRun = dryRun
+	client.ReleaseName = releaseName
+	client.Namespace = namespace
 
-// SafeLoadChart will load a chart. If loading fails, it will retry upto maxLoadRetries exponentially backing off for
-// each failure
-func SafeLoadChart(chartPath string) (*chart.Chart, error) {
-	var loadedChart *chart.Chart
-	var err = fmt.Errorf("chart %s not loaded", chartPath)
-
-	for i := 0; i < maxLoadRetries; i++ {
-		loadedChart, err = chartutil.Load(chartPath)
-		if err == nil {
-			return loadedChart, nil
-		}
-
-		log.Debug(fmt.Sprintf("[safeLoadChart] unable to load chart %s due to %v. retrying...", chartPath, err))
-		time.Sleep(time.Duration(math.Pow(2, float64(i))))
+	settings := cli.New()
+	cp, err := client.ChartPathOptions.LocateChart(chartName, settings)
+	if err != nil {
+		return nil, err
 	}
 
-	return nil, err
+	p := getter.All(settings)
+
+	chartRequested, err := loader.Load(cp)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := checkIfInstallable(chartRequested); err != nil {
+		return nil, err
+	}
+
+	if chartRequested.Metadata.Deprecated {
+		warning("This chart is deprecated")
+	}
+
+	if req := chartRequested.Metadata.Dependencies; req != nil {
+		// If CheckDependencies returns an error, we have unfulfilled dependencies.
+		// As of Helm 2.4.0, this is treated as a stopping condition:
+		// https://github.com/helm/helm/issues/2209
+		if err := action.CheckDependencies(chartRequested, req); err != nil {
+			if client.DependencyUpdate {
+				man := &downloader.Manager{
+					Out:              os.Stdout,
+					ChartPath:        cp,
+					Keyring:          client.ChartPathOptions.Keyring,
+					SkipUpdate:       false,
+					Getters:          p,
+					RepositoryConfig: settings.RepositoryConfig,
+					RepositoryCache:  settings.RepositoryCache,
+					Debug:            settings.Debug,
+				}
+				if err := man.Update(); err != nil {
+					return nil, err
+				}
+				// Reload the chart with the updated Chart.lock file.
+				if chartRequested, err = loader.Load(cp); err != nil {
+					return nil, errors.Wrap(err, "failed reloading chart after repo update")
+				}
+			} else {
+				return nil, err
+			}
+		}
+	}
+
+	valuesMap := map[string]interface{}{}
+	if err := yaml.Unmarshal([]byte(values), &valuesMap); err != nil {
+		return nil, errors.Wrapf(err, "failed to parse %s", values)
+	}
+	return client.Run(chartRequested, valuesMap)
+}
+
+func upgrade(cfg *action.Configuration, releaseName string, namespace, chartName string, values string, dryRun bool) (*release.Release, error) {
+	client := action.NewUpgrade(cfg)
+	client.DryRun = dryRun
+	client.Namespace = namespace
+
+	cp, err := client.ChartPathOptions.LocateChart(chartName, settings)
+	if err != nil {
+		return nil, err
+	}
+
+	chartRequested, err := loader.Load(cp)
+	if err != nil {
+		return nil, err
+	}
+
+	if err := checkIfInstallable(chartRequested); err != nil {
+		return nil, err
+	}
+
+	if chartRequested.Metadata.Deprecated {
+		warning("This chart is deprecated")
+	}
+
+	if req := chartRequested.Metadata.Dependencies; req != nil {
+		// If CheckDependencies returns an error, we have unfulfilled dependencies.
+		// As of Helm 2.4.0, this is treated as a stopping condition:
+		// https://github.com/helm/helm/issues/2209
+		if err := action.CheckDependencies(chartRequested, req); err != nil {
+			return nil, err
+		}
+	}
+
+	valuesMap := map[string]interface{}{}
+	if err := yaml.Unmarshal([]byte(values), &valuesMap); err != nil {
+		return nil, errors.Wrapf(err, "failed to parse %s", values)
+	}
+	return client.Run(releaseName, chartRequested, valuesMap)
+}
+
+func warning(format string, v ...interface{}) {
+	format = fmt.Sprintf("WARNING: %s\n", format)
+	fmt.Fprintf(os.Stderr, format, v...)
+}
+
+// checkIfInstallable validates if a chart can be installed
+//
+// Application chart type is only installable
+func checkIfInstallable(ch *chart.Chart) error {
+	switch ch.Metadata.Type {
+	case "", "application":
+		return nil
+	}
+	return errors.Errorf("%s charts are not installable", ch.Metadata.Type)
 }

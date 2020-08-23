@@ -26,7 +26,7 @@ func TestStevedoreDo(t *testing.T) {
 
 		opts := stevedore.Opts{DryRun: true, Parallel: true}
 		s := stevedore.Stevedore{
-			Clients:   helm.Clients{"default": client},
+			Client:    client,
 			Opts:      opts,
 			Upstaller: upstaller,
 		}
@@ -111,7 +111,7 @@ func TestStevedoreDo(t *testing.T) {
 		}
 
 		s := stevedore.Stevedore{
-			Clients:           helm.Clients{"default": client},
+			Client:            client,
 			Opts:              opts,
 			Upstaller:         upstaller,
 			DependencyBuilder: dependencyBuilder,
@@ -196,7 +196,7 @@ func TestStevedoreDo(t *testing.T) {
 		}
 
 		s := stevedore.Stevedore{
-			Clients:           helm.Clients{"default": client},
+			Client:            client,
 			Opts:              opts,
 			Upstaller:         upstaller,
 			DependencyBuilder: dependencyBuilder,
@@ -293,7 +293,7 @@ func TestStevedoreDo(t *testing.T) {
 			}
 
 			s := stevedore.Stevedore{
-				Clients:           helm.Clients{"default": client},
+				Client:            client,
 				Opts:              opts,
 				Upstaller:         upstaller,
 				DependencyBuilder: dependencyBuilder,
@@ -395,7 +395,7 @@ func TestStevedoreDo(t *testing.T) {
 			}
 
 			s := stevedore.Stevedore{
-				Clients:           helm.Clients{"default": client},
+				Client:            client,
 				Opts:              opts,
 				Upstaller:         upstaller,
 				DependencyBuilder: dependencyBuilder,
@@ -497,7 +497,7 @@ func TestStevedoreDo(t *testing.T) {
 			}
 
 			s := stevedore.Stevedore{
-				Clients:           helm.Clients{"default": client},
+				Client:            client,
 				Opts:              opts,
 				Upstaller:         upstaller,
 				DependencyBuilder: dependencyBuilder,
@@ -599,7 +599,7 @@ func TestStevedoreDo(t *testing.T) {
 			}
 
 			s := stevedore.Stevedore{
-				Clients:           helm.Clients{"default": client},
+				Client:            client,
 				Opts:              opts,
 				Upstaller:         upstaller,
 				DependencyBuilder: dependencyBuilder,
@@ -684,7 +684,7 @@ func TestStevedoreDo(t *testing.T) {
 		}
 
 		s := stevedore.Stevedore{
-			Clients:           helm.Clients{"default": client},
+			Client:            client,
 			Opts:              opts,
 			Upstaller:         upstaller,
 			DependencyBuilder: dependencyBuilder,
@@ -767,87 +767,7 @@ func TestStevedoreDo(t *testing.T) {
 		}
 
 		s := stevedore.Stevedore{
-			Clients:           helm.Clients{"default": client},
-			Opts:              opts,
-			Upstaller:         upstaller,
-			DependencyBuilder: dependencyBuilder,
-		}
-		manifest := stevedore.Manifest{
-			DeployTo: stevedore.Matchers{{stevedore.ConditionContextName: "services"}},
-			Spec:     releaseSpecifications,
-		}
-		manifestFile := stevedore.ManifestFile{File: file, Manifest: manifest}
-		responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout)
-
-		assert.Len(t, responses, 2)
-		assert.ElementsMatch(t, expectedResponses, responses)
-		assert.Nil(t, err)
-	})
-
-	t.Run("should return error when helm client for namespace is not available", func(t *testing.T) {
-
-		releaseSpecificationOne := stevedore.NewReleaseSpecification(
-			stevedore.NewRelease("x-stevedore", "default", "chart/x-stevedore-dependencies", "", stevedore.ChartSpec{}, 0, stevedore.Values{}, stevedore.Substitute{}, stevedore.Overrides{}),
-			stevedore.Configs{
-				"store": []map[string]interface{}{
-					{"name": "x-stevedore", "tags": []string{"server"}},
-					{"name": "store-ns"},
-				},
-			}, nil)
-		releaseSpecificationTwo := stevedore.NewReleaseSpecification(
-			stevedore.NewRelease("y-stevedore", "dev", "", "", stevedore.ChartSpec{Name: "y-stevedore-dependencies", Dependencies: stevedore.Dependencies{{Name: "postgres-cluster", Repository: "http://some-chart-museum", Version: "5.0.6"}}}, 0, stevedore.Values{}, stevedore.Substitute{}, stevedore.Overrides{}),
-			stevedore.Configs{
-				"store": []map[string]interface{}{
-					{"name": "y-stevedore", "tags": []string{"server"}},
-					{"name": "store-ns"},
-				},
-			}, nil)
-		releaseSpecifications := stevedore.ReleaseSpecifications{
-			releaseSpecificationOne,
-			releaseSpecificationTwo,
-		}
-
-		ctrl := gomock.NewController(t)
-		defer ctrl.Finish()
-		client := mocks.NewMockClient(ctrl)
-		upstaller := mockUpstaller.NewMockUpstaller(ctrl)
-		dependencyBuilder := mockDependencyBuilder.NewMockDependencyBuilder(ctrl)
-		dependencyBuilder.EXPECT().BuildChart(context.TODO(), releaseSpecificationOne).Return(releaseSpecificationOne, false, nil)
-		dependencyBuilder.EXPECT().BuildChart(context.TODO(), releaseSpecificationTwo).Return(releaseSpecificationTwo, true, nil)
-		dependencyBuilder.EXPECT().UpdateRepo().Return(nil)
-
-		file := "releaseSpecifications.yaml"
-		opts := stevedore.Opts{DryRun: true, Parallel: true}
-		upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64) {
-			defer wg.(*sync.WaitGroup).Done()
-
-			proceedCh.(chan<- bool) <- true
-			response := stevedore.Response{
-				File:            file,
-				ReleaseName:     releaseSpecification.(stevedore.ReleaseSpecification).Release.Name,
-				UpstallResponse: helm.UpstallResponse{},
-				Err:             nil,
-			}
-			responseCh.(chan<- stevedore.Response) <- response
-		})
-
-		expectedResponses := stevedore.Responses{
-			{
-				File:            file,
-				ReleaseName:     releaseSpecificationOne.Release.Name,
-				UpstallResponse: helm.UpstallResponse{},
-				Err:             nil,
-			},
-			{
-				File:            file,
-				ReleaseName:     releaseSpecificationTwo.Release.Name,
-				UpstallResponse: helm.UpstallResponse{},
-				Err:             fmt.Errorf("unable to retrieve helm client for namespace dev"),
-			},
-		}
-
-		s := stevedore.Stevedore{
-			Clients:           helm.Clients{"default": client},
+			Client:            client,
 			Opts:              opts,
 			Upstaller:         upstaller,
 			DependencyBuilder: dependencyBuilder,

@@ -5,7 +5,7 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"gopkg.in/yaml.v2"
-	"k8s.io/helm/pkg/chartutil"
+	"helm.sh/helm/v3/pkg/chart"
 	"sort"
 )
 
@@ -36,8 +36,8 @@ type Dependency struct {
 }
 
 // ChartUtilDependency converts dependency to chartutil.Dependency
-func (dependency Dependency) ChartUtilDependency() chartutil.Dependency {
-	return chartutil.Dependency{
+func (dependency Dependency) ChartUtilDependency() chart.Dependency {
+	return chart.Dependency{
 		Name:         dependency.Name,
 		Alias:        dependency.Alias,
 		Version:      dependency.Version,
@@ -53,7 +53,7 @@ func (dependency Dependency) ChartUtilDependency() chartutil.Dependency {
 type Dependencies []Dependency
 
 // NewDependencies creates a list of stevedore dependencies from helm chart dependencies
-func NewDependencies(chartDependencies []*chartutil.Dependency) Dependencies {
+func NewDependencies(chartDependencies []*chart.Dependency) Dependencies {
 	dependencies := make(Dependencies, 0, len(chartDependencies))
 	for _, chartDependency := range chartDependencies {
 		dependency := Dependency{

@@ -2,13 +2,13 @@ package stevedore
 
 import (
 	"github.com/stretchr/testify/assert"
-	"k8s.io/helm/pkg/chartutil"
+	"helm.sh/helm/v3/pkg/chart"
 	"testing"
 )
 
 func TestNewDependencies(t *testing.T) {
 	t.Run("should convert chartutil.Dependencies to stevedore.Dependencies", func(t *testing.T) {
-		chartDependencies := []*chartutil.Dependency{
+		chartDependencies := []*chart.Dependency{
 			{
 				Name:         "name",
 				Version:      "0.0.1",
@@ -60,7 +60,7 @@ func TestChartUtilDependency(t *testing.T) {
 			Tags:         []string{"tag", "alias"},
 		}
 
-		expected := chartutil.Dependency{
+		expected := chart.Dependency{
 			Name:         "name",
 			Version:      "0.0.1",
 			Alias:        "alias",

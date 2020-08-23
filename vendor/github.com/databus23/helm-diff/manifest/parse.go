@@ -11,8 +11,13 @@ import (
 	"k8s.io/helm/pkg/proto/hapi/release"
 )
 
+const (
+	hookAnnotation = "helm.sh/hook"
+)
+
 var yamlSeperator = []byte("\n---\n")
 
+// MappingResult to store result of diff
 type MappingResult struct {
 	Name    string
 	Kind    string
@@ -20,16 +25,17 @@ type MappingResult struct {
 }
 
 type metadata struct {
-	ApiVersion string `yaml:"apiVersion"`
+	APIVersion string `yaml:"apiVersion"`
 	Kind       string
 	Metadata   struct {
-		Namespace string
-		Name      string
+		Namespace   string
+		Name        string
+		Annotations map[string]string
 	}
 }
 
 func (m metadata) String() string {
-	apiBase := m.ApiVersion
+	apiBase := m.APIVersion
 	sp := strings.Split(apiBase, "/")
 	if len(sp) > 1 {
 		apiBase = strings.Join(sp[:len(sp)-1], "/")
@@ -61,6 +67,7 @@ func splitSpec(token string) (string, string) {
 	return "", ""
 }
 
+// ParseRelease parses release objects into MappingResult
 func ParseRelease(release *release.Release, includeTests bool) map[string]*MappingResult {
 	manifest := release.Manifest
 	for _, hook := range release.Hooks {
@@ -75,19 +82,21 @@ func ParseRelease(release *release.Release, includeTests bool) map[string]*Mappi
 	return Parse(manifest, release.Namespace)
 }
 
-func Parse(manifest string, defaultNamespace string) map[string]*MappingResult {
-	scanner := bufio.NewScanner(strings.NewReader(manifest))
+// Parse parses manifest strings into MappingResult
+func Parse(manifest string, defaultNamespace string, excludedHooks ...string) map[string]*MappingResult {
+	// Ensure we have a newline in front of the yaml seperator
+	scanner := bufio.NewScanner(strings.NewReader("\n" + manifest))
 	scanner.Split(scanYamlSpecs)
-	//Allow for tokens (specs) up to 1M in size
-	scanner.Buffer(make([]byte, bufio.MaxScanTokenSize), 1048576)
-	//Discard the first result, we only care about everything after the first seperator
+	// Allow for tokens (specs) up to 10MiB in size
+	scanner.Buffer(make([]byte, bufio.MaxScanTokenSize), 10485760)
+	// Discard the first result, we only care about everything after the first separator
 	scanner.Scan()
 
 	result := make(map[string]*MappingResult)
 
 	for scanner.Scan() {
-		content := scanner.Text()
-		if strings.TrimSpace(content) == "" {
+		content := strings.TrimSpace(scanner.Text())
+		if content == "" {
 			continue
 		}
 		var parsedMetadata metadata
@@ -95,9 +104,12 @@ func Parse(manifest string, defaultNamespace string) map[string]*MappingResult {
 			log.Fatalf("YAML unmarshal error: %s\nCan't unmarshal %s", err, content)
 		}
 
-		//Skip content without any metadata.  It is probably a template that
-		//only contains comments in the current state.
-		if (metadata{}) == parsedMetadata {
+		// Skip content without any metadata. It is probably a template that
+		// only contains comments in the current state.
+		if parsedMetadata.APIVersion == "" && parsedMetadata.Kind == "" {
+			continue
+		}
+		if isHook(parsedMetadata, excludedHooks...) {
 			continue
 		}
 
@@ -119,6 +131,15 @@ func Parse(manifest string, defaultNamespace string) map[string]*MappingResult {
 		log.Fatalf("Error reading input: %s", err)
 	}
 	return result
+}
+
+func isHook(metadata metadata, hooks ...string) bool {
+	for _, hook := range hooks {
+		if metadata.Metadata.Annotations[hookAnnotation] == hook {
+			return true
+		}
+	}
+	return false
 }
 
 func isTestHook(hookEvents []release.Hook_Event) bool {

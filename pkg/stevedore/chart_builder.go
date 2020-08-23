@@ -5,7 +5,7 @@ import (
 	"context"
 	"github.com/chartmuseum/helm-push/pkg/helm"
 	"gopkg.in/yaml.v2"
-	"k8s.io/helm/pkg/proto/hapi/chart"
+	"helm.sh/helm/v3/pkg/chart"
 	"log"
 	"path/filepath"
 )
@@ -65,37 +65,19 @@ func (cb DefaultChartBuilder) createChart(ctx context.Context, tempDir, chartNam
 }
 
 func (cb DefaultChartBuilder) writeChartFiles(tempDir, chartName, version, appVersion string, dependencies Dependencies) error {
-	err := cb.writeRequirementsYaml(tempDir, dependencies)
-	if err != nil {
-		return err
-	}
-	return cb.writeChartYaml(tempDir, chartName, version, appVersion)
+	return cb.writeChartYaml(tempDir, chartName, version, appVersion, dependencies)
 }
 
-func (cb DefaultChartBuilder) writeChartYaml(tempDir, chartName, withVersion, appVersion string) error {
+func (cb DefaultChartBuilder) writeChartYaml(tempDir, chartName, withVersion, appVersion string, dependencies Dependencies) error {
 	chartFile := filepath.Join(tempDir, "Chart.yaml")
 	buffer := bytes.Buffer{}
-	chartContent := map[string]string{"name": chartName, "version": withVersion, "appVersion": appVersion}
+	chartContent := map[string]interface{}{"name": chartName, "version": withVersion, "appVersion": appVersion, "dependencies": dependencies}
 	err := yaml.NewEncoder(&buffer).Encode(chartContent)
 
 	if err != nil {
 		return err
 	}
 	if err := cb.fileUtils.WriteFile(chartFile, buffer.Bytes(), 0666); err != nil {
-		log.Fatal(err)
-	}
-	return nil
-}
-
-func (cb DefaultChartBuilder) writeRequirementsYaml(tempDir string, dependencies Dependencies) error {
-	requirementsFilePath := filepath.Join(tempDir, "requirements.yaml")
-	buffer := bytes.Buffer{}
-	err := yaml.NewEncoder(&buffer).Encode(map[string]Dependencies{"dependencies": dependencies})
-
-	if err != nil {
-		return err
-	}
-	if err := cb.fileUtils.WriteFile(requirementsFilePath, buffer.Bytes(), 0666); err != nil {
 		log.Fatal(err)
 	}
 	return nil

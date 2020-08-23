@@ -6,7 +6,7 @@ package mocks
 
 import (
 	gomock "github.com/golang/mock/gomock"
-	provenance "k8s.io/helm/pkg/provenance"
+	provenance "helm.sh/helm/v3/pkg/provenance"
 	reflect "reflect"
 )
 

@@ -328,55 +328,6 @@ func TestManifestFileHasBuildStep(t *testing.T) {
 	})
 }
 
-func TestManifestFilesAllNamespaces(t *testing.T) {
-	manifestFiles := ManifestFiles{
-		{
-			File: "nginx-a.yaml",
-			Manifest: Manifest{
-				DeployTo: Matchers{{ConditionContextName: "staging"}},
-				Spec: ReleaseSpecifications{
-					{
-						Release: Release{
-							Name:      "nginx-a-1",
-							Namespace: "namespce-sample",
-						},
-					},
-					{
-						Release: Release{
-							Name:      "nginx-a-2",
-							Namespace: "default",
-						},
-					},
-				},
-			},
-		},
-		{
-			File: "nginx-b.yaml",
-			Manifest: Manifest{
-				DeployTo: Matchers{{ConditionContextName: "staging"}},
-				Spec: ReleaseSpecifications{
-					{
-						Release: Release{
-							Name:      "nginx-b-1",
-							Namespace: "namespace-four",
-						},
-					},
-					{
-						Release: Release{
-							Name:       "nginx-b-2",
-							Namespace:  "default",
-							Privileged: true,
-						},
-					},
-				},
-			},
-		},
-	}
-
-	expected := []string{"namespce-sample", "namespace-four", "default", "kube-system"}
-	assert.ElementsMatch(t, expected, manifestFiles.AllNamespaces())
-}
-
 func TestManifestFilesHasBuildStep(t *testing.T) {
 	t.Run("should return true if chart name is not provided and chartSpec is provided and dependencies are not empty", func(t *testing.T) {
 		manifestFiles := ManifestFiles{

@@ -6,9 +6,9 @@ import (
 	"fmt"
 	chartMuseumHelm "github.com/chartmuseum/helm-push/pkg/helm"
 	"github.com/gojek/stevedore/pkg/utils"
-	"k8s.io/helm/pkg/getter"
-	"k8s.io/helm/pkg/helm/environment"
-	"k8s.io/helm/pkg/repo"
+	"helm.sh/helm/v3/pkg/cli"
+	"helm.sh/helm/v3/pkg/getter"
+	"helm.sh/helm/v3/pkg/repo"
 	"net/http"
 	"sync"
 
@@ -26,25 +26,14 @@ type Opts struct {
 
 // Stevedore installs or upgrades helm releases
 type Stevedore struct {
-	helm.Clients
+	helm.Client
 	Opts
 	Upstaller
 	DependencyBuilder
 }
 
 // CreateResponse will take the manifests and helmClients and produce response based on given Opts
-func CreateResponse(ctx context.Context, manifestFiles ManifestFiles, opts Opts, helmRepoName string, createHelmClient func(namespaces []string) (helm.Clients, error), helmTimeout int64) (Responses, error) {
-	namespaces := manifestFiles.AllNamespaces()
-	helmClients, err := createHelmClient(namespaces)
-	if err != nil {
-		return nil, fmt.Errorf("error creating helm clients due to %v", err)
-	}
-	closeHelmClients := func() {
-		helmClients.Close()
-		log.Debug("Gracefully closed all helm clients")
-	}
-	defer closeHelmClients()
-
+func CreateResponse(ctx context.Context, manifestFiles ManifestFiles, opts Opts, helmRepoName string, helmTimeout int64) (Responses, error) {
 	select {
 	case <-ctx.Done():
 		return nil, fmt.Errorf("request aborted abruptly by client")
@@ -53,7 +42,7 @@ func CreateResponse(ctx context.Context, manifestFiles ManifestFiles, opts Opts,
 		if err != nil {
 			return nil, err
 		}
-		s := Stevedore{Clients: helmClients, Opts: opts, Upstaller: HelmUpstaller{}, DependencyBuilder: dependencyBuilder}
+		s := Stevedore{Client: &helm.DefaultClient{}, Opts: opts, Upstaller: HelmUpstaller{}, DependencyBuilder: dependencyBuilder}
 		responses, _ := s.Do(ctx, manifestFiles, helmTimeout)
 		return responses, nil
 	}
@@ -71,9 +60,9 @@ func CreateDependencyBuilder(manifestFiles ManifestFiles, chartRepoName string) 
 	}
 
 	chartBuilder := NewChartBuilder(*matchingRepo, DefaultChartManager{}, utils.NewOsFileUtils())
-	settings := environment.EnvSettings{}
-	entry := repo.Entry{Name: matchingRepo.Name, Cache: matchingRepo.Cache, URL: matchingRepo.URL, Username: matchingRepo.Username, Password: matchingRepo.Password, CertFile: matchingRepo.CertFile, KeyFile: matchingRepo.KeyFile, CAFile: matchingRepo.CAFile}
-	chartRepository, err := repo.NewChartRepository(&entry, getter.All(settings))
+	settings := cli.EnvSettings{}
+	entry := repo.Entry{Name: matchingRepo.Name, URL: matchingRepo.URL, Username: matchingRepo.Username, Password: matchingRepo.Password, CertFile: matchingRepo.CertFile, KeyFile: matchingRepo.KeyFile, CAFile: matchingRepo.CAFile}
+	chartRepository, err := repo.NewChartRepository(&entry, getter.All(&settings))
 
 	if err != nil {
 		return NoopDependencyBuilder{}, err
@@ -151,26 +140,10 @@ func (s Stevedore) response(ctx context.Context, manifestFiles ManifestFiles, wg
 				}
 				continue
 			}
-			namespace := releaseSpecification.Release.TillerNamespace()
-			if client, ok := s.Clients[namespace]; ok {
-				wg.Add(1)
-				go s.Upstaller.Upstall(ctx, client, releaseSpecification, request.File, responseCh, proceed, wg, s.Opts, helmTimeout)
-				if !<-proceed {
-					return
-				}
-			} else {
-				err := fmt.Errorf("unable to retrieve helm client for namespace %s", namespace)
-				log.Error(err.Error())
-				responseCh <- Response{
-					request.File,
-					releaseSpecification.Release.Name,
-					releaseSpecification.Release.Chart,
-					releaseSpecification.Release.ChartVersion,
-					releaseSpecification.Release.CurrentReleaseVersion,
-					helm.UpstallResponse{},
-					err,
-				}
-				continue
+			wg.Add(1)
+			go s.Upstaller.Upstall(ctx, s.Client, releaseSpecification, request.File, responseCh, proceed, wg, s.Opts, helmTimeout)
+			if !<-proceed {
+				return
 			}
 		}
 	}

@@ -5,7 +5,6 @@ help: ## Prints help (only for targets with comments)
 APP=stevedore
 SRC_PACKAGES=$(shell go list -mod=vendor ./... | grep -v "vendor" | grep -v "swagger")
 VERSION?=2.3
-HELM_VERSION?=v2.16.9
 BUILD?=$(shell git describe --always --dirty 2> /dev/null)
 GOLINT:=$(shell command -v golint 2> /dev/null)
 APP_EXECUTABLE="./out/$(APP)"
@@ -15,7 +14,7 @@ GOLANGCI_LINT_VERSION=v1.27.0
 GO111MODULE=on
 SHELL=bash -o pipefail
 DEFAULT_HELM_REPO_NAME?="chartmuseum"
-BUILD_ARGS="-s -w -X main.version=$(VERSION) -X main.helmVersion=$(HELM_VERSION) -X main.build=$(BUILD) -X github.com/gojek/stevedore/cmd/repo.defaultHelmRepoName=$(DEFAULT_HELM_REPO_NAME)"
+BUILD_ARGS="-s -w -X main.version=$(VERSION) -X main.build=$(BUILD) -X github.com/gojek/stevedore/cmd/repo.defaultHelmRepoName=$(DEFAULT_HELM_REPO_NAME)"
 
 ifeq ($(GOMETA_LINT),)
 	GOMETA_LINT=$(shell command -v $(PWD)/bin/golangci-lint 2> /dev/null)

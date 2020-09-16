@@ -81,9 +81,8 @@ require (
 	gopkg.in/h2non/gock.v1 v1.0.14
 	gopkg.in/yaml.v2 v2.3.0
 	gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c
-	helm.sh/helm/v3 v3.3.0
-	k8s.io/apiextensions-apiserver v0.18.8 // indirect
-	k8s.io/cli-runtime v0.18.4
+	helm.sh/helm/v3 v3.3.1
+	k8s.io/cli-runtime v0.18.8
 	k8s.io/client-go v0.18.8
 	k8s.io/helm v2.16.10+incompatible // indirect
 	rsc.io/letsencrypt v0.0.3 // indirect

@@ -1,140 +1,294 @@
 # [Stevedore](https://en.wikipedia.org/wiki/Stevedore)
 
+![logo](/logo/logo_readme.png)
+
 Stevedore a tool to load the cluster with containers for kubernetes to orchestrate. It is a wrapper on Helm, gets all the features of helm, defines a workflow through which helm charts can be deployed and managed. It offers,
 
-- **Declartive way** to mange dependencies.
+- **Declarative way** to mange dependencies.
 - Terraform style **plan and apply** to see what exactly going to change
 - Ability to specify overrides for any given environment at ease
 - Support storing of configurations multiple config store (Plugin support for custom stores)
 
-**TLDR;** Kubernetes follows a declarative style of configuring infrastructure. Stevedore provides a way through which helm interactions can be done declaratively through a YAML configuration.
+**TLDR;** Kubernetes follows a declarative style of configuring infrastructure. Stevedore provides a way through which helm interactions can be done declarative through a YAML configuration.
+
+![demo](demo.gif)
 
 ## Table of Contents
 
-1. [Command Usage](#commands)
+1. [Getting Started](#getting-started)
 
-   - [config](#config)
-   - [render](#render)
-   - [plan](#plan)
-   - [apply](#apply)
+   1.1 [Stevedore Context](#stevedore-context)
 
-2. [Example](#example)
+   1.2 [Manifest](#Manifest)
 
-   - [Manifest](#manifest)
-   - [Override](#override)
-   - [Env](#env)
+   1.3 [Plan](#plan)
 
-3. [Usage](#usage)
+   1.4 [Apply](#apply)
 
-   - [Manifest](#manifest)
-   - [Override](#override)
-   - [Envs](#envs)
+   1.5 [Using Override](#using-override)
 
-4. [Development](#development)
+   1.6 [Using Env](#using-env)
 
-## Commands
+2. [Terminology](#terminology)
 
-### config
+3. [Development](#development)
 
-```
-Manage stevedore config
+## Getting Started
 
-Usage:
-  stevedore config [command]
+Example guide for installing 'redis' helm chart via the stevedore into minikube.
 
-Available Commands:
-  add-context    Adds context to stevedore config file
-  delete-context Delete the specified context from the stevedore config
-  get-contexts   Describe one or many contexts
-  rename-context Renames a context from the stevedore config file
-  show-context   Shows the current-context
-  use-context    Sets the current-context in a stevedore config file
-  view           Display complete configuration
+### Stevedore Context
 
-Flags:
-  -h, --help   help for config
+First, add the kubernetes cluster to stevedore context, in our case its minikube
 
-Global Flags:
-      --config string       config file (default "${HOME}/.stevedore/config")
-      --kubeconfig string   path to kubeconfig file (default: ${HOME}/.kube/config)
-      --log-level string    set the logger level (default "error")
+```bash
+$ stevedore config add-context \
+    --name minikube \
+    --environment local \
+    --environment-type dev \
+    --kube-context minikube \
+    --type local
 
-Use "stevedore config [command] --help" for more information about a command.
+Successfully added the below context:
+Name                    minikube
+Type                    local
+Environment             local
+Environment Type        dev
+Kubernetes Context      minikube
+
+Successfully switched to context: minikube
 ```
 
-### render
+### Manifest
 
-```
-Validate and render stevedore yaml(s)
+create a stevedore manifest file and save it as `redis.yaml`
 
-Usage:
-  stevedore render [flags]
-
-Flags:
-  -a, --artifact-path string    Stevedore artifact path (folder) to save the output as artifact
-  -e, --env-path string         Stevedore env path (can be yaml file or folder)
-  -h, --help                    help for render
-  -f, --manifest-path string    Stevedore manifest path (can be yaml file or folder)
-  -o, --overrides-path string   Stevedore overrides path (can be yaml file or folder)
-
-Global Flags:
-      --config string       config file (default "${HOME}/.stevedore/config")
-      --kubeconfig string   path to kubeconfig file (default: ${HOME}/.kube/config)
-```
-
-      --log-level string    set the logger level (default "error")
-
-### plan
-
-```
-Validate and plan stevedore yaml(s)
-
-Usage:
-  stevedore plan [flags]
-
-Flags:
-  -a, --artifact-path string    Stevedore artifact path (folder) to save the output as artifact
-  -e, --env-path string         Stevedore env path (can be yaml file or folder)
-  -h, --help                    help for plan
-  -f, --manifest-path string    Stevedore manifest path (can be yaml file or folder)
-  -o, --overrides-path string   Stevedore overrides path (can be yaml file or folder)
-
-Global Flags:
-      --config string       config file (default "${HOME}/.stevedore/config")
-      --kubeconfig string   path to kubeconfig file (default: ${HOME}/.kube/config)
-      --log-level string    set the logger level (default "error")
+```yaml
+kind: StevedoreManifest
+version: 2
+deployTo:
+  - contextName: minikube
+    environmentType: dev
+spec:
+  - release:
+      name: redis
+      namespace: default
+      chart: stable/redis
+      values:
+        password: password
 ```
 
-### apply
+### Plan
 
+```bash
+$ stevedore plan -f redis.yaml
 ```
-Validate and apply stevedore yaml(s)
 
-Usage:
-  stevedore apply [flags]
+stevedore will show the detailed plan on what are the resources which will be created
 
-Flags:
-  -a, --artifact-path string    Stevedore artifact path (folder) to save the output as artifact
-  -e, --env-path string         Stevedore env path (can be yaml file or folder)
-  -h, --help                    help for apply
-  -f, --manifest-path string    Stevedore manifest path (can be yaml file or folder)
-  -o, --overrides-path string   Stevedore overrides path (can be yaml file or folder)
+```bash
+## partial output of plan command
+Release changes:
+RELEASE         MANIFEST CHANGES
+redis           +ConfigMap/redis
+(redis.yaml)    +ConfigMap/redis-health
+                +Secret/redis
+                +Service/redis-headless
+                +Service/redis-master
+                +Service/redis-slave
+                +StatefulSet/redis-master
+                +StatefulSet/redis-slave
 
-Global Flags:
-      --config string       config file (default "${HOME}/.stevedore/config")
-      --kubeconfig string   path to kubeconfig file (default: ${HOME}/.kube/config)
-      --log-level string    set the logger level (default "error")
+File changes:
+FILENAME        ADDITIONS       MODIFICATIONS   DESTRUCTIONS
+redis.yaml      8               0               0
 ```
+
+> plan **will not** modify the actual resources.
+>
+> to use the output of the plan to apply command, specify the artifact folder via additional artifact path --artifact/-a
+> stevedore plan -f redis.yaml -a out
+
+### Apply
+
+to, install / update the changes
+
+```bash
+$ stevedore apply -f redis.yaml
+```
+
+to install the / update the changes planned via plan command specify the files from the artifact directory
+
+```bash
+$ stevedore apply -f out/redis.yaml
+```
+
+to proceed further and persist the changes, confirm the action
+
+```bash
+Context Details:
+------------------
+Name: minikube
+Type: local
+Environment: local
+Kubernetes Context: minikube
+Environment Type: dev
+KubeConfig File:
+------------------
+Confirm to apply: [y/N]
+```
+
+to auto apply specify --yes
+
+### Using override
+
+Stevedore offers easy way to manage overrides for different environment.
+
+consider the following requirements for four different environments (dev, test, integration and production) where redis
+will be installed.
+
+1. dev, test environment may not need persistent to be enabled.
+
+```yaml
+kind: StevedoreOverride
+version: 2
+spec:
+  - matches:
+    environmentType: dev
+    values:
+      master:
+        persistence:
+          enabled: false
+      slave:
+        persistence:
+          enabled: false
+  - matches:
+    environmentType: test
+    values:
+      master:
+        persistence:
+          enabled: false
+      slave:
+        persistence:
+          enabled: false
+```
+
+2. integration environment resource request will be little higher than dev and test environment
+
+```yaml
+kind: StevedoreOverride
+version: 2
+spec:
+  - matches:
+    environmentType: integration
+    values:
+      master:
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 100m
+      slave:
+        resources:
+          requests:
+            memory: 256Mi
+            cpu: 100m
+```
+
+3. production environment needs persistent to be enabled and has the highest value for resource quota
+
+```yaml
+kind: StevedoreOverride
+version: 2
+spec:
+  - matches:
+    environmentType: production
+    values:
+      master:
+        resources:
+          requests:
+            memory: 1024Mi
+            cpu: 1000m
+        persistence:
+          enabled: false
+      slave:
+        resources:
+          requests:
+            memory: 1024Mi
+            cpu: 1000m
+        persistence:
+          enabled: false
+```
+
+to use the override feature, save these overrides as `override.yaml` and during plan and apply pass on the overrides
+
+```bash
+$ stevedore plan -f redis.yaml -o override.yaml
+$ stevedore apply -f redis.yaml -o override.yaml
+```
+
+### Using Env
+
+Similar to overrides, stevedore provides an easy way to manage environment, cluster specific overrides
+
+to provide a different password for different environment templatize the password field as `${PASSWORD}`
+
+```yaml
+kind: StevedoreManifest
+version: 2
+deployTo:
+  - contextName: minikube
+    environmentType: dev
+spec:
+  - release:
+      name: redis
+      namespace: default
+      chart: stable/redis
+      values:
+        password: ${REDIS_PASSWORD}
+```
+
+now, you can define an environment file or export an environment variable for the stevedore to pick it up.
+
+```yaml
+kind: StevedoreEnv
+version: 2
+spec:
+  - matches:
+      environmentType: dev
+    env:
+      REDIS_PASSWORD: dev
+---
+kind: StevedoreEnv
+version: 2
+spec:
+  - matches:
+      environmentType: test
+    env:
+      REDIS_PASSWORD: test
+```
+
+## Terminology
+
+**StevedoreManifest** use this to define the release manifest which is interpreted by the stevedore and perform install / upgrade
+
+**StevedoreEnv** use this to define environment/context/cluster specific value (eg., database connection string, password, replica count etc.,)
+
+**StevedoreOverride** use this to define overrides for an environment/context/cluster
 
 ## Development
 
-**Requirements**
+### Requirements
 
 1. `go` version: `1.13`
-3. Clone the repo to `$GOPATH/src/github.com/gojekfarm/stevedore`
-4. Run `make build` to build dependencies, format, vet, lint, test and compile
-5. Run `make compile` to compile for local development machine (use `compile-linux` to compile for linux os amd64 architecture)
-6. Run `make install` to install stevedore $GOPATH/bin
+2. Clone the repo to `$GOPATH/src/github.com/gojekfarm/stevedore`
+3. Run `make build` to build dependencies, format, vet, lint, test and compile
+4. Run `make compile` to compile for local development machine (use `compile-linux` to compile for linux os amd64 architecture)
+5. Run `make install` to install stevedore \$GOPATH/bin
+
+## Credits
+
+Logo designed by [Kartik Narayanan](https://varnaturika.art) checkout his various work [here](https://varnaturika.art),
+you can reach out him at [@hajaarfunda](https://twitter.com/hajaarfunda)
 
 ## License
 

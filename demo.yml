@@ -1,0 +1,1525 @@
+# The configurations that used for the recording, feel free to edit them
+config:
+
+  # Specify a command to be executed
+  # like `/bin/bash -l`, `ls`, or any other commands
+  # the default is bash for Linux
+  # or powershell.exe for Windows
+  command: bash -l
+  
+  # Specify the current working directory path
+  # the default is the current working directory path
+  cwd: /private/tmp/stevedore
+  
+  # Export additional ENV variables
+  env:
+    recording: true
+  
+  # Explicitly set the number of columns
+  # or use `auto` to take the current
+  # number of columns of your shell
+  cols: 142
+  
+  # Explicitly set the number of rows
+  # or use `auto` to take the current
+  # number of rows of your shell
+  rows: 41
+  
+  # Amount of times to repeat GIF
+  # If value is -1, play once
+  # If value is 0, loop indefinitely
+  # If value is a positive number, loop n times
+  repeat: 0
+  
+  # Quality
+  # 1 - 100
+  quality: 100
+  
+  # Delay between frames in ms
+  # If the value is `auto` use the actual recording delays
+  frameDelay: auto
+  
+  # Maximum delay between frames in ms
+  # Ignored if the `frameDelay` isn't set to `auto`
+  # Set to `auto` to prevent limiting the max idle time
+  maxIdleTime: 2000
+  
+  # The surrounding frame box
+  # The `type` can be null, window, floating, or solid`
+  # To hide the title use the value null
+  # Don't forget to add a backgroundColor style with a null as type
+  frameBox:
+    type: floating
+    title: Stevedore Demo
+    style:
+      border: 0px black solid
+      # boxShadow: none
+      # margin: 0px
+  
+  # Add a watermark image to the rendered gif
+  # You need to specify an absolute path for
+  # the image on your machine or a URL, and you can also
+  # add your own CSS styles
+  watermark:
+    imagePath: null
+    style:
+      position: absolute
+      right: 15px
+      bottom: 15px
+      width: 100px
+      opacity: 0.9
+  
+  # Cursor style can be one of
+  # `block`, `underline`, or `bar`
+  cursorStyle: block
+  
+  # Font family
+  # You can use any font that is installed on your machine
+  # in CSS-like syntax
+  fontFamily: "Monaco, Lucida Console, Ubuntu Mono, Monospace"
+  
+  # The size of the font
+  fontSize: 12
+  
+  # The height of lines
+  lineHeight: 1
+  
+  # The spacing between letters
+  letterSpacing: 0
+  
+  # Theme
+  theme:
+    background: "transparent"
+    foreground: "#afafaf"
+    cursor: "#c7c7c7"
+    black: "#232628"
+    red: "#fc4384"
+    green: "#b3e33b"
+    yellow: "#ffa727"
+    blue: "#75dff2"
+    magenta: "#ae89fe"
+    cyan: "#708387"
+    white: "#d5d5d0"
+    brightBlack: "#626566"
+    brightRed: "#ff7fac"
+    brightGreen: "#c8ed71"
+    brightYellow: "#ebdf86"
+    brightBlue: "#75dff2"
+    brightMagenta: "#ae89fe"
+    brightCyan: "#b1c6ca"
+    brightWhite: "#f9f9f4"
+  
+# Records, feel free to edit them
+records:
+  - delay: 1000
+    content: "\r\n"
+  - delay: 100
+    content: "\e[H\e[J\e[1;32m❯\e[0m "
+  - delay: 500
+    content: '#'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: l
+  - delay: 15
+    content: e
+  - delay: 15
+    content: t
+  - delay: 15
+    content: s
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: s
+  - delay: 15
+    content: e
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: t
+  - delay: 15
+    content: h
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: m
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: i
+  - delay: 15
+    content: f
+  - delay: 15
+    content: e
+  - delay: 15
+    content: s
+  - delay: 15
+    content: t
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: f
+  - delay: 15
+    content: i
+  - delay: 15
+    content: l
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: f
+  - delay: 15
+    content: o
+  - delay: 15
+    content: r
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: t
+  - delay: 15
+    content: h
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: s
+  - delay: 15
+    content: t
+  - delay: 15
+    content: e
+  - delay: 15
+    content: v
+  - delay: 15
+    content: e
+  - delay: 15
+    content: d
+  - delay: 15
+    content: o
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 500
+    content: "\r\n"
+  - delay: 575
+    content: "\e[1;32m❯\e[0m "
+  - delay: 528
+    content: c
+  - delay: 15
+    content: a
+  - delay: 15
+    content: t
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: m
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: 'ifest.yaml '
+  - delay: 939
+    content: "\r\n"
+  - delay: 111
+    content: "\e[?1h\e=\r\e[38;5;238m───────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\e[0m\e[m\r\n       \e[38;5;238m│ \e[0mFile: \e[1mmanifest.yaml\e[0m\e[m\r\n\e[38;5;238m───────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\e[0m\e[m\r\n\e[38;5;238m   1\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mkind\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mStevedoreManifest\e[0m\e[m\r\n\e[38;5;238m   2\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mversion\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[1;38;2;255;115;253m2\e[0m\e[m\r\n\e[38;5;238m   3\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mdeployTo\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m   4\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m  \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mcontextName\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mminikube\e[0m\e[m\r\n\e[38;5;238m   5\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m    \e[0m\e[38;2;102;204;255menvironmentType\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mdev\e[0m\e[m\r\n\e[38;5;238m   6\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mspec\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m   7\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m  \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mrelease\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m   8\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mmy-app-dependencies\e[0m\e[m\r\n\e[38;5;238m   9\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mnamespace\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mdefault\e[0m\e[m\r\n\e[38;5;238m  10\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mchartSpec\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  11\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mmy-app-dependencies\e[0m\e[m\r\n\e[38;5;238m  12\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mdependencies\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  13\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mpostgresql\e[0m\e[m\r\n\e[38;5;238m  14\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mversion\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[1;38;2;255;115;253m9.8.4\e[0m\e[m\r\n\e[38;5;238m  15\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mrepository\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mhttps://charts.bitnami.com/bitnami\e[0m\e[m\r\n\e[38;5;238m  16\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mredis\e[0m\e[m\r\n\e[38;5;238m  17\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mversion\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[1;38;2;255;115;253m11.2.1\e[0m\e[m\r\n\e[38;5;238m  18\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mrepository\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mhttps://charts.bitnami.com/bitnami\e[0m\e[m\r\n\e[38;5;238m  19\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mvalues\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  20\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mredis\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  21\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mpassword\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102m${REDIS_PASSWORD}\e[0m\e[m\r\n\e[38;5;238m  22\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mmetrics\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  23\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m            \e[0m\e[38;2;102;204;255menabled\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;153;204;153mfalse\e[0m\e[m\r\n\e[38;5;238m  24\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mpostgresql\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  25\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mpostgresqlPassword\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102m${POSTGRES_PASSWORD}\e[0m\e[m\r\n\e[38;5;238m───────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\e[0m\e[m\r\n\r\e[K\e[?1l\e>"
+  - delay: 100
+    content: "\e[1;32m❯\e[0m "
+  - delay: 5000
+    content: '#'
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: s
+  - delay: 20
+    content: t
+  - delay: 20
+    content: e
+  - delay: 20
+    content: v
+  - delay: 20
+    content: e
+  - delay: 20
+    content: d
+  - delay: 20
+    content: o
+  - delay: 20
+    content: r
+  - delay: 20
+    content: e
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: i
+  - delay: 20
+    content: s
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: g
+  - delay: 20
+    content: o
+  - delay: 20
+    content: i
+  - delay: 20
+    content: 'n'
+  - delay: 20
+    content: g
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: t
+  - delay: 20
+    content: o
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: c
+  - delay: 20
+    content: r
+  - delay: 20
+    content: e
+  - delay: 20
+    content: a
+  - delay: 20
+    content: t
+  - delay: 20
+    content: e
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: a
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: h
+  - delay: 20
+    content: e
+  - delay: 20
+    content: l
+  - delay: 20
+    content: m
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: c
+  - delay: 20
+    content: h
+  - delay: 20
+    content: a
+  - delay: 20
+    content: r
+  - delay: 20
+    content: t
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: c
+  - delay: 20
+    content: a
+  - delay: 20
+    content: l
+  - delay: 20
+    content: l
+  - delay: 20
+    content: e
+  - delay: 20
+    content: d
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: my-app-dependencies
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: w
+  - delay: 20
+    content: h
+  - delay: 20
+    content: i
+  - delay: 20
+    content: c
+  - delay: 20
+    content: h
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: i
+  - delay: 20
+    content: s
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: t
+  - delay: 20
+    content: h
+  - delay: 20
+    content: e
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: c
+  - delay: 20
+    content: o
+  - delay: 20
+    content: m
+  - delay: 20
+    content: b
+  - delay: 20
+    content: i
+  - delay: 20
+    content: 'n'
+  - delay: 20
+    content: a
+  - delay: 20
+    content: t
+  - delay: 20
+    content: i
+  - delay: 20
+    content: o
+  - delay: 20
+    content: 'n'
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: o
+  - delay: 20
+    content: f
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: p
+  - delay: 20
+    content: o
+  - delay: 20
+    content: s
+  - delay: 20
+    content: t
+  - delay: 20
+    content: g
+  - delay: 20
+    content: r
+  - delay: 20
+    content: e
+  - delay: 20
+    content: s
+  - delay: 20
+    content: q
+  - delay: 20
+    content: l
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: a
+  - delay: 20
+    content: 'n'
+  - delay: 20
+    content: d
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: r
+  - delay: 20
+    content: e
+  - delay: 20
+    content: d
+  - delay: 20
+    content: i
+  - delay: 20
+    content: s
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: h
+  - delay: 20
+    content: e
+  - delay: 20
+    content: l
+  - delay: 20
+    content: m
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: c
+  - delay: 20
+    content: h
+  - delay: 20
+    content: a
+  - delay: 20
+    content: r
+  - delay: 20
+    content: t
+  - delay: 20
+    content: s
+  - delay: 20
+    content: .
+  - delay: 20
+    content: "\r\n"
+  - delay: 20
+    content: "\e[1;32m❯\e[0m "
+  - delay: 20
+    content: '#'
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: t
+  - delay: 20
+    content: h
+  - delay: 20
+    content: e
+  - delay: 20
+    content: 'n'
+  - delay: 20
+    content: ','
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: s
+  - delay: 20
+    content: t
+  - delay: 20
+    content: e
+  - delay: 20
+    content: v
+  - delay: 20
+    content: e
+  - delay: 20
+    content: d
+  - delay: 20
+    content: o
+  - delay: 20
+    content: r
+  - delay: 20
+    content: e
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: w
+  - delay: 20
+    content: i
+  - delay: 20
+    content: l
+  - delay: 20
+    content: l
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: c
+  - delay: 20
+    content: r
+  - delay: 20
+    content: e
+  - delay: 20
+    content: a
+  - delay: 20
+    content: t
+  - delay: 20
+    content: e
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: t
+  - delay: 20
+    content: h
+  - delay: 20
+    content: e
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: h
+  - delay: 20
+    content: e
+  - delay: 20
+    content: l
+  - delay: 20
+    content: m
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: r
+  - delay: 20
+    content: e
+  - delay: 20
+    content: l
+  - delay: 20
+    content: e
+  - delay: 20
+    content: a
+  - delay: 20
+    content: s
+  - delay: 20
+    content: e
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: w
+  - delay: 20
+    content: i
+  - delay: 20
+    content: t
+  - delay: 20
+    content: h
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: 'n'
+  - delay: 20
+    content: a
+  - delay: 20
+    content: m
+  - delay: 20
+    content: e
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: my-app-dependencies
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: i
+  - delay: 20
+    content: 'n'
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: d
+  - delay: 20
+    content: e
+  - delay: 20
+    content: f
+  - delay: 20
+    content: a
+  - delay: 20
+    content: u
+  - delay: 20
+    content: l
+  - delay: 20
+    content: t
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: 'n'
+  - delay: 20
+    content: a
+  - delay: 20
+    content: m
+  - delay: 20
+    content: e
+  - delay: 20
+    content: s
+  - delay: 20
+    content: p
+  - delay: 20
+    content: a
+  - delay: 20
+    content: c
+  - delay: 20
+    content: e
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: w
+  - delay: 20
+    content: i
+  - delay: 20
+    content: t
+  - delay: 20
+    content: h
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: v
+  - delay: 20
+    content: a
+  - delay: 20
+    content: l
+  - delay: 20
+    content: u
+  - delay: 20
+    content: e
+  - delay: 20
+    content: s
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: i
+  - delay: 20
+    content: 'n'
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: v
+  - delay: 20
+    content: a
+  - delay: 20
+    content: l
+  - delay: 20
+    content: u
+  - delay: 20
+    content: e
+  - delay: 20
+    content: s
+  - delay: 20
+    content: ' '
+  - delay: 20
+    content: s
+  - delay: 20
+    content: e
+  - delay: 20
+    content: c
+  - delay: 20
+    content: t
+  - delay: 20
+    content: i
+  - delay: 20
+    content: o
+  - delay: 20
+    content: 'n'
+  - delay: 20
+    content: '.'
+  - delay: 7000
+    content: "\r\n"
+  - delay: 100
+    content: "\e[H\e[J\e[1;32m❯\e[0m "
+  - delay: 100
+    content: '#'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: l
+  - delay: 15
+    content: e
+  - delay: 15
+    content: t
+  - delay: 15
+    content: s
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: c
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: a
+  - delay: 15
+    content: t
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: t
+  - delay: 15
+    content: h
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: h
+  - delay: 15
+    content: e
+  - delay: 15
+    content: l
+  - delay: 15
+    content: m
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: l
+  - delay: 15
+    content: e
+  - delay: 15
+    content: a
+  - delay: 15
+    content: s
+  - delay: 15
+    content: e
+  - delay: 1500
+    content: "\r\n"
+  - delay: 100
+    content: "\e[1;32m❯\e[0m "
+  - delay: 100
+    content: s
+  - delay: 15
+    content: t
+  - delay: 15
+    content: e
+  - delay: 15
+    content: v
+  - delay: 15
+    content: e
+  - delay: 15
+    content: d
+  - delay: 15
+    content: o
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: p
+  - delay: 15
+    content: l
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: '-'
+  - delay: 15
+    content: f
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: m
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'nifest.yaml '
+  - delay: 1500
+    content: "\r\n"
+  - delay: 100
+    content: "\e[37;1m\r\nContext Details:\r\n------------------\r\nName: minikube\r\nType: components\r\nEnvironment: dev\r\nKubernetes Context: minikube\r\nEnvironment Type: dev\r\nKubeConfig File: \r\n------------------\e[0m\r\n\e[37;1;1mUsing context minikube\e[0m\r\n\e[33mNo envs found\e[0m\r\n\e[33mNo ignore rules found\e[0m\r\n\e[33mNo overrides found\e[0m\r\n\e[37;1;1;1mProcessing 1 manifest file(s)\e[0m\r\n\e[37;1;1;1;1m  - manifest.yaml\e[0m\r\n"
+  - delay: 3000
+    content: "\e[37;1;1;1;1;1mFile: manifest.yaml\e[0m\r\n\e[37;1;1;1;1;1;1mReleaseName: my-app-dependencies\e[0m\r\n\e[37;1;1;1;1;1;1;1m\e[0;33mdefault, my-app-dependencies-postgresql, Secret (v1) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/postgresql/templates/secrets.yaml\e[0m\r\n\e[0;32m+ apiVersion: v1\e[0m\r\n\e[0;32m+ kind: Secret\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-postgresql\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app.kubernetes.io/name: postgresql\e[0m\r\n\e[0;32m+     helm.sh/chart: postgresql-9.8.4\e[0m\r\n\e[0;32m+     app.kubernetes.io/instance: my-app-dependencies\e[0m\r\n\e[0;32m+     app.kubernetes.io/managed-by: Helm\e[0m\r\n\e[0;32m+ type: Opaque\e[0m\r\n\e[0;32m+ data:\e[0m\r\n\e[0;32m+   postgresql-password: \"OUtOWEgzakxsYg==\"\e[0m\r\n\e[0;33mdefault, my-app-dependencies-redis-health, ConfigMap (v1) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/redis/templates/health-configmap.yaml\e[0m\r\n\e[0;32m+ apiVersion: v1\e[0m\r\n\e[0;32m+ kind: ConfigMap\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-redis-health\e[0m\r\n\e[0;32m+   namespace: default\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     chart: redis-11.2.1\e[0m\r\n\e[0;32m+     heritage: Helm\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;32m+ data:\e[0m\r\n\e[0;32m+   ping_readiness_local.sh: |-\e[0m\r\n\e[0;32m+     #!/bin/bash\e[0m\r\n\e[0;32m+     no_auth_warning=$([[ \"$(redis-cli --version)\" =~ (redis-cli 5.*) ]] && echo --no-auth-warning)\e[0m\r\n\e[0;32m+     response=$(\e[0m\r\n\e[0;32m+       timeout -s 3 $1 \\\e[0m\r\n\e[0;32m+       redis-cli \\\e[0m\r\n\e[0;32m+         -a $REDIS_PASSWORD $no_auth_warning \\\e[0m\r\n\e[0;32m+         -h localhost \\\e[0m\r\n\e[0;32m+         -p $REDIS_PORT \\\e[0m\r\n\e[0;32m+         ping\e[0m\r\n\e[0;32m+     )\e[0m\r\n\e[0;32m+     if [ \"$response\" != \"PONG\" ]; then\e[0m\r\n\e[0;32m+       echo \"$response\"\e[0m\r\n\e[0;32m+       exit 1\e[0m\r\n\e[0;32m+     fi\e[0m\r\n\e[0;32m+   ping_liveness_local.sh: |-\e[0m\r\n\e[0;32m+     #!/bin/bash\e[0m\r\n\e[0;32m+     no_auth_warning=$([[ \"$(redis-cli --version)\" =~ (redis-cli 5.*) ]] && echo --no-auth-warning)\e[0m\r\n\e[0;32m+     response=$(\e[0m\r\n\e[0;32m+       timeout -s 3 $1 \\\e[0m\r\n\e[0;32m+       redis-cli \\\e[0m\r\n\e[0;32m+         -a $REDIS_PASSWORD $no_auth_warning \\\e[0m\r\n\e[0;32m+         -h localhost \\\e[0m\r\n\e[0;32m+         -p $REDIS_PORT \\\e[0m\r\n\e[0;32m+         ping\e[0m\r\n\e[0;32m+     )\e[0m\r\n\e[0;32m+     if [ \"$response\" != \"PONG\" ] && [ \"$response\" != \"LOADING Redis is loading the dataset in memory\" ]; then\e[0m\r\n\e[0;32m+       echo \"$response\"\e[0m\r\n\e[0;32m+       exit 1\e[0m\r\n\e[0;32m+     fi\e[0m\r\n\e[0;32m+   ping_readiness_master.sh: |-\e[0m\r\n\e[0;32m+     #!/bin/bash\e[0m\r\n\e[0;32m+     no_auth_warning=$([[ \"$(redis-cli --version)\" =~ (redis-cli 5.*) ]] && echo --no-auth-warning)\e[0m\r\n\e[0;32m+      response=$(\e[0m\r\n\e[0;32m+       timeout -s 3 $1 \\\e[0m\r\n\e[0;32m+       redis-cli \\\e[0m\r\n\e[0;32m+         -a $REDIS_MASTER_PASSWORD $no_auth_warning \\\e[0m\r\n\e[0;32m+         -h $REDIS_MASTER_HOST \\\e[0m\r\n\e[0;32m+         -p $REDIS_MASTER_PORT_NUMBER \\\e[0m\r\n\e[0;32m+         ping\e[0m\r\n\e[0;32m+     )\e[0m\r\n\e[0;32m+     if [ \"$response\" != \"PONG\" ]; then\e[0m\r\n\e[0;32m+       echo \"$response\"\e[0m\r\n\e[0;32m+       exit 1\e[0m\r\n\e[0;32m+     fi\e[0m\r\n\e[0;32m+   ping_liveness_master.sh: |-\e[0m\r\n\e[0;32m+     #!/bin/bash\e[0m\r\n\e[0;32m+     no_auth_warning=$([[ \"$(redis-cli --version)\" =~ (redis-cli 5.*) ]] && echo --no-auth-warning)\e[0m\r\n\e[0;32m+     response=$(\e[0m\r\n\e[0;32m+       timeout -s 3 $1 \\\e[0m\r\n\e[0;32m+       redis-cli \\\e[0m\r\n\e[0;32m+         -a $REDIS_MASTER_PASSWORD $no_auth_warning \\\e[0m\r\n\e[0;32m+         -h $REDIS_MASTER_HOST \\\e[0m\r\n\e[0;32m+         -p $REDIS_MASTER_PORT_NUMBER \\\e[0m\r\n\e[0;32m+         ping\e[0m\r\n\e[0;32m+     )\e[0m\r\n\e[0;32m+     if [ \"$response\" != \"PONG\" ] && [ \"$response\" != \"LOADING Redis is loading the dataset in memory\" ]; then\e[0m\r\n\e[0;32m+       echo \"$response\"\e[0m\r\n\e[0;32m+       exit 1\e[0m\r\n\e[0;32m+     fi\e[0m\r\n\e[0;32m+   ping_readiness_local_and_master.sh: |-\e[0m\r\n\e[0;32m+     script_dir=\"$(dirname \"$0\")\"\e[0m\r\n\e[0;32m+     exit_status=0\e[0m\r\n\e[0;32m+     \"$script_dir/ping_readiness_local.sh\" $1 || exit_status=$?\e[0m\r\n\e[0;32m+     \"$script_dir/ping_readiness_master.sh\" $1 || exit_status=$?\e[0m\r\n\e[0;32m+     exit $exit_status\e[0m\r\n\e[0;32m+   ping_liveness_local_and_master.sh: |-\e[0m\r\n\e[0;32m+     script_dir=\"$(dirname \"$0\")\"\e[0m\r\n\e[0;32m+     exit_status=0\e[0m\r\n\e[0;32m+     \"$script_dir/ping_liveness_local.sh\" $1 || exit_status=$?\e[0m\r\n\e[0;32m+     \"$script_dir/ping_liveness_master.sh\" $1 || exit_status=$?\e[0m\r\n\e[0;32m+     exit $exit_status\e[0m\r\n\e[0;33mdefault, my-app-dependencies-postgresql-headless, Service (v1) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/postgresql/templates/svc-headless.yaml\e[0m\r\n\e[0;32m+ apiVersion: v1\e[0m\r\n\e[0;32m+ kind: Service\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-postgresql-headless\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app.kubernetes.io/name: postgresql\e[0m\r\n\e[0;32m+     helm.sh/chart: postgresql-9.8.4\e[0m\r\n\e[0;32m+     app.kubernetes.io/instance: my-app-dependencies\e[0m\r\n\e[0;32m+     app.kubernetes.io/managed-by: Helm\e[0m\r\n\e[0;32m+     # Use this annotation in addition to the actual publishNotReadyAddresses\e[0m\r\n\e[0;32m+     # field below because the annotation will stop being respected soon but the\e[0m\r\n\e[0;32m+     # field is broken in some versions of Kubernetes:\e[0m\r\n\e[0;32m+     # https://github.com/kubernetes/kubernetes/issues/58662\e[0m\r\n\e[0;32m+     service.alpha.kubernetes.io/tolerate-unready-endpoints: \"true\"\e[0m\r\n\e[0;32m+ spec:\e[0m\r\n\e[0;32m+   type: ClusterIP\e[0m\r\n\e[0;32m+   clusterIP: None\e[0m\r\n\e[0;32m+   # We want all pods in the StatefulSet to have their addresses published for\e[0m\r\n\e[0;32m+   # the sake of the other Postgresql pods even before they're ready, since they\e[0m\r\n\e[0;32m+   # have to be able to talk to each other in order to become ready.\e[0m\r\n\e[0;32m+   publishNotReadyAddresses: true\e[0m\r\n\e[0;32m+   ports:\e[0m\r\n\e[0;32m+     - name: tcp-postgresql\e[0m\r\n\e[0;32m+       port: 5432\e[0m\r\n\e[0;32m+       targetPort: tcp-postgresql\e[0m\r\n\e[0;32m+   selector:\e[0m\r\n\e[0;32m+     app.kubernetes.io/name: postgresql\e[0m\r\n\e[0;32m+     app.kubernetes.io/instance: my-app-dependencies\e[0m\r\n\e[0;33mdefault, my-app-dependencies-redis-master, StatefulSet (apps) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/redis/templates/redis-master-statefulset.yaml\e[0m\r\n\e[0;32m+ apiVersion: apps/v1\e[0m\r\n\e[0;32m+ kind: StatefulSet\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-redis-master\e[0m\r\n\e[0;32m+   namespace: default\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     chart: redis-11.2.1\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;32m+     heritage: Helm\e[0m\r\n\e[0;32m+ spec:\e[0m\r\n\e[0;32m+   selector:\e[0m\r\n\e[0;32m+     matchLabels:\e[0m\r\n\e[0;32m+       app: redis\e[0m\r\n\e[0;32m+       release: my-app-dependencies\e[0m\r\n\e[0;32m+       role: master\e[0m\r\n\e[0;32m+   serviceName: my-app-dependencies-redis-headless\e[0m\r\n\e[0;32m+   template:\e[0m\r\n\e[0;32m+     metadata:\e[0m\r\n\e[0;32m+       labels:\e[0m\r\n\e[0;32m+         app: redis\e[0m\r\n\e[0;32m+         chart: redis-11.2.1\e[0m\r\n\e[0;32m+         release: my-app-dependencies\e[0m\r\n\e[0;32m+         role: master\e[0m\r\n\e[0;32m+       annotations:\e[0m\r\n\e[0;32m+         checksum/health: d4247919e590b320df787f191d6063cbb4dbf7f3054dad9a73eb23c6f023d1b9\e[0m\r\n\e[0;32m+         checksum/configmap: c499da0646e396ea1fc8072952928160a6b38b0853726a5c1008236f3e33ad82\e[0m\r\n\e[0;32m+         checksum/secret: 03fbc303055ac087d1987e16a9dde57758ef56c4537be934e74ffe0b1795af47\e[0m\r\n\e[0;32m+     spec:\e[0m\r\n\e[0;32m+       \e[0m\r\n\e[0;32m+       securityContext:\e[0m\r\n\e[0;32m+         fsGroup: 1001\e[0m\r\n\e[0;32m+       serviceAccountName: default\e[0m\r\n\e[0;32m+       containers:\e[0m\r\n\e[0;32m+         - name: redis\e[0m\r\n\e[0;32m+           image: docker.io/bitnami/redis:6.0.8-debian-10-r35\e[0m\r\n\e[0;32m+           imagePullPolicy: \"IfNotPresent\"\e[0m\r\n\e[0;32m+           securityContext:\e[0m\r\n\e[0;32m+             runAsUser: 1001\e[0m\r\n\e[0;32m+           command:\e[0m\r\n\e[0;32m+             - /bin/bash\e[0m\r\n\e[0;32m+             - -c\e[0m\r\n\e[0;32m+             - /opt/bitnami/scripts/start-scripts/start-master.sh\e[0m\r\n\e[0;32m+           env:\e[0m\r\n\e[0;32m+             - name: REDIS_REPLICATION_MODE\e[0m\r\n\e[0;32m+               value: master\e[0m\r\n\e[0;32m+             - name: REDIS_PASSWORD\e[0m\r\n\e[0;32m+               valueFrom:\e[0m\r\n\e[0;32m+                 secretKeyRef:\e[0m\r\n\e[0;32m+                   name: my-app-dependencies-redis\e[0m\r\n\e[0;32m+                   key: redis-password\e[0m\r\n\e[0;32m+             - name: REDIS_TLS_ENABLED\e[0m\r\n\e[0;32m+               value: \"no\"\e[0m\r\n\e[0;32m+             - name: REDIS_PORT\e[0m\r\n\e[0;32m+               value: \"6379\"\e[0m\r\n\e[0;32m+           ports:\e[0m\r\n\e[0;32m+             - name: redis\e[0m\r\n\e[0;32m+               containerPort: 6379\e[0m\r\n\e[0;32m+           livenessProbe:\e[0m\r\n\e[0;32m+             initialDelaySeconds: 5\e[0m\r\n\e[0;32m+             periodSeconds: 5\e[0m\r\n\e[0;32m+             # One second longer than command timeout should prevent generation of zombie processes.\e[0m\r\n\e[0;32m+             timeoutSeconds: 6\e[0m\r\n\e[0;32m+             successThreshold: 1\e[0m\r\n\e[0;32m+             failureThreshold: 5\e[0m\r\n\e[0;32m+             exec:\e[0m\r\n\e[0;32m+               command:\e[0m\r\n\e[0;32m+                 - sh\e[0m\r\n\e[0;32m+                 - -c\e[0m\r\n\e[0;32m+                 - /health/ping_liveness_local.sh 5\e[0m\r\n\e[0;32m+           readinessProbe:\e[0m\r\n\e[0;32m+             initialDelaySeconds: 5\e[0m\r\n\e[0;32m+             periodSeconds: 5\e[0m\r\n\e[0;32m+             timeoutSeconds: 2\e[0m\r\n\e[0;32m+             successThreshold: 1\e[0m\r\n\e[0;32m+             failureThreshold: 5\e[0m\r\n\e[0;32m+             exec:\e[0m\r\n\e[0;32m+               command:\e[0m\r\n\e[0;32m+                 - sh\e[0m\r\n\e[0;32m+                 - -c\e[0m\r\n\e[0;32m+                 - /health/ping_readiness_local.sh 1\e[0m\r\n\e[0;32m+           resources:\e[0m\r\n\e[0;32m+             null\e[0m\r\n\e[0;32m+           volumeMounts:\e[0m\r\n\e[0;32m+             - name: start-scripts\e[0m\r\n\e[0;32m+               mountPath: /opt/bitnami/scripts/start-scripts\e[0m\r\n\e[0;32m+             - name: health\e[0m\r\n\e[0;32m+               mountPath: /health\e[0m\r\n\e[0;32m+             - name: redis-data\e[0m\r\n\e[0;32m+               mountPath: /data\e[0m\r\n\e[0;32m+               subPath: \e[0m\r\n\e[0;32m+             - name: config\e[0m\r\n\e[0;32m+               mountPath: /opt/bitnami/redis/mounted-etc\e[0m\r\n\e[0;32m+             - name: redis-tmp-conf\e[0m\r\n\e[0;32m+               mountPath: /opt/bitnami/redis/etc/\e[0m\r\n\e[0;32m+       volumes:\e[0m\r\n\e[0;32m+         - name: start-scripts\e[0m\r\n\e[0;32m+           configMap:\e[0m\r\n\e[0;32m+             name: my-app-dependencies-redis-scripts\e[0m\r\n\e[0;32m+             defaultMode: 0755\e[0m\r\n\e[0;32m+         - name: health\e[0m\r\n\e[0;32m+           configMap:\e[0m\r\n\e[0;32m+             name: my-app-dependencies-redis-health\e[0m\r\n\e[0;32m+             defaultMode: 0755\e[0m\r\n\e[0;32m+         - name: config\e[0m\r\n\e[0;32m+           configMap:\e[0m\r\n\e[0;32m+             name: my-app-dependencies-redis\e[0m\r\n\e[0;32m+         - name: redis-tmp-conf\e[0m\r\n\e[0;32m+           emptyDir: {}\e[0m\r\n\e[0;32m+   volumeClaimTemplates:\e[0m\r\n\e[0;32m+     - metadata:\e[0m\r\n\e[0;32m+         name: redis-data\e[0m\r\n\e[0;32m+         labels:\e[0m\r\n\e[0;32m+           app: redis\e[0m\r\n\e[0;32m+           release: my-app-dependencies\e[0m\r\n\e[0;32m+           heritage: Helm\e[0m\r\n\e[0;32m+           component: master\e[0m\r\n\e[0;32m+       spec:\e[0m\r\n\e[0;32m+         accessModes:\e[0m\r\n\e[0;32m+           - \"ReadWriteOnce\"\e[0m\r\n\e[0;32m+         resources:\e[0m\r\n\e[0;32m+           requests:\e[0m\r\n\e[0;32m+             storage: \"8Gi\"\e[0m\r\n\e[0;32m+         \e[0m\r\n\e[0;32m+         selector:\e[0m\r\n\e[0;32m+   updateStrategy:\e[0m\r\n\e[0;32m+     type: RollingUpdate\e[0m\r\n\e[0;33mdefault, my-app-dependencies-redis-headless, Service (v1) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/redis/templates/headless-svc.yaml\e[0m\r\n\e[0;32m+ apiVersion: v1\e[0m\r\n\e[0;32m+ kind: Service\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-redis-headless\e[0m\r\n\e[0;32m+   namespace: default\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     chart: redis-11.2.1\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;32m+     heritage: Helm\e[0m\r\n\e[0;32m+ spec:\e[0m\r\n\e[0;32m+   type: ClusterIP\e[0m\r\n\e[0;32m+   clusterIP: None\e[0m\r\n\e[0;32m+   ports:\e[0m\r\n\e[0;32m+     - name: redis\e[0m\r\n\e[0;32m+       port: 6379\e[0m\r\n\e[0;32m+       targetPort: redis\e[0m\r\n\e[0;32m+   selector:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;33mdefault, my-app-dependencies-redis-master, Service (v1) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/redis/templates/redis-master-svc.yaml\e[0m\r\n\e[0;32m+ apiVersion: v1\e[0m\r\n\e[0;32m+ kind: Service\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-redis-master\e[0m\r\n\e[0;32m+   namespace: default\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     chart: redis-11.2.1\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;32m+     heritage: Helm\e[0m\r\n\e[0;32m+ spec:\e[0m\r\n\e[0;32m+   type: ClusterIP\e[0m\r\n\e[0;32m+   ports:\e[0m\r\n\e[0;32m+     - name: redis\e[0m\r\n\e[0;32m+       port: 6379\e[0m\r\n\e[0;32m+       targetPort: redis\e[0m\r\n\e[0;32m+   selector:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;32m+     role: master\e[0m\r\n\e[0;33mdefault, my-app-dependencies-redis-slave, Service (v1) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/redis/templates/redis-slave-svc.yaml\e[0m\r\n\e[0;32m+ apiVersion: v1\e[0m\r\n\e[0;32m+ kind: Service\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-redis-slave\e[0m\r\n\e[0;32m+   namespace: default\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     chart: redis-11.2.1\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;32m+     heritage: Helm\e[0m\r\n\e[0;32m+ spec:\e[0m\r\n\e[0;32m+   type: ClusterIP\e[0m\r\n\e[0;32m+   ports:\e[0m\r\n\e[0;32m+     - name: redis\e[0m\r\n\e[0;32m+       port: 6379\e[0m\r\n\e[0;32m+       targetPort: redis\e[0m\r\n\e[0;32m+   selector:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;32m+     role: slave\e[0m\r\n\e[0;33mdefault, my-app-dependencies-postgresql, StatefulSet (apps) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/postgresql/templates/statefulset.yaml\e[0m\r\n\e[0;32m+ apiVersion: apps/v1\e[0m\r\n\e[0;32m+ kind: StatefulSet\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-postgresql\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app.kubernetes.io/name: postgresql\e[0m\r\n\e[0;32m+     helm.sh/chart: postgresql-9.8.4\e[0m\r\n\e[0;32m+     app.kubernetes.io/instance: my-app-dependencies\e[0m\r\n\e[0;32m+     app.kubernetes.io/managed-by: Helm\e[0m\r\n\e[0;32m+   annotations:\e[0m\r\n\e[0;32m+ spec:\e[0m\r\n\e[0;32m+   serviceName: my-app-dependencies-postgresql-headless\e[0m\r\n\e[0;32m+   replicas: 1\e[0m\r\n\e[0;32m+   updateStrategy:\e[0m\r\n\e[0;32m+     type: RollingUpdate\e[0m\r\n\e[0;32m+   selector:\e[0m\r\n\e[0;32m+     matchLabels:\e[0m\r\n\e[0;32m+       app.kubernetes.io/name: postgresql\e[0m\r\n\e[0;32m+       app.kubernetes.io/instance: my-app-dependencies\e[0m\r\n\e[0;32m+       role: master\e[0m\r\n\e[0;32m+   template:\e[0m\r\n\e[0;32m+     metadata:\e[0m\r\n\e[0;32m+       name: my-app-dependencies-postgresql\e[0m\r\n\e[0;32m+       labels:\e[0m\r\n\e[0;32m+         app.kubernetes.io/name: postgresql\e[0m\r\n\e[0;32m+         helm.sh/chart: postgresql-9.8.4\e[0m\r\n\e[0;32m+         app.kubernetes.io/instance: my-app-dependencies\e[0m\r\n\e[0;32m+         app.kubernetes.io/managed-by: Helm\e[0m\r\n\e[0;32m+         role: master\e[0m\r\n\e[0;32m+     spec:      \e[0m\r\n\e[0;32m+       securityContext:\e[0m\r\n\e[0;32m+         fsGroup: 1001\e[0m\r\n\e[0;32m+       containers:\e[0m\r\n\e[0;32m+         - name: my-app-dependencies-postgresql\e[0m\r\n\e[0;32m+           image: docker.io/bitnami/postgresql:11.9.0-debian-10-r48\e[0m\r\n\e[0;32m+           imagePullPolicy: \"IfNotPresent\"\e[0m\r\n\e[0;32m+           resources:\e[0m\r\n\e[0;32m+             requests:\e[0m\r\n\e[0;32m+               cpu: 250m\e[0m\r\n\e[0;32m+               memory: 256Mi\e[0m\r\n\e[0;32m+           securityContext:\e[0m\r\n\e[0;32m+             runAsUser: 1001\e[0m\r\n\e[0;32m+           env:\e[0m\r\n\e[0;32m+             - name: BITNAMI_DEBUG\e[0m\r\n\e[0;32m+               value: \"false\"\e[0m\r\n\e[0;32m+             - name: POSTGRESQL_PORT_NUMBER\e[0m\r\n\e[0;32m+               value: \"5432\"\e[0m\r\n\e[0;32m+             - name: POSTGRESQL_VOLUME_DIR\e[0m\r\n\e[0;32m+               value: \"/bitnami/postgresql\"\e[0m\r\n\e[0;32m+             - name: PGDATA\e[0m\r\n\e[0;32m+               value: \"/bitnami/postgresql/data\"\e[0m\r\n\e[0;32m+             - name: POSTGRES_USER\e[0m\r\n\e[0;32m+               value: \"postgres\"\e[0m\r\n\e[0;32m+             - name: POSTGRES_PASSWORD\e[0m\r\n\e[0;32m+               valueFrom:\e[0m\r\n\e[0;32m+                 secretKeyRef:\e[0m\r\n\e[0;32m+                   name: my-app-dependencies-postgresql\e[0m\r\n\e[0;32m+                   key: postgresql-password\e[0m\r\n\e[0;32m+             - name: POSTGRESQL_ENABLE_LDAP\e[0m\r\n\e[0;32m+               value: \"no\"\e[0m\r\n\e[0;32m+             - name: POSTGRESQL_ENABLE_TLS\e[0m\r\n\e[0;32m+               value: \"no\"\e[0m\r\n\e[0;32m+             - name: POSTGRESQL_LOG_HOSTNAME\e[0m\r\n\e[0;32m+               value: \"false\"\e[0m\r\n\e[0;32m+             - name: POSTGRESQL_LOG_CONNECTIONS\e[0m\r\n\e[0;32m+               value: \"false\"\e[0m\r\n\e[0;32m+             - name: POSTGRESQL_LOG_DISCONNECTIONS\e[0m\r\n\e[0;32m+               value: \"false\"\e[0m\r\n\e[0;32m+             - name: POSTGRESQL_PGAUDIT_LOG_CATALOG\e[0m\r\n\e[0;32m+               value: \"off\"\e[0m\r\n\e[0;32m+             - name: POSTGRESQL_CLIENT_MIN_MESSAGES\e[0m\r\n\e[0;32m+               value: \"error\"\e[0m\r\n\e[0;32m+             - name: POSTGRESQL_SHARED_PRELOAD_LIBRARIES\e[0m\r\n\e[0;32m+               value: \"pgaudit\"\e[0m\r\n\e[0;32m+           ports:\e[0m\r\n\e[0;32m+             - name: tcp-postgresql\e[0m\r\n\e[0;32m+               containerPort: 5432\e[0m\r\n\e[0;32m+           livenessProbe:\e[0m\r\n\e[0;32m+             exec:\e[0m\r\n\e[0;32m+               command:\e[0m\r\n\e[0;32m+                 - /bin/sh\e[0m\r\n\e[0;32m+                 - -c\e[0m\r\n\e[0;32m+                 - exec pg_isready -U \"postgres\" -h 127.0.0.1 -p 5432\e[0m\r\n\e[0;32m+             initialDelaySeconds: 30\e[0m\r\n\e[0;32m+             periodSeconds: 10\e[0m\r\n\e[0;32m+             timeoutSeconds: 5\e[0m\r\n\e[0;32m+             successThreshold: 1\e[0m\r\n\e[0;32m+             failureThreshold: 6\e[0m\r\n\e[0;32m+           readinessProbe:\e[0m\r\n\e[0;32m+             exec:\e[0m\r\n\e[0;32m+               command:\e[0m\r\n\e[0;32m+                 - /bin/sh\e[0m\r\n\e[0;32m+                 - -c\e[0m\r\n\e[0;32m+                 - -e\e[0m\r\n\e[0;32m+                 - |\e[0m\r\n\e[0;32m+                   exec pg_isready -U \"postgres\" -h 127.0.0.1 -p 5432\e[0m\r\n\e[0;32m+                   [ -f /opt/bitnami/postgresql/tmp/.initialized ] || [ -f /bitnami/postgresql/.initialized ]\e[0m\r\n\e[0;32m+             initialDelaySeconds: 5\e[0m\r\n\e[0;32m+             periodSeconds: 10\e[0m\r\n\e[0;32m+             timeoutSeconds: 5\e[0m\r\n\e[0;32m+             successThreshold: 1\e[0m\r\n\e[0;32m+             failureThreshold: 6\e[0m\r\n\e[0;32m+           volumeMounts:\e[0m\r\n\e[0;32m+             - name: dshm\e[0m\r\n\e[0;32m+               mountPath: /dev/shm\e[0m\r\n\e[0;32m+             - name: data\e[0m\r\n\e[0;32m+               mountPath: /bitnami/postgresql\e[0m\r\n\e[0;32m+               subPath: \e[0m\r\n\e[0;32m+       volumes:\e[0m\r\n\e[0;32m+         - name: dshm\e[0m\r\n\e[0;32m+           emptyDir:\e[0m\r\n\e[0;32m+             medium: Memory\e[0m\r\n\e[0;32m+             sizeLimit: 1Gi\e[0m\r\n\e[0;32m+   volumeClaimTemplates:\e[0m\r\n\e[0;32m+     - metadata:\e[0m\r\n\e[0;32m+         name: data\e[0m\r\n\e[0;32m+       spec:\e[0m\r\n\e[0;32m+         accessModes:\e[0m\r\n\e[0;32m+           - \"ReadWriteOnce\"\e[0m\r\n\e[0;32m+         resources:\e[0m\r\n\e[0;32m+           requests:\e[0m\r\n\e[0;32m+             storage: \"8Gi\"\e[0m\r\n\e[0;33mdefault, my-app-dependencies-redis, Secret (v1) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/redis/templates/secret.yaml\e[0m\r\n\e[0;32m+ apiVersion: v1\e[0m\r\n\e[0;32m+ kind: Secret\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-redis\e[0m\r\n\e[0;32m+   namespace: default\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     chart: redis-11.2.1\e[0m\r\n\e[0;32m+     release: \"my-app-dependencies\"\e[0m\r\n\e[0;32m+     heritage: \"Helm\"\e[0m\r\n\e[0;32m+ type: Opaque\e[0m\r\n\e[0;32m+ data:\e[0m\r\n\e[0;32m+   redis-password: \"cmFuZG9tcGFzcw==\"\e[0m\r\n\e[0;33mdefault, my-app-dependencies-redis-scripts, ConfigMap (v1) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/redis/templates/configmap-scripts.yaml\e[0m\r\n\e[0;32m+ apiVersion: v1\e[0m\r\n\e[0;32m+ kind: ConfigMap\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-redis-scripts\e[0m\r\n\e[0;32m+   namespace: default\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     chart: redis-11.2.1\e[0m\r\n\e[0;32m+     heritage: Helm\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;32m+ data:\e[0m\r\n\e[0;32m+   start-master.sh: |\e[0m\r\n\e[0;32m+     #!/bin/bash\e[0m\r\n\e[0;32m+     useradd redis\e[0m\r\n\e[0;32m+     chown -R redis /data\e[0m\r\n\e[0;32m+     if [[ -n $REDIS_PASSWORD_FILE ]]; then\e[0m\r\n\e[0;32m+       password_aux=`cat ${REDIS_PASSWORD_FILE}`\e[0m\r\n\e[0;32m+       export REDIS_PASSWORD=$password_aux\e[0m\r\n\e[0;32m+     fi\e[0m\r\n\e[0;32m+     if [[ ! -f /opt/bitnami/redis/etc/master.conf ]];then\e[0m\r\n\e[0;32m+       cp /opt/bitnami/redis/mounted-etc/master.conf /opt/bitnami/redis/etc/master.conf\e[0m\r\n\e[0;32m+     fi\e[0m\r\n\e[0;32m+     if [[ ! -f /opt/bitnami/redis/etc/redis.conf ]];then\e[0m\r\n\e[0;32m+       cp /opt/bitnami/redis/mounted-etc/redis.conf /opt/bitnami/redis/etc/redis.conf\e[0m\r\n\e[0;32m+     fi\e[0m\r\n\e[0;32m+     ARGS=(\"--port\" \"${REDIS_PORT}\")\e[0m\r\n\e[0;32m+     ARGS+=(\"--requirepass\" \"${REDIS_PASSWORD}\")\e[0m\r\n\e[0;32m+     ARGS+=(\"--masterauth\" \"${REDIS_PASSWORD}\")\e[0m\r\n\e[0;32m+     ARGS+=(\"--include\" \"/opt/bitnami/redis/etc/redis.conf\")\e[0m\r\n\e[0;32m+     ARGS+=(\"--include\" \"/opt/bitnami/redis/etc/master.conf\")\e[0m\r\n\e[0;32m+     exec /run.sh \"${ARGS[@]}\"\e[0m\r\n\e[0;32m+   start-slave.sh: |\e[0m\r\n\e[0;32m+     #!/bin/bash\e[0m\r\n\e[0;32m+     useradd redis\e[0m\r\n\e[0;32m+     chown -R redis /data\e[0m\r\n\e[0;32m+     if [[ -n $REDIS_PASSWORD_FILE ]]; then\e[0m\r\n\e[0;32m+       password_aux=`cat ${REDIS_PASSWORD_FILE}`\e[0m\r\n\e[0;32m+       export REDIS_PASSWORD=$password_aux\e[0m\r\n\e[0;32m+     fi\e[0m\r\n\e[0;32m+     if [[ -n $REDIS_MASTER_PASSWORD_FILE ]]; then\e[0m\r\n\e[0;32m+       password_aux=`cat ${REDIS_MASTER_PASSWORD_FILE}`\e[0m\r\n\e[0;32m+       export REDIS_MASTER_PASSWORD=$password_aux\e[0m\r\n\e[0;32m+     fi\e[0m\r\n\e[0;32m+     if [[ ! -f /opt/bitnami/redis/etc/replica.conf ]];then\e[0m\r\n\e[0;32m+       cp /opt/bitnami/redis/mounted-etc/replica.conf /opt/bitnami/redis/etc/replica.conf\e[0m\r\n\e[0;32m+     fi\e[0m\r\n\e[0;32m+     if [[ ! -f /opt/bitnami/redis/etc/redis.conf ]];then\e[0m\r\n\e[0;32m+       cp /opt/bitnami/redis/mounted-etc/redis.conf /opt/bitnami/redis/etc/redis.conf\e[0m\r\n\e[0;32m+     fi\e[0m\r\n\e[0;32m+     ARGS=(\"--port\" \"${REDIS_PORT}\")\e[0m\r\n\e[0;32m+     ARGS+=(\"--slaveof\" \"${REDIS_MASTER_HOST}\" \"${REDIS_MASTER_PORT_NUMBER}\")\e[0m\r\n\e[0;32m+     ARGS+=(\"--requirepass\" \"${REDIS_PASSWORD}\")\e[0m\r\n\e[0;32m+     ARGS+=(\"--masterauth\" \"${REDIS_MASTER_PASSWORD}\")\e[0m\r\n\e[0;32m+     ARGS+=(\"--include\" \"/opt/bitnami/redis/etc/redis.conf\")\e[0m\r\n\e[0;32m+     ARGS+=(\"--include\" \"/opt/bitnami/redis/etc/replica.conf\")\e[0m\r\n\e[0;32m+     exec /run.sh \"${ARGS[@]}\"\e[0m\r\n\e[0;33mdefault, my-app-dependencies-redis, ConfigMap (v1) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/redis/templates/configmap.yaml\e[0m\r\n\e[0;32m+ apiVersion: v1\e[0m\r\n\e[0;32m+ kind: ConfigMap\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-redis\e[0m\r\n\e[0;32m+   namespace: default\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     chart: redis-11.2.1\e[0m\r\n\e[0;32m+     heritage: Helm\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;32m+ data:\e[0m\r\n\e[0;32m+   redis.conf: |-\e[0m\r\n\e[0;32m+     # User-supplied configuration:\e[0m\r\n\e[0;32m+     # Enable AOF https://redis.io/topics/persistence#append-only-file\e[0m\r\n\e[0;32m+     appendonly yes\e[0m\r\n\e[0;32m+     # Disable RDB persistence, AOF persistence already enabled.\e[0m\r\n\e[0;32m+     save \"\"\e[0m\r\n\e[0;32m+   master.conf: |-\e[0m\r\n\e[0;32m+     dir /data\e[0m\r\n\e[0;32m+     rename-command FLUSHDB \"\"\e[0m\r\n\e[0;32m+     rename-command FLUSHALL \"\"\e[0m\r\n\e[0;32m+   replica.conf: |-\e[0m\r\n\e[0;32m+     dir /data\e[0m\r\n\e[0;32m+     slave-read-only yes\e[0m\r\n\e[0;32m+     rename-command FLUSHDB \"\"\e[0m\r\n\e[0;32m+     rename-command FLUSHALL \"\"\e[0m\r\n\e[0;33mdefault, my-app-dependencies-postgresql, Service (v1) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/postgresql/templates/svc.yaml\e[0m\r\n\e[0;32m+ apiVersion: v1\e[0m\r\n\e[0;32m+ kind: Service\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-postgresql\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app.kubernetes.io/name: postgresql\e[0m\r\n\e[0;32m+     helm.sh/chart: postgresql-9.8.4\e[0m\r\n\e[0;32m+     app.kubernetes.io/instance: my-app-dependencies\e[0m\r\n\e[0;32m+     app.kubernetes.io/managed-by: Helm\e[0m\r\n\e[0;32m+   annotations:\e[0m\r\n\e[0;32m+ spec:\e[0m\r\n\e[0;32m+   type: ClusterIP\e[0m\r\n\e[0;32m+   ports:\e[0m\r\n\e[0;32m+     - name: tcp-postgresql\e[0m\r\n\e[0;32m+       port: 5432\e[0m\r\n\e[0;32m+       targetPort: tcp-postgresql\e[0m\r\n\e[0;32m+   selector:\e[0m\r\n\e[0;32m+     app.kubernetes.io/name: postgresql\e[0m\r\n\e[0;32m+     app.kubernetes.io/instance: my-app-dependencies\e[0m\r\n\e[0;32m+     role: master\e[0m\r\n\e[0;33mdefault, my-app-dependencies-redis-slave, StatefulSet (apps) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/redis/templates/redis-slave-statefulset.yaml\e[0m\r\n\e[0;32m+ apiVersion: apps/v1\e[0m\r\n\e[0;32m+ kind: StatefulSet\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-redis-slave\e[0m\r\n\e[0;32m+   namespace: default\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     chart: redis-11.2.1\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;32m+     heritage: Helm\e[0m\r\n\e[0;32m+ spec:\e[0m\r\n\e[0;32m+   replicas: 2\e[0m\r\n\e[0;32m+   serviceName: my-app-dependencies-redis-headless\e[0m\r\n\e[0;32m+   selector:\e[0m\r\n\e[0;32m+     matchLabels:\e[0m\r\n\e[0;32m+       app: redis\e[0m\r\n\e[0;32m+       release: my-app-dependencies\e[0m\r\n\e[0;32m+       role: slave\e[0m\r\n\e[0;32m+   template:\e[0m\r\n\e[0;32m+     metadata:\e[0m\r\n\e[0;32m+       labels:\e[0m\r\n\e[0;32m+         app: redis\e[0m\r\n\e[0;32m+         release: my-app-dependencies\e[0m\r\n\e[0;32m+         chart: redis-11.2.1\e[0m\r\n\e[0;32m+         role: slave\e[0m\r\n\e[0;32m+       annotations:\e[0m\r\n\e[0;32m+         checksum/health: d4247919e590b320df787f191d6063cbb4dbf7f3054dad9a73eb23c6f023d1b9\e[0m\r\n\e[0;32m+         checksum/configmap: c499da0646e396ea1fc8072952928160a6b38b0853726a5c1008236f3e33ad82\e[0m\r\n\e[0;32m+         checksum/secret: 03fbc303055ac087d1987e16a9dde57758ef56c4537be934e74ffe0b1795af47\e[0m\r\n\e[0;32m+     spec:\e[0m\r\n\e[0;32m+       \e[0m\r\n\e[0;32m+       securityContext:\e[0m\r\n\e[0;32m+         fsGroup: 1001\e[0m\r\n\e[0;32m+       serviceAccountName: default\e[0m\r\n\e[0;32m+       containers:\e[0m\r\n\e[0;32m+         - name: redis\e[0m\r\n\e[0;32m+           image: docker.io/bitnami/redis:6.0.8-debian-10-r35\e[0m\r\n\e[0;32m+           imagePullPolicy: \"IfNotPresent\"\e[0m\r\n\e[0;32m+           securityContext:\e[0m\r\r\n\e[0;32m+             runAsUser: 1001\e[0m\r\n\e[0;32m+           command:\e[0m\r\n\e[0;32m+             - /bin/bash\e[0m\r\n\e[0;32m+             - -c\e[0m\r\n\e[0;32m+             - /opt/bitnami/scripts/start-scripts/start-slave.sh\e[0m\r\n\e[0;32m+           env:\e[0m\r\n\e[0;32m+             - name: REDIS_REPLICATION_MODE\e[0m\r\n\e[0;32m+               value: slave\e[0m\r\n\e[0;32m+             - name: REDIS_MASTER_HOST\e[0m\r\n\e[0;32m+               value: my-app-dependencies-redis-master-0.my-app-dependencies-redis-headless.default.svc.cluster.local\e[0m\r\n\e[0;32m+             - name: REDIS_MASTER_PORT_NUMBER\e[0m\r\n\e[0;32m+               value: \"6379\"\e[0m\r\n\e[0;32m+             - name: REDIS_PASSWORD\e[0m\r\n\e[0;32m+               valueFrom:\e[0m\r\n\e[0;32m+                 secretKeyRef:\e[0m\r\n\e[0;32m+                   name: my-app-dependencies-redis\e[0m\r\n\e[0;32m+                   key: redis-password\e[0m\r\n\e[0;32m+             - name: REDIS_MASTER_PASSWORD\e[0m\r\n\e[0;32m+               valueFrom:\e[0m\r\n\e[0;32m+                 secretKeyRef:\e[0m\r\n\e[0;32m+                   name: my-app-dependencies-redis\e[0m\r\n\e[0;32m+                   key: redis-password\e[0m\r\n\e[0;32m+             - name: REDIS_TLS_ENABLED\e[0m\r\n\e[0;32m+               value: \"no\"\e[0m\r\n\e[0;32m+             - name: REDIS_PORT\e[0m\r\n\e[0;32m+               value: \"6379\"\e[0m\r\n\e[0;32m+           ports:\e[0m\r\n\e[0;32m+             - name: redis\e[0m\r\n\e[0;32m+               containerPort: 6379\e[0m\r\n\e[0;32m+           livenessProbe:\e[0m\r\n\e[0;32m+             initialDelaySeconds: 30\e[0m\r\n\e[0;32m+             periodSeconds: 10\e[0m\r\n\e[0;32m+             timeoutSeconds: 6\e[0m\r\n\e[0;32m+             successThreshold: 1\e[0m\r\n\e[0;32m+             failureThreshold: 5\e[0m\r\n\e[0;32m+             exec:\e[0m\r\n\e[0;32m+               command:\e[0m\r\n\e[0;32m+                 - sh\e[0m\r\n\e[0;32m+                 - -c\e[0m\r\n\e[0;32m+                 - /health/ping_liveness_local_and_master.sh 5\e[0m\r\n\e[0;32m+           readinessProbe:\e[0m\r\n\e[0;32m+             initialDelaySeconds: 5\e[0m\r\n\e[0;32m+             periodSeconds: 10\e[0m\r\n\e[0;32m+             timeoutSeconds: 11\e[0m\r\n\e[0;32m+             successThreshold: 1\e[0m\r\n\e[0;32m+             failureThreshold: 5\e[0m\r\n\e[0;32m+             exec:\e[0m\r\n\e[0;32m+               command:\e[0m\r\n\e[0;32m+                 - sh\e[0m\r\n\e[0;32m+                 - -c\e[0m\r\n\e[0;32m+                 - /health/ping_readiness_local_and_master.sh 10\e[0m\r\n\e[0;32m+           resources:\e[0m\r\n\e[0;32m+             null\e[0m\r\n\e[0;32m+           volumeMounts:\e[0m\r\n\e[0;32m+             - name: start-scripts\e[0m\r\n\e[0;32m+               mountPath: /opt/bitnami/scripts/start-scripts\e[0m\r\n\e[0;32m+             - name: health\e[0m\r\n\e[0;32m+               mountPath: /health\e[0m\r\n\e[0;32m+             - name: redis-data\e[0m\r\n\e[0;32m+               mountPath: /data\e[0m\r\n\e[0;32m+             - name: config\e[0m\r\n\e[0;32m+               mountPath: /opt/bitnami/redis/mounted-etc\e[0m\r\n\e[0;32m+             - name: redis-tmp-conf\e[0m\r\n\e[0;32m+               mountPath: /opt/bitnami/redis/etc\e[0m\r\n\e[0;32m+       volumes:\e[0m\r\n\e[0;32m+         - name: start-scripts\e[0m\r\n\e[0;32m+           configMap:\e[0m\r\n\e[0;32m+             name: my-app-dependencies-redis-scripts\e[0m\r\n\e[0;32m+             defaultMode: 0755\e[0m\r\n\e[0;32m+         - name: health\e[0m\r\n\e[0;32m+           configMap:\e[0m\r\n\e[0;32m+             name: my-app-dependencies-redis-health\e[0m\r\n\e[0;32m+             defaultMode: 0755\e[0m\r\n\e[0;32m+         - name: config\e[0m\r\n\e[0;32m+           configMap:\e[0m\r\n\e[0;32m+             name: my-app-dependencies-redis\e[0m\r\n\e[0;32m+         - name: redis-tmp-conf\e[0m\r\n\e[0;32m+           emptyDir: {}\e[0m\r\n\e[0;32m+   volumeClaimTemplates:\e[0m\r\n\e[0;32m+     - metadata:\e[0m\r\n\e[0;32m+         name: redis-data\e[0m\r\n\e[0;32m+         labels:\e[0m\r\n\e[0;32m+           app: redis\e[0m\r\n\e[0;32m+           release: my-app-dependencies\e[0m\r\n\e[0;32m+           heritage: Helm\e[0m\r\n\e[0;32m+           component: slave\e[0m\r\n\e[0;32m+       spec:\e[0m\r\n\e[0;32m+         accessModes:\e[0m\r\n\e[0;32m+           - \"ReadWriteOnce\"\e[0m\r\n\e[0;32m+         resources:\e[0m\r\n\e[0;32m+           requests:\e[0m\r\n\e[0;32m+             storage: \"8Gi\"\e[0m\r\n\e[0;32m+         \e[0m\r\n\e[0;32m+         selector:\e[0m\r\n\e[0;32m+   updateStrategy:\e[0m\r\n\e[0;32m+     type: RollingUpdate\e[0m\r\n\e[0m\r\nRelease changes:\r\nRELEASE            \tMANIFEST CHANGES                                 \r\nmy-app-dependencies\t\e[32m+ConfigMap/my-app-dependencies-redis\e[0m            \t\r\n(manifest.yaml)    \t\e[32m+ConfigMap/my-app-dependencies-redis-health\e[0m     \t\r\n                   \t\e[32m+ConfigMap/my-app-dependencies-redis-scripts\e[0m    \t\r\n                   \t\e[32m+Secret/my-app-dependencies-postgresql\e[0m          \t\r\n                   \t\e[32m+Secret/my-app-dependencies-redis\e[0m               \t\r\n                   \t\e[32m+Service/my-app-dependencies-postgresql\e[0m         \t\r\n                   \t\e[32m+Service/my-app-dependencies-postgresql-headless\e[0m\t\r\n                   \t\e[32m+Service/my-app-dependencies-redis-headless\e[0m     \t\r\n                   \t\e[32m+Service/my-app-dependencies-redis-master\e[0m       \t\r\n                   \t\e[32m+Service/my-app-dependencies-redis-slave\e[0m        \t\r\n                   \t\e[32m+StatefulSet/my-app-dependencies-postgresql\e[0m     \t\r\n                   \t\e[32m+StatefulSet/my-app-dependencies-redis-master\e[0m   \t\r\n                   \t\e[32m+StatefulSet/my-app-dependencies-redis-slave\e[0m    \t\r\n\r\nFile changes:\r\nFILENAME     \tADDITIONS\tMODIFICATIONS\tDESTRUCTIONS \r\nmanifest.yaml\t13       \t0            \t0           \t\r\n"
+  - delay: 100
+    content: "\e[1;32m❯\e[0m "
+  - delay: 3000
+    content: '#'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: a
+  - delay: 15
+    content: b
+  - delay: 15
+    content: o
+  - delay: 15
+    content: v
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: p
+  - delay: 15
+    content: l
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: s
+  - delay: 15
+    content: h
+  - delay: 15
+    content: o
+  - delay: 15
+    content: w
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: w
+  - delay: 15
+    content: h
+  - delay: 15
+    content: a
+  - delay: 15
+    content: t
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: a
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: t
+  - delay: 15
+    content: h
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: s
+  - delay: 15
+    content: o
+  - delay: 15
+    content: u
+  - delay: 15
+    content: r
+  - delay: 15
+    content: c
+  - delay: 15
+    content: e
+  - delay: 15
+    content: s
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: g
+  - delay: 15
+    content: o
+  - delay: 15
+    content: i
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: g
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: t
+  - delay: 15
+    content: o
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: g
+  - delay: 15
+    content: e
+  - delay: 15
+    content: t
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: c
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: a
+  - delay: 15
+    content: t
+  - delay: 15
+    content: e
+  - delay: 15
+    content: d
+  - delay: 6000
+    content: "\r\n"
+  - delay: 100
+    content: "\e[1;32m❯\e[0m "
+  - delay: 100
+    content: "\e[H\e[J\e[1;32m❯\e[0m "
+  - delay: 100
+    content: '#'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: o
+  - delay: 15
+    content: w
+  - delay: 15
+    content: ','
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: l
+  - delay: 15
+    content: e
+  - delay: 15
+    content: t
+  - delay: 15
+    content: s
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: a
+  - delay: 15
+    content: p
+  - delay: 15
+    content: p
+  - delay: 15
+    content: l
+  - delay: 15
+    content: 'y'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: i
+  - delay: 15
+    content: t
+  - delay: 300
+    content: "\r\n"
+  - delay: 100
+    content: "\e[1;32m❯\e[0m "
+  - delay: 100
+    content: s
+  - delay: 15
+    content: t
+  - delay: 15
+    content: e
+  - delay: 15
+    content: v
+  - delay: 15
+    content: e
+  - delay: 15
+    content: d
+  - delay: 15
+    content: o
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: a
+  - delay: 15
+    content: p
+  - delay: 15
+    content: p
+  - delay: 15
+    content: l
+  - delay: 15
+    content: 'y'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: '-'
+  - delay: 15
+    content: f
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: m
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'nifest.yaml '
+  - delay: 1000
+    content: "\r\n"
+  - delay: 76
+    content: "\e[37;1m\r\nContext Details:\r\n------------------\r\nName: minikube\r\nType: components\r\nEnvironment: dev\r\nKubernetes Context: minikube\r\nEnvironment Type: dev\r\nKubeConfig File: \r\n------------------\e[0m\r\n\e[?25l\e[2K\r\e[33mConfirm to apply: [y/N] \e[0m█\r\n\e[J\e[2K\r \b"
+  - delay: 3000
+    content: "\e[J\e[2K\ry\e[J\e[2K\r\e[1A\e[2K\r\e[2K\r\e[33mConfirm to apply: [y/N] \e[0my█\r\ny\e[J\e[2K\r \b"
+  - delay: 317
+    content: "\e[J\e[2K\r \b\e[J\e[2K\r\e[1A\e[2K\r\e[2K\r\e[32mConfirm to apply: [y/N] \e[0my\r\n\e[?25h\e[37;1;1mUsing context minikube\e[0m\r\n\e[33mNo envs found\e[0m\r\n\e[33mNo ignore rules found\e[0m\r\n\e[33mNo overrides found\e[0m\r\n\e[37;1;1;1mProcessing 1 manifest file(s)\e[0m\r\n\e[37;1;1;1;1m  - manifest.yaml\e[0m\r\n"
+  - delay: 1000
+    content: "\e[37;1;1;1;1;1mFile: manifest.yaml\e[0m\r\n\e[37;1;1;1;1;1;1mReleaseName: my-app-dependencies\e[0m\r\n\e[37;1;1;1;1;1;1;1mApplied Successfully\r\n\e[0m\r\nRelease changes:\r\nRELEASE            \tMANIFEST CHANGES                                 \r\nmy-app-dependencies\t\e[32m+ConfigMap/my-app-dependencies-redis\e[0m            \t\r\n(manifest.yaml)    \t\e[32m+ConfigMap/my-app-dependencies-redis-health\e[0m     \t\r\n                   \t\e[32m+ConfigMap/my-app-dependencies-redis-scripts\e[0m    \t\r\n                   \t\e[32m+Secret/my-app-dependencies-postgresql\e[0m          \t\r\n                   \t\e[32m+Secret/my-app-dependencies-redis\e[0m               \t\r\n                   \t\e[32m+Service/my-app-dependencies-postgresql\e[0m         \t\r\n                   \t\e[32m+Service/my-app-dependencies-postgresql-headless\e[0m\t\r\n                   \t\e[32m+Service/my-app-dependencies-redis-headless\e[0m     \t\r\n                   \t\e[32m+Service/my-app-dependencies-redis-master\e[0m       \t\r\n                   \t\e[32m+Service/my-app-dependencies-redis-slave\e[0m        \t\r\n                   \t\e[32m+StatefulSet/my-app-dependencies-postgresql\e[0m     \t\r\n                   \t\e[32m+StatefulSet/my-app-dependencies-redis-master\e[0m   \t\r\n                   \t\e[32m+StatefulSet/my-app-dependencies-redis-slave\e[0m    \t\r\n\r\nFile changes:\r\nFILENAME     \tADDITIONS\tMODIFICATIONS\tDESTRUCTIONS \r\nmanifest.yaml\t13       \t0            \t0           \t\r\n"
+  - delay: 200
+    content: "\e[1;32m❯\e[0m "
+  - delay: 8000
+    content: "\e[H\e[J\e[1;32m❯\e[0m "
+  - delay: 100
+    content: '#'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: l
+  - delay: 15
+    content: e
+  - delay: 15
+    content: t
+  - delay: 15
+    content: s
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: s
+  - delay: 15
+    content: e
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: t
+  - delay: 15
+    content: h
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: h
+  - delay: 15
+    content: e
+  - delay: 15
+    content: l
+  - delay: 15
+    content: m
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: l
+  - delay: 15
+    content: e
+  - delay: 15
+    content: a
+  - delay: 15
+    content: s
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: c
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: a
+  - delay: 15
+    content: t
+  - delay: 15
+    content: e
+  - delay: 15
+    content: d
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: b
+  - delay: 15
+    content: 'y'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: s
+  - delay: 15
+    content: t
+  - delay: 15
+    content: e
+  - delay: 15
+    content: v
+  - delay: 15
+    content: e
+  - delay: 15
+    content: d
+  - delay: 15
+    content: o
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 800
+    content: "\r\n"
+  - delay: 100
+    content: "\e[1;32m❯\e[0m "
+  - delay: 15
+    content: h
+  - delay: 15
+    content: e
+  - delay: 15
+    content: l
+  - delay: 15
+    content: m
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: l
+  - delay: 15
+    content: s
+  - delay: 15
+    content: ' '
+  - delay: 600
+    content: "\r\n"
+  - delay: 189
+    content: "NAME               \tNAMESPACE\tREVISION\tUPDATED                             \tSTATUS  \tCHART                    \tAPP VERSION\r\nmy-app-dependencies\tdefault  \t1       \t2020-10-23 22:26:47.722369 +0530 IST\tdeployed\tmy-app-dependencies-0.0.1\t05501497   \r\n"
+  - delay: 100
+    content: "\e[1;32m❯\e[0m "
+  - delay: 3500
+    content: "\e[H\e[J\e[1;32m❯\e[0m "
+  - delay: 100
+    content: '#'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: l
+  - delay: 15
+    content: e
+  - delay: 15
+    content: t
+  - delay: 15
+    content: s
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: m
+  - delay: 15
+    content: a
+  - delay: 15
+    content: k
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: s
+  - delay: 15
+    content: o
+  - delay: 15
+    content: m
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: c
+  - delay: 15
+    content: h
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: g
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: t
+  - delay: 15
+    content: o
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: m
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: i
+  - delay: 15
+    content: f
+  - delay: 15
+    content: e
+  - delay: 15
+    content: s
+  - delay: 15
+    content: t
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: d
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: s
+  - delay: 15
+    content: e
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: t
+  - delay: 15
+    content: h
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: p
+  - delay: 15
+    content: l
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 2000
+    content: "\r\n"
+  - delay: 100
+    content: "\e[1;32m❯\e[0m "
+  - delay: 15
+    content: v
+  - delay: 15
+    content: i
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: m
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'nifest.yaml '
+  - delay: 300
+    content: "\r\n"
+  - delay: 25
+    content: "\e[24m\e[0m"
+  - delay: 69
+    content: "\e[?2004h\e[?1049h\e[?1h\e=\e[?2004h\e[1;41r\e[?12h\e[?12l\e[27m\e[29m\e[m\e[H\e[2J\e[?25l\e[41;1H\"manifest.yaml\" 25L, 643C\e[2;1H▽\e[6n\e[2;1H  \e[1;1H\e[>c\e]11;?\a\e[1;1H\e[38;5;130m  1 \e[m\e[36mkind\e[m\e[35m:\e[m StevedoreManifest\r\n\e[38;5;130m  2 \e[m\e[36mversion\e[m\e[35m:\e[m \e[31m2\e[m\r\n\e[38;5;130m  3 \e[m\e[36mdeployTo\e[m\e[35m:\e[m\r\n\e[38;5;130m  4 \e[m  \e[38;5;130m- \e[m\e[36mcontextName\e[m\e[35m:\e[m minikube\r\n\e[38;5;130m  5 \e[m    \e[36menvironmentType\e[m\e[35m:\e[m dev\r\n\e[38;5;130m  6 \e[m\e[36mspec\e[m\e[35m:\e[m\r\n\e[38;5;130m  7 \e[m  \e[38;5;130m- \e[m\e[36mrelease\e[m\e[35m:\e[m\r\n\e[38;5;130m  8 \e[m      \e[36mname\e[m\e[35m:\e[m my-app-dependencies\r\n\e[38;5;130m  9 \e[m      \e[36mnamespace\e[m\e[35m:\e[m default\r\n\e[38;5;130m 10 \e[m      \e[36mchartSpec\e[m\e[35m:\e[m\r\n\e[38;5;130m 11 \e[m\e[8C\e[36mname\e[m\e[35m:\e[m my-app-dependencies\r\n\e[38;5;130m 12 \e[m\e[8C\e[36mdependencies\e[m\e[35m:\e[m\r\n\e[38;5;130m 13 \e[8C- \e[m\e[36mname\e[m\e[35m:\e[m postgresql\r\n\e[38;5;130m 14 \e[m\e[10C\e[36mversion\e[m\e[35m:\e[m 9.8.4\r\n\e[38;5;130m 15 \e[m\e[10C\e[36mrepository\e[m\e[35m:\e[m https://charts.bitnami.com/bitnami\r\n\e[38;5;130m 16 \e[8C- \e[m\e[36mname\e[m\e[35m:\e[m redis\r\n\e[38;5;130m 17 \e[m\e[10C\e[36mversion\e[m\e[35m:\e[m 11.2.1\r\n\e[38;5;130m 18 \e[m\e[10C\e[36mrepository\e[m\e[35m:\e[m https://charts.bitnami.com/bitnami\r\n\e[38;5;130m 19 \e[m      \e[36mvalues\e[m\e[35m:\e[m\r\n\e[38;5;130m 20 \e[m\e[8C\e[36mredis\e[m\e[35m:\e[m\r\n\e[38;5;130m 21 \e[m\e[10C\e[36mpassword\e[m\e[35m:\e[m ${REDIS_PASSWORD}\r\n\e[38;5;130m 22 \e[m\e[10C\e[36mmetrics\e[m\e[35m:\e[m\r\n\e[38;5;130m 23 \e[m\e[12C\e[36menabled\e[m\e[35m:\e[m \e[31mfalse\e[m\r\n\e[38;5;130m 24 \e[m\e[8C\e[36mpostgresql\e[m\e[35m:\e[m\r\n\e[38;5;130m 25 \e[m\e[10C\e[36mpostgresqlPassword\e[m\e[35m:\e[m ${POSTGRES_PASSWORD}\r\n\e[94m~                                                                                                                                             \e[27;1H~                                                                                                                                             \e[28;1H~                                                                                                                                             \e[29;1H~                                                                                                                                             \e[30;1H~                                                                                                                                             \e[31;1H~                                                                                                                                             \e[32;1H~                                                                                                                                             \e[33;1H~                                                                                                                                             \e[34;1H~                                                                                                                                             \e[35;1H~                                                                                                                                             \e[36;1H~                                                                                                                                             \e[37;1H~                                                                                                                                             \e[38;1H~                                                                                                                                             \e[39;1H~                                                                                                                                             \e[40;1H~                                                                                                                                             \e[1;5H\e[?25h\e[?12$p"
+  - delay: 547
+    content: "\e[?25l\e[m\e[41;132H:\e[1;5H\e[41;1H\e[K\e[41;1H:\e[?2004h\e[?25h"
+  - delay: 300
+    content: '2'
+  - delay: 30
+    content: '3'
+  - delay: 40
+    content: "\r\e[?25l\e[23;17H\e[?25h"
+  - delay: 40
+    content: "\e[?25l\e[41;132HA\e[23;17H\e[41;132H \e[23;31H\e[41;1H\e[1m-- INSERT --\e[23;31H\e[?25h"
+  - delay: 40
+    content: "\e[?25l\e[m\e[23;26H\e[K\e[23;26H\e[?25h"
+  - delay: 40
+    content: "\e[?25lt\e[?25h"
+  - delay: 15
+    content: "\e[?25lr\e[?25h"
+  - delay: 15
+    content: "\e[?25lu\e[?25h"
+  - delay: 15
+    content: "\e[?25l\b\b\b\e[31mtrue\e[?25h"
+  - delay: 300
+    content: "\e[m\e[41;1H\e[K\e[23;29H\e[?25l\e[41;132H^[\e[23;29H\e[?25h"
+  - delay: 50
+    content: "\e[?25l\e[41;132H  \e[23;30H\b\e[?25h\e[?25l\e[41;132H:\e[23;29H\e[41;132H\e[K\e[41;1H:\e[?2004h\e[?25h"
+  - delay: 40
+    content: w
+  - delay: 40
+    content: q
+  - delay: 300
+    content: "\r\e[?25l\e[?2004l\"manifest.yaml\" 25L, 642C written"
+  - delay: 103
+    content: "\r\r\r\n\e[?2004l\e[?1l\e>\e[?25h\e[?1049l"
+  - delay: 589
+    content: "\e[1;32m❯\e[0m "
+  - delay: 15
+    content: s
+  - delay: 15
+    content: t
+  - delay: 15
+    content: e
+  - delay: 15
+    content: v
+  - delay: 15
+    content: e
+  - delay: 15
+    content: d
+  - delay: 15
+    content: o
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: p
+  - delay: 15
+    content: l
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: '-'
+  - delay: 15
+    content: f
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: m
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: 'ifest.yaml '
+  - delay: 2000
+    content: "\r\n"
+  - delay: 81
+    content: "\e[37;1m\r\nContext Details:\r\n------------------\r\nName: minikube\r\nType: components\r\nEnvironment: dev\r\nKubernetes Context: minikube\r\nEnvironment Type: dev\r\nKubeConfig File: \r\n------------------\e[0m\r\n\e[37;1;1mUsing context minikube\e[0m\r\n\e[33mNo envs found\e[0m\r\n\e[33mNo ignore rules found\e[0m\r\n\e[33mNo overrides found\e[0m\r\n\e[37;1;1;1mProcessing 1 manifest file(s)\e[0m\r\n\e[37;1;1;1;1m  - manifest.yaml\e[0m\r\n"
+  - delay: 1561
+    content: "\e[37;1;1;1;1;1mFile: manifest.yaml\e[0m\r\n\e[37;1;1;1;1;1;1mReleaseName: my-app-dependencies\e[0m\r\n\e[37;1;1;1;1;1;1;1m\e[0;33mdefault, my-app-dependencies-redis-slave, StatefulSet (apps) has changed:\e[0m\r\n...\r\n          role: slave\r\n        annotations:\r\n          checksum/health: d4247919e590b320df787f191d6063cbb4dbf7f3054dad9a73eb23c6f023d1b9\r\n          checksum/configmap: c499da0646e396ea1fc8072952928160a6b38b0853726a5c1008236f3e33ad82\r\n          checksum/secret: 03fbc303055ac087d1987e16a9dde57758ef56c4537be934e74ffe0b1795af47\r\n\e[0;32m+         prometheus.io/port: \"9121\"\e[0m\r\n\e[0;32m+         prometheus.io/scrape: \"true\"\e[0m\r\n      spec:\r\n        \r\n        securityContext:\r\n          fsGroup: 1001\r\n        serviceAccountName: default\r\n...\r\n                mountPath: /data\r\n              - name: config\r\n                mountPath: /opt/bitnami/redis/mounted-etc\r\n              - name: redis-tmp-conf\r\n                mountPath: /opt/bitnami/redis/etc\r\n\e[0;32m+         - name: metrics\e[0m\r\n\e[0;32m+           image: docker.io/bitnami/redis-exporter:1.12.0-debian-10-r9\e[0m\r\n\e[0;32m+           imagePullPolicy: \"IfNotPresent\"\e[0m\r\n\e[0;32m+           command:\e[0m\r\n\e[0;32m+             - /bin/bash\e[0m\r\n\e[0;32m+             - -c\e[0m\r\n\e[0;32m+             - |\e[0m\r\n\e[0;32m+               if [[ -f '/secrets/redis-password' ]]; then\e[0m\r\n\e[0;32m+               export REDIS_PASSWORD=$(cat /secrets/redis-password)\e[0m\r\n\e[0;32m+               fi\e[0m\r\n\e[0;32m+               redis_exporter\e[0m\r\n\e[0;32m+           env:\e[0m\r\n\e[0;32m+             - name: REDIS_ALIAS\e[0m\r\n\e[0;32m+               value: my-app-dependencies-redis\e[0m\r\n\e[0;32m+             - name: REDIS_PASSWORD\e[0m\r\n\e[0;32m+               valueFrom:\e[0m\r\n\e[0;32m+                 secretKeyRef:\e[0m\r\n\e[0;32m+                   name: my-app-dependencies-redis\e[0m\r\n\e[0;32m+                   key: redis-password\e[0m\r\n\e[0;32m+           volumeMounts:\e[0m\r\n\e[0;32m+           ports:\e[0m\r\n\e[0;32m+             - name: metrics\e[0m\r\n\e[0;32m+               containerPort: 9121\e[0m\r\n\e[0;32m+           resources:\e[0m\r\n\e[0;32m+             null\e[0m\r\n        volumes:\r\n          - name: start-scripts\r\n            configMap:\r\n              name: my-app-dependencies-redis-scripts\r\n              defaultMode: 0755\r\n...\r\n\e[0;33mdefault, my-app-dependencies-redis-master, StatefulSet (apps) has changed:\e[0m\r\n...\r\n          role: master\r\n        annotations:\r\n          checksum/health: d4247919e590b320df787f191d6063cbb4dbf7f3054dad9a73eb23c6f023d1b9\r\n          checksum/configmap: c499da0646e396ea1fc8072952928160a6b38b0853726a5c1008236f3e33ad82\r\n          checksum/secret: 03fbc303055ac087d1987e16a9dde57758ef56c4537be934e74ffe0b1795af47\r\n\e[0;32m+         prometheus.io/port: \"9121\"\e[0m\r\n\e[0;32m+         prometheus.io/scrape: \"true\"\e[0m\r\n      spec:\r\n        \r\n        securityContext:\r\n          fsGroup: 1001\r\n        serviceAccountName: default\r\n...\r\n                subPath: \r\n              - name: config\r\n                mountPath: /opt/bitnami/redis/mounted-etc\r\n              - name: redis-tmp-conf\r\n                mountPath: /opt/bitnami/redis/etc/\r\n\e[0;32m+         - name: metrics\e[0m\r\n\e[0;32m+           image: docker.io/bitnami/redis-exporter:1.12.0-debian-10-r9\e[0m\r\n\e[0;32m+           imagePullPolicy: \"IfNotPresent\"\e[0m\r\n\e[0;32m+           command:\e[0m\r\n\e[0;32m+             - /bin/bash\e[0m\r\n\e[0;32m+             - -c\e[0m\r\n\e[0;32m+             - |\e[0m\r\n\e[0;32m+               if [[ -f '/secrets/redis-password' ]]; then\e[0m\r\n\e[0;32m+               export REDIS_PASSWORD=$(cat /secrets/redis-password)\e[0m\r\n\e[0;32m+               fi\e[0m\r\n\e[0;32m+               redis_exporter\e[0m\r\n\e[0;32m+           env:\e[0m\r\n\e[0;32m+             - name: REDIS_ALIAS\e[0m\r\n\e[0;32m+               value: my-app-dependencies-redis\e[0m\r\n\e[0;32m+             - name: REDIS_PASSWORD\e[0m\r\n\e[0;32m+               valueFrom:\e[0m\r\n\e[0;32m+                 secretKeyRef:\e[0m\r\n\e[0;32m+                   name: my-app-dependencies-redis\e[0m\r\n\e[0;32m+                   key: redis-password\e[0m\r\n\e[0;32m+           volumeMounts:\e[0m\r\n\e[0;32m+           ports:\e[0m\r\n\e[0;32m+             - name: metrics\e[0m\r\n\e[0;32m+               containerPort: 9121\e[0m\r\n\e[0;32m+           resources:\e[0m\r\n\e[0;32m+             null\e[0m\r\n        volumes:\r\n          - name: start-scripts\r\n            configMap:\r\n              name: my-app-dependencies-redis-scripts\r\n              defaultMode: 0755\r\n...\r\n\e[0;33mdefault, my-app-dependencies-redis-metrics, Service (v1) has been added:\e[0m\r\n\e[0;31m- \e[0m\r\n\e[0;32m+ # Source: my-app-dependencies/charts/redis/templates/metrics-svc.yaml\e[0m\r\n\e[0;32m+ apiVersion: v1\e[0m\r\n\e[0;32m+ kind: Service\e[0m\r\n\e[0;32m+ metadata:\e[0m\r\n\e[0;32m+   name: my-app-dependencies-redis-metrics\e[0m\r\n\e[0;32m+   namespace: default\e[0m\r\n\e[0;32m+   labels:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     chart: redis-11.2.1\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0;32m+     heritage: Helm\e[0m\r\n\e[0;32m+     app.kubernetes.io/component: \"metrics\"\e[0m\r\n\e[0;32m+ spec:\e[0m\r\n\e[0;32m+   type: ClusterIP\e[0m\r\n\e[0;32m+   \e[0m\r\n\e[0;32m+   ports:\e[0m\r\n\e[0;32m+     - name: metrics\e[0m\r\n\e[0;32m+       port: 9121\e[0m\r\n\e[0;32m+       targetPort: metrics\e[0m\r\n\e[0;32m+   selector:\e[0m\r\n\e[0;32m+     app: redis\e[0m\r\n\e[0;32m+     release: my-app-dependencies\e[0m\r\n\e[0m\r\nRelease changes:\r\nRELEASE            \tMANIFEST CHANGES                              \r\nmy-app-dependencies\t\e[32m+Service/my-app-dependencies-redis-metrics\e[0m   \t\r\n(manifest.yaml)    \t\e[33m~StatefulSet/my-app-dependencies-redis-master\e[0m\t\r\n                   \t\e[33m~StatefulSet/my-app-dependencies-redis-slave\e[0m \t\r\n\r\nFile changes:\r\nFILENAME     \tADDITIONS\tMODIFICATIONS\tDESTRUCTIONS \r\nmanifest.yaml\t1        \t2            \t0           \t\r\n"
+  - delay: 100
+    content: "\e[1;32m❯\e[0m "
+  - delay: 200
+    content: '#'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: w
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: c
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: c
+  - delay: 15
+    content: l
+  - delay: 15
+    content: e
+  - delay: 15
+    content: a
+  - delay: 15
+    content: r
+  - delay: 15
+    content: l
+  - delay: 15
+    content: 'y'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: s
+  - delay: 15
+    content: e
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: w
+  - delay: 15
+    content: h
+  - delay: 15
+    content: a
+  - delay: 15
+    content: t
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: a
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: t
+  - delay: 15
+    content: h
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: s
+  - delay: 15
+    content: o
+  - delay: 15
+    content: u
+  - delay: 15
+    content: r
+  - delay: 15
+    content: c
+  - delay: 15
+    content: e
+  - delay: 15
+    content: s 
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: w
+  - delay: 15
+    content: i
+  - delay: 15
+    content: l
+  - delay: 15
+    content: l
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: g
+  - delay: 15
+    content: e
+  - delay: 15
+    content: t
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: c
+  - delay: 15
+    content: h
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: g
+  - delay: 15
+    content: e
+  - delay: 15
+    content: d
+  - delay: 15
+    content: '/'
+  - delay: 15
+    content: a
+  - delay: 15
+    content: d
+  - delay: 15
+    content: d
+  - delay: 15
+    content: e
+  - delay: 15
+    content: d
+  - delay: 15
+    content: '/'
+  - delay: 15
+    content: d
+  - delay: 15
+    content: e
+  - delay: 15
+    content: l
+  - delay: 15
+    content: e
+  - delay: 15
+    content: t
+  - delay: 15
+    content: e
+  - delay: 15
+    content: d
+  - delay: 15
+    content: '!'
+  - delay: 15
+    content: '!'
+  - delay: 4000
+    content: "\r\n"

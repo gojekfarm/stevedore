@@ -36,7 +36,7 @@ endif
 
 all: setup build
 
-ci: setup-common build-common
+ci: setup-golangci-lint build-common
 
 ensure-build-dir:
 	mkdir -p out
@@ -73,12 +73,9 @@ fmt:
 vet:
 	$(GO_BINARY) vet -mod=vendor $(SRC_PACKAGES)
 
-setup-common:
+setup-golangci-lint:
 ifeq ($(GOMETA_LINT),)
 	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s $(GOLANGCI_LINT_VERSION)
-endif
-ifeq ($(GOLINT),)
-	GO111MODULE=off $(GO_BINARY) get -u golang.org/x/lint/golint
 endif
 
 setup-richgo:
@@ -86,29 +83,22 @@ ifeq ($(RICHGO),)
 	GO111MODULE=off $(GO_BINARY) get -u github.com/kyoh86/richgo
 endif
 
-setup: setup-richgo setup-common ensure-build-dir ## Setup environment
+setup: setup-richgo setup-golangci-lint ensure-build-dir ## Setup environment
 
-lint-all: lint setup-common
-	$(GOMETA_LINT) run --modules-download-mode=vendor --timeout 2m0s
-
-lint:
-	./scripts/lint $(SRC_PACKAGES)
+lint: setup-golangci-lint
+	$(GOMETA_LINT) run -v
 
 test-all: test test.integration
 
 test: ensure-build-dir ## Run tests
+	ENVIRONMENT=test $(GO_BINARY) test -mod=vendor $(SRC_PACKAGES) -race -short -v | grep -viE "start|no test files"
+
+test-cover-html: ensure-build-dir ## Run tests with coverage
 	ENVIRONMENT=test $(GO_BINARY) test -mod=vendor $(SRC_PACKAGES) -race -coverprofile ./out/coverage -short -v | grep -viE "start|no test files"
+	$(GO_BINARY) tool cover -html=./out/coverage -o ./out/coverage.html
 
 test.integration: ensure-build-dir ## Run integration tests
 	ENVIRONMENT=test $(GO_BINARY) test -mod=vendor $(SRC_PACKAGES) -tags=integration -short -v | grep -viE "start|no test files"
-
-test-cover-html: ## Run tests with coverage
-	mkdir -p ./out
-	@echo "mode: count" > coverage-all.out
-	$(foreach pkg, $(SRC_PACKAGES),\
-	ENVIRONMENT=test $(GO_BINARY) test -mod=vendor -coverprofile=coverage.out -covermode=count $(pkg);\
-	tail -n +2 coverage.out >> coverage-all.out;)
-	$(GO_BINARY) tool -mod=vendor cover -html=coverage-all.out -o out/coverage.html
 
 dev-docker-build: ## Build stevedore server docker image with local chartmuseum repo added to it
 	docker build --build-arg BUILD_MODE="dev" -f docker/stevedore/Dockerfile -t local-stevedore .

@@ -36,7 +36,7 @@ endif
 
 all: setup build
 
-ci: setup-common build-common
+ci: setup-golangci-lint build-common
 
 ensure-build-dir:
 	mkdir -p out
@@ -73,12 +73,9 @@ fmt:
 vet:
 	$(GO_BINARY) vet -mod=vendor $(SRC_PACKAGES)
 
-setup-common:
+setup-golangci-lint:
 ifeq ($(GOMETA_LINT),)
 	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s $(GOLANGCI_LINT_VERSION)
-endif
-ifeq ($(GOLINT),)
-	GO111MODULE=off $(GO_BINARY) get -u golang.org/x/lint/golint
 endif
 
 setup-richgo:
@@ -86,13 +83,10 @@ ifeq ($(RICHGO),)
 	GO111MODULE=off $(GO_BINARY) get -u github.com/kyoh86/richgo
 endif
 
-setup: setup-richgo setup-common ensure-build-dir ## Setup environment
+setup: setup-richgo setup-golangci-lint ensure-build-dir ## Setup environment
 
-lint-all: lint setup-common
-	$(GOMETA_LINT) run --modules-download-mode=vendor --timeout 2m0s
-
-lint:
-	./scripts/lint $(SRC_PACKAGES)
+lint: setup-golangci-lint
+	$(GOMETA_LINT) run -v
 
 test-all: test test.integration
 

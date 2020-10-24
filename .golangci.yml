@@ -1,0 +1,9 @@
+run:
+  timeout: 2m
+  modules-download-mode: vendor
+linters:
+  enable:
+    - golint
+issues:
+  exclude-use-default: false
+

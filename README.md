@@ -279,7 +279,7 @@ spec:
 
 ### Requirements
 
-1. `go` version: `1.13`
+1. `go` version: `1.14`
 2. Clone the repo to `$GOPATH/src/github.com/gojekfarm/stevedore`
 3. Run `make build` to build dependencies, format, vet, lint, test and compile
 4. Run `make compile` to compile for local development machine (use `compile-linux` to compile for linux os amd64 architecture)

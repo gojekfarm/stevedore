@@ -48,3 +48,4 @@ bin/
 swagger.json
 
 node_modules
+dist

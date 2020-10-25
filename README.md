@@ -1,5 +1,7 @@
 # [Stevedore](https://en.wikipedia.org/wiki/Stevedore)
 
+[![Test](https://github.com/gojekfarm/stevedore/workflows/Check/badge.svg)](https://github.com/gojekfarm/stevedore/actions?query=workflow%3ACheck+branch%3Amaster)
+
 ![logo](/logo/logo_readme.png)
 
 Stevedore a tool to load the cluster with containers for kubernetes to orchestrate. It is a wrapper on Helm, gets all the features of helm, defines a workflow through which helm charts can be deployed and managed. It offers,

@@ -111,7 +111,7 @@ config:
   
 # Records, feel free to edit them
 records:
-  - delay: 1000
+  - delay: 5000
     content: "\r\n"
   - delay: 100
     content: "\e[H\e[J\e[1;32m❯\e[0m "
@@ -229,8 +229,8 @@ records:
     content: 'ifest.yaml '
   - delay: 939
     content: "\r\n"
-  - delay: 111
-    content: "\e[?1h\e=\r\e[38;5;238m───────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\e[0m\e[m\r\n       \e[38;5;238m│ \e[0mFile: \e[1mmanifest.yaml\e[0m\e[m\r\n\e[38;5;238m───────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\e[0m\e[m\r\n\e[38;5;238m   1\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mkind\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mStevedoreManifest\e[0m\e[m\r\n\e[38;5;238m   2\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mversion\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[1;38;2;255;115;253m2\e[0m\e[m\r\n\e[38;5;238m   3\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mdeployTo\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m   4\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m  \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mcontextName\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mminikube\e[0m\e[m\r\n\e[38;5;238m   5\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m    \e[0m\e[38;2;102;204;255menvironmentType\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mdev\e[0m\e[m\r\n\e[38;5;238m   6\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mspec\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m   7\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m  \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mrelease\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m   8\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mmy-app-dependencies\e[0m\e[m\r\n\e[38;5;238m   9\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mnamespace\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mdefault\e[0m\e[m\r\n\e[38;5;238m  10\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mchartSpec\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  11\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mmy-app-dependencies\e[0m\e[m\r\n\e[38;5;238m  12\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mdependencies\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  13\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mpostgresql\e[0m\e[m\r\n\e[38;5;238m  14\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mversion\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[1;38;2;255;115;253m9.8.4\e[0m\e[m\r\n\e[38;5;238m  15\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mrepository\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mhttps://charts.bitnami.com/bitnami\e[0m\e[m\r\n\e[38;5;238m  16\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mredis\e[0m\e[m\r\n\e[38;5;238m  17\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mversion\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[1;38;2;255;115;253m11.2.1\e[0m\e[m\r\n\e[38;5;238m  18\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mrepository\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mhttps://charts.bitnami.com/bitnami\e[0m\e[m\r\n\e[38;5;238m  19\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mvalues\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  20\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mredis\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  21\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mpassword\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102m${REDIS_PASSWORD}\e[0m\e[m\r\n\e[38;5;238m  22\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mmetrics\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  23\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m            \e[0m\e[38;2;102;204;255menabled\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;153;204;153mfalse\e[0m\e[m\r\n\e[38;5;238m  24\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mpostgresql\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  25\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mpostgresqlPassword\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102m${POSTGRES_PASSWORD}\e[0m\e[m\r\n\e[38;5;238m───────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\e[0m\e[m\r\n\r\e[K\e[?1l\e>"
+  - delay: 10
+    content: "\e[38;5;238m───────┬───────────────────────────────────────────────────────────────────────────────────\e[0m\e[m\r\n       \e[38;5;238m│ \e[0mFile: \e[1mmanifest.yaml\e[0m\e[m\r\n\e[38;5;238m───────┼───────────────────────────────────────────────────────────────────────────────────\e[0m\e[m\r\n\e[38;5;238m   1\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mkind\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mStevedoreManifest\e[0m\e[m\r\n\e[38;5;238m   2\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mversion\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[1;38;2;255;115;253m2\e[0m\e[m\r\n\e[38;5;238m   3\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mdeployTo\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m   4\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m  \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mcontextName\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mminikube\e[0m\e[m\r\n\e[38;5;238m   5\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m    \e[0m\e[38;2;102;204;255menvironmentType\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mdev\e[0m\e[m\r\n\e[38;5;238m   6\e[0m   \e[38;5;238m│\e[0m \e[38;2;102;204;255mspec\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m   7\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m  \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mrelease\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m   8\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mmy-app-dependencies\e[0m\e[m\r\n\e[38;5;238m   9\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mnamespace\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mdefault\e[0m\e[m\r\n\e[38;5;238m  10\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mchartSpec\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  11\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mmy-app-dependencies\e[0m\e[m\r\n\e[38;5;238m  12\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mdependencies\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  13\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mpostgresql\e[0m\e[m\r\n\e[38;5;238m  14\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mversion\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[1;38;2;255;115;253m9.8.4\e[0m\e[m\r\n\e[38;5;238m  15\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mrepository\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mhttps://charts.bitnami.com/bitnami\e[0m\e[m\r\n\e[38;5;238m  16\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;255;255;255m-\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;102;204;255mname\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mredis\e[0m\e[m\r\n\e[38;5;238m  17\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mversion\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[1;38;2;255;115;253m11.2.1\e[0m\e[m\r\n\e[38;5;238m  18\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mrepository\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102mhttps://charts.bitnami.com/bitnami\e[0m\e[m\r\n\e[38;5;238m  19\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m      \e[0m\e[38;2;102;204;255mvalues\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  20\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mredis\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  21\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mpassword\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102m${REDIS_PASSWORD}\e[0m\e[m\r\n\e[38;5;238m  22\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mmetrics\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  23\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m            \e[0m\e[38;2;102;204;255menabled\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;153;204;153mtrue\e[0m\e[m\r\n\e[38;5;238m  24\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m        \e[0m\e[38;2;102;204;255mpostgresql\e[0m\e[38;2;255;255;255m:\e[0m\e[m\r\n\e[38;5;238m  25\e[0m   \e[38;5;238m│\e[0m \e[38;2;255;255;255m          \e[0m\e[38;2;102;204;255mpostgresqlPassword\e[0m\e[38;2;255;255;255m:\e[0m\e[38;2;255;255;255m \e[0m\e[38;2;204;255;102m${POSTGRES_PASSWORD}\e[0m\e[m\r\n\e[38;5;238m───────┴───────────────────────────────────────────────────────────────────────────────────\e[0m\e[m\r\n\r\e[K\e[?1l\e>"
   - delay: 100
     content: "\e[1;32m❯\e[0m "
   - delay: 5000
@@ -338,7 +338,11 @@ records:
   - delay: 20
     content: my-app-dependencies
   - delay: 20
-    content: ' '
+    content: "\r\n"
+  - delay: 20
+    content: "\e[1;32m❯\e[0m "
+  - delay: 20
+    content: '# '
   - delay: 20
     content: w
   - delay: 20
@@ -582,7 +586,11 @@ records:
   - delay: 20
     content: my-app-dependencies
   - delay: 20
-    content: ' '
+    content: "\r\n"
+  - delay: 20
+    content: "\e[1;32m❯\e[0m "
+  - delay: 20
+    content: '# '
   - delay: 20
     content: i
   - delay: 20
@@ -925,10 +933,168 @@ records:
     content: e
   - delay: 15
     content: d
-  - delay: 6000
+  - delay: 2000
     content: "\r\n"
   - delay: 100
     content: "\e[1;32m❯\e[0m "
+  - delay: 15
+    content: '#'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: i
+  - delay: 15
+    content: t
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: i
+  - delay: 15
+    content: s
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: g
+  - delay: 15
+    content: o
+  - delay: 15
+    content: i
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: g
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: t
+  - delay: 15
+    content: o
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: c
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: a
+  - delay: 15
+    content: t
+  - delay: 15
+    content: e
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: '3'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: C
+  - delay: 15
+    content: o
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: f
+  - delay: 15
+    content: i
+  - delay: 15
+    content: g
+  - delay: 15
+    content: M
+  - delay: 15
+    content: a
+  - delay: 15
+    content: p
+  - delay: 15
+    content: s
+  - delay: 15
+    content: ','
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: '2'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: S
+  - delay: 15
+    content: e
+  - delay: 15
+    content: c
+  - delay: 15
+    content: r
+  - delay: 15
+    content: e
+  - delay: 15
+    content: t
+  - delay: 15
+    content: s
+  - delay: 15
+    content: ','
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: '5'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: S
+  - delay: 15
+    content: e
+  - delay: 15
+    content: r
+  - delay: 15
+    content: v
+  - delay: 15
+    content: i
+  - delay: 15
+    content: c
+  - delay: 15
+    content: e
+  - delay: 15
+    content: s
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: a
+  - delay: 15
+    content: 'n'
+  - delay: 15
+    content: d
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: '3'
+  - delay: 15
+    content: ' '
+  - delay: 15
+    content: S
+  - delay: 15
+    content: t
+  - delay: 15
+    content: a
+  - delay: 15
+    content: t
+  - delay: 15
+    content: e
+  - delay: 15
+    content: f
+  - delay: 15
+    content: u
+  - delay: 15
+    content: l
+  - delay: 15
+    content: S
+  - delay: 15
+    content: e
+  - delay: 15
+    content: t
+  - delay: 15
+    content: s
+  - delay: 6000
+    content: "\r\n"
   - delay: 100
     content: "\e[H\e[J\e[1;32m❯\e[0m "
   - delay: 100
@@ -1152,7 +1318,7 @@ records:
   - delay: 600
     content: "\r\n"
   - delay: 189
-    content: "NAME               \tNAMESPACE\tREVISION\tUPDATED                             \tSTATUS  \tCHART                    \tAPP VERSION\r\nmy-app-dependencies\tdefault  \t1       \t2020-10-23 22:26:47.722369 +0530 IST\tdeployed\tmy-app-dependencies-0.0.1\t05501497   \r\n"
+    content: "NAME               \tNAMESPACE\tUPDATED                             \tSTATUS\r\nmy-app-dependencies\tdefault  \t2020-10-23 22:26:47.722369 +0530 IST\tdeployed\r\n"
   - delay: 100
     content: "\e[1;32m❯\e[0m "
   - delay: 3500
@@ -1279,34 +1445,40 @@ records:
     content: 'nifest.yaml '
   - delay: 300
     content: "\r\n"
-  - delay: 25
+  - delay: 20
     content: "\e[24m\e[0m"
-  - delay: 69
-    content: "\e[?2004h\e[?1049h\e[?1h\e=\e[?2004h\e[1;41r\e[?12h\e[?12l\e[27m\e[29m\e[m\e[H\e[2J\e[?25l\e[41;1H\"manifest.yaml\" 25L, 643C\e[2;1H▽\e[6n\e[2;1H  \e[1;1H\e[>c\e]11;?\a\e[1;1H\e[38;5;130m  1 \e[m\e[36mkind\e[m\e[35m:\e[m StevedoreManifest\r\n\e[38;5;130m  2 \e[m\e[36mversion\e[m\e[35m:\e[m \e[31m2\e[m\r\n\e[38;5;130m  3 \e[m\e[36mdeployTo\e[m\e[35m:\e[m\r\n\e[38;5;130m  4 \e[m  \e[38;5;130m- \e[m\e[36mcontextName\e[m\e[35m:\e[m minikube\r\n\e[38;5;130m  5 \e[m    \e[36menvironmentType\e[m\e[35m:\e[m dev\r\n\e[38;5;130m  6 \e[m\e[36mspec\e[m\e[35m:\e[m\r\n\e[38;5;130m  7 \e[m  \e[38;5;130m- \e[m\e[36mrelease\e[m\e[35m:\e[m\r\n\e[38;5;130m  8 \e[m      \e[36mname\e[m\e[35m:\e[m my-app-dependencies\r\n\e[38;5;130m  9 \e[m      \e[36mnamespace\e[m\e[35m:\e[m default\r\n\e[38;5;130m 10 \e[m      \e[36mchartSpec\e[m\e[35m:\e[m\r\n\e[38;5;130m 11 \e[m\e[8C\e[36mname\e[m\e[35m:\e[m my-app-dependencies\r\n\e[38;5;130m 12 \e[m\e[8C\e[36mdependencies\e[m\e[35m:\e[m\r\n\e[38;5;130m 13 \e[8C- \e[m\e[36mname\e[m\e[35m:\e[m postgresql\r\n\e[38;5;130m 14 \e[m\e[10C\e[36mversion\e[m\e[35m:\e[m 9.8.4\r\n\e[38;5;130m 15 \e[m\e[10C\e[36mrepository\e[m\e[35m:\e[m https://charts.bitnami.com/bitnami\r\n\e[38;5;130m 16 \e[8C- \e[m\e[36mname\e[m\e[35m:\e[m redis\r\n\e[38;5;130m 17 \e[m\e[10C\e[36mversion\e[m\e[35m:\e[m 11.2.1\r\n\e[38;5;130m 18 \e[m\e[10C\e[36mrepository\e[m\e[35m:\e[m https://charts.bitnami.com/bitnami\r\n\e[38;5;130m 19 \e[m      \e[36mvalues\e[m\e[35m:\e[m\r\n\e[38;5;130m 20 \e[m\e[8C\e[36mredis\e[m\e[35m:\e[m\r\n\e[38;5;130m 21 \e[m\e[10C\e[36mpassword\e[m\e[35m:\e[m ${REDIS_PASSWORD}\r\n\e[38;5;130m 22 \e[m\e[10C\e[36mmetrics\e[m\e[35m:\e[m\r\n\e[38;5;130m 23 \e[m\e[12C\e[36menabled\e[m\e[35m:\e[m \e[31mfalse\e[m\r\n\e[38;5;130m 24 \e[m\e[8C\e[36mpostgresql\e[m\e[35m:\e[m\r\n\e[38;5;130m 25 \e[m\e[10C\e[36mpostgresqlPassword\e[m\e[35m:\e[m ${POSTGRES_PASSWORD}\r\n\e[94m~                                                                                                                                             \e[27;1H~                                                                                                                                             \e[28;1H~                                                                                                                                             \e[29;1H~                                                                                                                                             \e[30;1H~                                                                                                                                             \e[31;1H~                                                                                                                                             \e[32;1H~                                                                                                                                             \e[33;1H~                                                                                                                                             \e[34;1H~                                                                                                                                             \e[35;1H~                                                                                                                                             \e[36;1H~                                                                                                                                             \e[37;1H~                                                                                                                                             \e[38;1H~                                                                                                                                             \e[39;1H~                                                                                                                                             \e[40;1H~                                                                                                                                             \e[1;5H\e[?25h\e[?12$p"
-  - delay: 547
-    content: "\e[?25l\e[m\e[41;132H:\e[1;5H\e[41;1H\e[K\e[41;1H:\e[?2004h\e[?25h"
-  - delay: 300
-    content: '2'
-  - delay: 30
-    content: '3'
-  - delay: 40
-    content: "\r\e[?25l\e[23;17H\e[?25h"
-  - delay: 40
-    content: "\e[?25l\e[41;132HA\e[23;17H\e[41;132H \e[23;31H\e[41;1H\e[1m-- INSERT --\e[23;31H\e[?25h"
-  - delay: 40
-    content: "\e[?25l\e[m\e[23;26H\e[K\e[23;26H\e[?25h"
-  - delay: 40
-    content: "\e[?25lt\e[?25h"
-  - delay: 15
-    content: "\e[?25lr\e[?25h"
-  - delay: 15
-    content: "\e[?25lu\e[?25h"
-  - delay: 15
-    content: "\e[?25l\b\b\b\e[31mtrue\e[?25h"
-  - delay: 300
-    content: "\e[m\e[41;1H\e[K\e[23;29H\e[?25l\e[41;132H^[\e[23;29H\e[?25h"
-  - delay: 50
-    content: "\e[?25l\e[41;132H  \e[23;30H\b\e[?25h\e[?25l\e[41;132H:\e[23;29H\e[41;132H\e[K\e[41;1H:\e[?2004h\e[?25h"
+  - delay: 66
+    content: "\e[?2004h\e[?1049h\e[?1h\e=\e[?2004h\e[1;38r\e[?12h\e[?12l\e[27m\e[29m\e[m\e[H\e[2J\e[?25l\e[38;1H\"manifest.yaml\" 25L, 642C\e[2;1H▽\e[6n\e[2;1H  \e[1;1H\e[>c\e]11;?\a\e[1;1H\e[38;5;130m  1 \e[m\e[36mkind\e[m\e[35m:\e[m StevedoreManifest\r\n\e[38;5;130m  2 \e[m\e[36mversion\e[m\e[35m:\e[m \e[31m2\e[m\r\n\e[38;5;130m  3 \e[m\e[36mdeployTo\e[m\e[35m:\e[m\r\n\e[38;5;130m  4 \e[m  \e[38;5;130m- \e[m\e[36mcontextName\e[m\e[35m:\e[m minikube\r\n\e[38;5;130m  5 \e[m    \e[36menvironmentType\e[m\e[35m:\e[m dev\r\n\e[38;5;130m  6 \e[m\e[36mspec\e[m\e[35m:\e[m\r\n\e[38;5;130m  7 \e[m  \e[38;5;130m- \e[m\e[36mrelease\e[m\e[35m:\e[m\r\n\e[38;5;130m  8 \e[m      \e[36mname\e[m\e[35m:\e[m my-app-dependencies\r\n\e[38;5;130m  9 \e[m      \e[36mnamespace\e[m\e[35m:\e[m default\r\n\e[38;5;130m 10 \e[m      \e[36mchartSpec\e[m\e[35m:\e[m\r\n\e[38;5;130m 11 \e[m\e[8C\e[36mname\e[m\e[35m:\e[m my-app-dependencies\r\n\e[38;5;130m 12 \e[m\e[8C\e[36mdependencies\e[m\e[35m:\e[m\r\n\e[38;5;130m 13 \e[8C- \e[m\e[36mname\e[m\e[35m:\e[m postgresql\r\n\e[38;5;130m 14 \e[m\e[10C\e[36mversion\e[m\e[35m:\e[m 9.8.4\r\n\e[38;5;130m 15 \e[m\e[10C\e[36mrepository\e[m\e[35m:\e[m https://charts.bitnami.com/bitnami\r\n\e[38;5;130m 16 \e[8C- \e[m\e[36mname\e[m\e[35m:\e[m redis\r\n\e[38;5;130m 17 \e[m\e[10C\e[36mversion\e[m\e[35m:\e[m 11.2.1\r\n\e[38;5;130m 18 \e[m\e[10C\e[36mrepository\e[m\e[35m:\e[m https://charts.bitnami.com/bitnami\r\n\e[38;5;130m 19 \e[m      \e[36mvalues\e[m\e[35m:\e[m\r\n\e[38;5;130m 20 \e[m\e[8C\e[36mredis\e[m\e[35m:\e[m\r\n\e[38;5;130m 21 \e[m\e[10C\e[36mpassword\e[m\e[35m:\e[m ${REDIS_PASSWORD}\r\n\e[38;5;130m 22 \e[m\e[10C\e[36mmetrics\e[m\e[35m:\e[m\r\n\e[38;5;130m 23 \e[m\e[12C\e[36menabled\e[m\e[35m:\e[m \e[31mtrue\e[m\r\n\e[38;5;130m 24 \e[m\e[8C\e[36mpostgresql\e[m\e[35m:\e[m\r\n\e[38;5;130m 25 \e[m\e[10C\e[36mpostgresqlPassword\e[m\e[35m:\e[m ${POSTGRES_PASSWORD}\r\n\e[94m~                                                                                          \e[27;1H~                                                                                          \e[28;1H~                                                                                          \e[29;1H~                                                                                          \e[30;1H~                                                                                          \e[31;1H~                                                                                          \e[32;1H~                                                                                          \e[33;1H~                                                                                          \e[34;1H~                                                                                          \e[35;1H~                                                                                          \e[36;1H~                                                                                          \e[37;1H~                                                                                          \e[1;5H\e[?25h\e[?12$p"
+  - delay: 512
+    content: "\e[?25l\e[m\e[38;81H/\e[1;5H\e[38;1H\e[K\e[38;1H/\e[?2004h\e[?25h"
+  - delay: 249
+    content: "t\e[?25l\e[1;12H\e[7mt\e[m\e[14C\e[103mt\e[m\e[4;12H\e[36m\e[103mt\e[2Ct\e[5;19Ht\e[m\e[9;28H\e[103mt\e[m\e[10;15H\e[36m\e[103mt\e[m\e[13;24H\e[103mt\e[m\e[15;21H\e[36m\e[103mt\e[m\e[6C\e[103mtt\e[9Ct\e[ms.bi\e[103mt\e[11Ct\e[m\e[18;21H\e[36m\e[103mt\e[m\e[6C\e[103mtt\e[9Ct\e[ms.bi\e[103mt\e[11Ct\e[m\e[22;17H\e[36m\e[103mt\e[m\e[23;26H\e[31m\e[103mt\e[m\e[24;16H\e[36m\e[103mt\e[25;18Ht\e[38;3H\e[?25h"
+  - delay: 167
+    content: "\e[mr\e[?25l\e[1;12Ht\e[14Ct\e[4;12H\e[36mtext\e[5;19Ht\e[m\e[9;28Ht\e[10;15H\e[36mt\e[m\e[13;24Ht\e[15;21H\e[36mt\e[m\e[6Ctt\e[9Cts.bit\e[11Ct\e[18;21H\e[36mt\e[m\e[6Ctt\e[9Cts.bit\e[11Ct\e[22;17H\e[7m\e[36mtr\e[m\e[23;27H\e[31m\e[103mr\e[m\e[24;16H\e[36mt\e[25;18Ht\e[38;4H\e[?25h"
+  - delay: 131
+    content: "\e[mu\e[?25l\e[22;17H\e[36mtr\e[m\e[23;26H\e[7m\e[31mtru\e[38;5H\e[?25h"
+  - delay: 133
+    content: "\e[me\e[?25l\e[23;29H\e[7m\e[31me\e[38;6H\e[?25h"
+  - delay: 178
+    content: "\r\e[?25l\e[23;26H\e[m\e[31m\e[103mtrue\b\b\b\b\e[?25h"
+  - delay: 642
+    content: "\e[?25l\e[m\e[38;81Hc\e[23;26H\e[?25h"
+  - delay: 257
+    content: "\e[?25l\e[38;82Hw\e[23;26H\e[38;81H  \e[23;26H\e[38;1H\e[1m-- INSERT --\e[m\e[23;26H\e[K\e[23;26H\e[?25h"
+  - delay: 237
+    content: "\e[?25lf\e[?25h"
+  - delay: 102
+    content: "\e[?25la\e[?25h"
+  - delay: 427
+    content: "\e[?25ll\e[?25h"
+  - delay: 124
+    content: "\e[?25ls\e[?25h"
+  - delay: 89
+    content: "\e[?25l\b\b\b\b\e[31mfalse\e[?25h"
+  - delay: 531
+    content: "\e[m\e[38;1H\e[K\e[23;30H\e[?25l\e[38;81H^[\e[23;30H\e[?25h"
+  - delay: 887
+    content: "\e[?25l\e[38;81H  \e[23;31H\b\e[?25h\e[?25l\e[38;81H:\e[23;30H\e[38;81H\e[K\e[38;1H:\e[?2004h\e[?25h"
   - delay: 40
     content: w
   - delay: 40

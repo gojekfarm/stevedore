@@ -132,12 +132,14 @@ func TestIgnoresFilter(t *testing.T) {
 			},
 		}
 
-		omponentsProductionCtx := Context{
+		componentsProductionCtx := Context{
 			Name:              "components-production",
 			KubernetesContext: "gke://components-production",
-			Type:              "components",
-			EnvironmentType:   "production",
-			Environment:       "production",
+			Labels: Conditions{
+				"type":            "components",
+				"environmentType": "production",
+				"environment":     "production",
+			},
 		}
 
 		expectedManifests := ManifestFiles{
@@ -150,7 +152,7 @@ func TestIgnoresFilter(t *testing.T) {
 			},
 		}
 
-		filteredManifests, ignoredComponents := manifests.Filter(ignores, omponentsProductionCtx)
+		filteredManifests, ignoredComponents := manifests.Filter(ignores, componentsProductionCtx)
 		expectedIgnoredReleases := IgnoredReleases{
 			IgnoredRelease{
 				Name:   "conversation-service",
@@ -213,12 +215,14 @@ func TestIgnoresFilter(t *testing.T) {
 			},
 		}
 
-		omponentsProductionCtx := Context{
+		componentsProductionCtx := Context{
 			Name:              "components-production",
 			KubernetesContext: "gke://components-production",
-			Type:              "components",
-			EnvironmentType:   "production",
-			Environment:       "production",
+			Labels: Conditions{
+				"type":            "components",
+				"environmentType": "production",
+				"environment":     "production",
+			},
 		}
 
 		expectedManifests := ManifestFiles{
@@ -231,7 +235,7 @@ func TestIgnoresFilter(t *testing.T) {
 			},
 		}
 
-		filteredManifests, ignoreNames := manifests.Filter(ignores, omponentsProductionCtx)
+		filteredManifests, ignoreNames := manifests.Filter(ignores, componentsProductionCtx)
 		assert.Equal(t, expectedManifests, filteredManifests)
 		assert.Equal(t, IgnoredReleases{{Name: "app"}}, ignoreNames)
 	})

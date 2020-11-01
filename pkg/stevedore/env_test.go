@@ -168,7 +168,13 @@ func TestEnvSpecificationIsApplicableFor(t *testing.T) {
 
 	t.Run("should return true", func(t *testing.T) {
 
-		context := stevedore.Context{Name: "staging", Environment: "env", EnvironmentType: "staging"}
+		context := stevedore.Context{
+			Name: "staging",
+			Labels: stevedore.Conditions{
+				"environment":     "env",
+				"environmentType": "staging",
+			},
+		}
 
 		env := stevedore.EnvSpecification{
 			Matches: stevedore.Conditions{"environmentType": "staging"},
@@ -181,8 +187,13 @@ func TestEnvSpecificationIsApplicableFor(t *testing.T) {
 	})
 
 	t.Run("should return false", func(t *testing.T) {
-
-		context := stevedore.Context{Name: "staging", Environment: "env", EnvironmentType: "production"}
+		context := stevedore.Context{
+			Name: "staging",
+			Labels: stevedore.Conditions{
+				"environment":     "env",
+				"environmentType": "production",
+			},
+		}
 
 		env := stevedore.EnvSpecification{
 			Matches: stevedore.Conditions{"environmentType": "staging"},
@@ -243,7 +254,14 @@ func TestEnvSpecificationsSort(t *testing.T) {
 			},
 		}
 
-		envs.Sort()
+		labels := stevedore.Labels{
+			{Name: "environmentType"},
+			{Name: "environment"},
+			{Name: "contextType"},
+			{Name: "contextName"},
+			{Name: "applicationName"},
+		}
+		envs.Sort(labels)
 
 		assert.Equal(t, expectedEnvs, envs)
 	})

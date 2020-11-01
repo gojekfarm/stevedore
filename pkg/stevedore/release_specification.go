@@ -20,9 +20,9 @@ func NewReleaseSpecification(release Release, configs Configs, substitute Substi
 }
 
 // EnrichWith will return enriched spec with final merged values
-func (spec ReleaseSpecification) EnrichWith(context Context, overrides Overrides) ReleaseSpecification {
+func (spec ReleaseSpecification) EnrichWith(context Context, overrides Overrides, labels Labels) ReleaseSpecification {
 	predicate := NewPredicate(spec, context)
-	matchedOverrides := overrides.CollateBy(predicate)
+	matchedOverrides := overrides.CollateBy(predicate, labels)
 	enrichedComponent := spec.Release.EnrichValues(matchedOverrides)
 
 	spec.Release = enrichedComponent

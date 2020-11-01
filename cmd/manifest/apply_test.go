@@ -45,10 +45,19 @@ func TestNewManifest(t *testing.T) {
 
 		stevedoreContext := stevedore.Context{
 			Name:              "components-staging",
-			Environment:       "env",
 			KubernetesContext: "components",
-			EnvironmentType:   "staging",
-			Type:              "components",
+			Labels: stevedore.Conditions{
+				"environment":     "env",
+				"environmentType": "staging",
+				"contextType":     "components",
+			},
+		}
+		labels := stevedore.Labels{
+			{Name: "environmentType"},
+			{Name: "environment"},
+			{Name: "contextType"},
+			{Name: "contextName"},
+			{Name: "applicationName"},
 		}
 
 		manifestFileName := "/mock/configs/x-stevedore.yaml"
@@ -188,6 +197,7 @@ func TestNewManifest(t *testing.T) {
 		envValues := map[string]interface{}{"ENV": "using env"}
 
 		mockContextProvider.EXPECT().Context().Return(stevedoreContext, nil)
+		mockContextProvider.EXPECT().Labels().Return(labels, nil)
 		mockIgnoreProvider.EXPECT().Ignores().Return(ignores, nil)
 		mockOverrideProvider.EXPECT().Overrides().Return(overrides, nil)
 		mockManifestProvider.EXPECT().Manifests(context).Return(manifestFiles, nil)
@@ -205,10 +215,12 @@ func TestNewManifest(t *testing.T) {
 		expected := manifest.Info{
 			Context: stevedore.Context{
 				Name:              "components-staging",
-				Type:              "components",
-				Environment:       "env",
 				KubernetesContext: "components",
-				EnvironmentType:   "staging",
+				Labels: stevedore.Conditions{
+					"contextType":     "components",
+					"environment":     "env",
+					"environmentType": "staging",
+				},
 			},
 			Ignored: stevedore.IgnoredReleases{
 				{Name: "z-stevedore", Reason: "Not applicable for the context 'components-staging'"},
@@ -286,10 +298,19 @@ func TestNewManifest(t *testing.T) {
 
 		stevedoreContext := stevedore.Context{
 			Name:              "components-staging",
-			Environment:       "env",
 			KubernetesContext: "components",
-			EnvironmentType:   "staging",
-			Type:              "components",
+			Labels: stevedore.Conditions{
+				"environment":     "env",
+				"environmentType": "staging",
+				"contextType":     "components",
+			},
+		}
+		labels := stevedore.Labels{
+			{Name: "environmentType"},
+			{Name: "environment"},
+			{Name: "contextType"},
+			{Name: "contextName"},
+			{Name: "applicationName"},
 		}
 
 		manifestFileName := "/mock/configs/x-stevedore.yaml"
@@ -391,6 +412,7 @@ func TestNewManifest(t *testing.T) {
 		}
 
 		mockContextProvider.EXPECT().Context().Return(stevedoreContext, nil)
+		mockContextProvider.EXPECT().Labels().Return(labels, nil)
 		mockIgnoreProvider.EXPECT().Ignores().Return(ignores, nil)
 		mockOverrideProvider.EXPECT().Overrides().Return(overrides, nil)
 		mockManifestProvider.EXPECT().Manifests(context).Return(manifestFiles, nil)
@@ -406,10 +428,12 @@ func TestNewManifest(t *testing.T) {
 		expected := manifest.Info{
 			Context: stevedore.Context{
 				Name:              "components-staging",
-				Type:              "components",
-				Environment:       "env",
 				KubernetesContext: "components",
-				EnvironmentType:   "staging",
+				Labels: stevedore.Conditions{
+					"contextType":     "components",
+					"environment":     "env",
+					"environmentType": "staging",
+				},
 			},
 			Ignored: stevedore.IgnoredReleases{{Name: "y-stevedore"}},
 			ManifestFiles: stevedore.ManifestFiles{
@@ -477,10 +501,19 @@ func TestNewManifest(t *testing.T) {
 
 		stevedoreContext := stevedore.Context{
 			Name:              "components-staging",
-			Environment:       "env",
 			KubernetesContext: "components",
-			EnvironmentType:   "staging",
-			Type:              "components",
+			Labels: stevedore.Conditions{
+				"environment":     "env",
+				"environmentType": "staging",
+				"contextType":     "components",
+			},
+		}
+		labels := stevedore.Labels{
+			{Name: "environmentType"},
+			{Name: "environment"},
+			{Name: "contextType"},
+			{Name: "contextName"},
+			{Name: "applicationName"},
 		}
 
 		manifestFileName := "/mock/configs/x-stevedore.yaml"
@@ -536,6 +569,7 @@ func TestNewManifest(t *testing.T) {
 		storeValues := map[string]interface{}{}
 
 		mockContextProvider.EXPECT().Context().Return(stevedoreContext, nil)
+		mockContextProvider.EXPECT().Labels().Return(labels, nil)
 		mockIgnoreProvider.EXPECT().Ignores().Return(ignores, nil)
 		mockOverrideProvider.EXPECT().Overrides().Return(overrides, nil)
 		mockManifestProvider.EXPECT().Manifests(gomock.Any()).Return(manifestFiles, nil)
@@ -623,6 +657,7 @@ func TestNewManifest(t *testing.T) {
 		mockManifestImpl := pkgManifest.ProviderImpl{Provider: mockManifestProvider, Context: map[string]string{}}
 
 		mockContextProvider.EXPECT().Context().Return(stevedore.Context{}, nil)
+		mockContextProvider.EXPECT().Labels().Return(stevedore.Labels{}, nil)
 		mockEnvProvider.EXPECT().Envs().Return(provider.EnvsFiles{}, nil)
 		mockEnvironment.EXPECT().Fetch().Return(map[string]interface{}{})
 		mockIgnoreProvider.EXPECT().Ignores().Return(nil, fmt.Errorf("unable to get ignores at this time"))
@@ -661,6 +696,7 @@ func TestNewManifest(t *testing.T) {
 		mockManifestImpl := pkgManifest.ProviderImpl{Provider: mockManifestProvider, Context: map[string]string{}}
 
 		mockContextProvider.EXPECT().Context().Return(stevedore.Context{}, nil)
+		mockContextProvider.EXPECT().Labels().Return(stevedore.Labels{}, nil)
 		mockIgnoreProvider.EXPECT().Ignores().Return(stevedore.Ignores{}, nil)
 		mockEnvProvider.EXPECT().Envs().Return(provider.EnvsFiles{}, nil)
 		mockEnvironment.EXPECT().Fetch().Return(map[string]interface{}{})
@@ -701,6 +737,7 @@ func TestNewManifest(t *testing.T) {
 		mockManifestImpl := pkgManifest.ProviderImpl{Provider: mockManifestProvider, Context: map[string]string{}}
 
 		mockContextProvider.EXPECT().Context().Return(stevedore.Context{}, nil)
+		mockContextProvider.EXPECT().Labels().Return(stevedore.Labels{}, nil)
 		mockIgnoreProvider.EXPECT().Ignores().Return(stevedore.Ignores{}, nil)
 		mockOverrideProvider.EXPECT().Overrides().Return(stevedore.Overrides{}, nil)
 		mockEnvProvider.EXPECT().Envs().Return(provider.EnvsFiles{}, nil)

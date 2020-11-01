@@ -21,16 +21,16 @@ func (specs OverrideSpecifications) filterBy(predicate Predicate) OverrideSpecif
 }
 
 // Sort returns Overrides based on pre determined order
-func (specs OverrideSpecifications) sort() {
+func (specs OverrideSpecifications) sort(labels Labels) {
 	sort.SliceStable(specs, func(i, j int) bool {
-		return specs[i].weight() < specs[j].weight()
+		return specs[i].weight(labels) < specs[j].weight(labels)
 	})
 }
 
 // CollateBy filters overrides by predicate and sort it by its weight
-func (specs OverrideSpecifications) CollateBy(predicate Predicate) OverrideSpecifications {
+func (specs OverrideSpecifications) CollateBy(predicate Predicate, labels Labels) OverrideSpecifications {
 	filteredOverrides := specs.filterBy(predicate)
-	filteredOverrides.sort()
+	filteredOverrides.sort(labels)
 	return filteredOverrides
 }
 

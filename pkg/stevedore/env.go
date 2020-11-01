@@ -39,14 +39,14 @@ func (env EnvSpecification) IsApplicableFor(context Context) bool {
 type EnvSpecifications []EnvSpecification
 
 // weight returns the weight of the envs
-func (env EnvSpecification) weight() int {
-	return env.Matches.Weight()
+func (env EnvSpecification) weight(labels Labels) int {
+	return env.Matches.Weight(labels)
 }
 
 // Sort will sort the envs based on the pre-determined order
-func (envs EnvSpecifications) Sort() {
+func (envs EnvSpecifications) Sort(labels Labels) {
 	sort.SliceStable(envs, func(i, j int) bool {
-		return envs[i].weight() < envs[j].weight()
+		return envs[i].weight(labels) < envs[j].weight(labels)
 	})
 }
 

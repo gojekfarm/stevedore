@@ -52,8 +52,8 @@ func NewOverrides(reader io.Reader) (Overrides, error) {
 }
 
 // CollateBy filters overrides by predicate and sort it by its weight
-func (overrides Overrides) CollateBy(predicate Predicate) Overrides {
-	overrides.Spec = overrides.Spec.CollateBy(predicate)
+func (overrides Overrides) CollateBy(predicate Predicate, labels Labels) Overrides {
+	overrides.Spec = overrides.Spec.CollateBy(predicate, labels)
 	return overrides
 }
 

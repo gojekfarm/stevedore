@@ -3,19 +3,16 @@ package stevedore
 import (
 	"bytes"
 	"fmt"
-
-	"gopkg.in/yaml.v2"
+	"sort"
 )
 
 // Context is the Configuration context to which operation will be performed against.
 // It wraps information needed at a kubernetes cluster level
 type Context struct {
-	Name              string `yaml:"name" validate:"required"`
-	Type              string `yaml:"type"`
-	Environment       string `yaml:"environment" validate:"required"`
-	KubernetesContext string `yaml:"kubernetesContext" validate:"required"`
-	EnvironmentType   string `yaml:"environmentType" validate:"required"`
-	KubeConfigFile    string `yaml:"kubeConfigFile"`
+	Name              string            `yaml:"name" validate:"required"`
+	KubernetesContext string            `yaml:"kubernetesContext" validate:"required"`
+	KubeConfigFile    string            `yaml:"kubeConfigFile"`
+	Labels            map[string]string `yaml:"labels,omitempty"`
 }
 
 // IsValid validates the context and returns error if any
@@ -25,16 +22,8 @@ func (ctx Context) IsValid() error {
 
 // Map converts Context to a map[string]string
 func (ctx Context) Map() (map[string]string, error) {
-	data, err := yaml.Marshal(ctx)
-	if err != nil {
-		return nil, err
-	}
-
-	mapToreturn := map[string]string{}
-	if err := yaml.Unmarshal(data, &mapToreturn); err != nil {
-		return nil, err
-	}
-	return mapToreturn, nil
+	result := ctx.Conditions()
+	return result, nil
 }
 
 // String prints the details of context
@@ -42,11 +31,19 @@ func (ctx Context) String() string {
 	buff := bytes.NewBufferString("\nContext Details:")
 	buff.WriteString("\n------------------")
 	buff.WriteString(fmt.Sprintf("\nName: %s", ctx.Name))
-	buff.WriteString(fmt.Sprintf("\nType: %s", ctx.Type))
-	buff.WriteString(fmt.Sprintf("\nEnvironment: %s", ctx.Environment))
 	buff.WriteString(fmt.Sprintf("\nKubernetes Context: %s", ctx.KubernetesContext))
-	buff.WriteString(fmt.Sprintf("\nEnvironment Type: %s", ctx.EnvironmentType))
 	buff.WriteString(fmt.Sprintf("\nKubeConfig File: %s", ctx.KubeConfigFile))
+	buff.WriteString("\nLabels:")
+	keys := make([]string, 0, len(ctx.Labels))
+	for key := range ctx.Labels {
+		keys = append(keys, key)
+	}
+	sort.Strings(keys)
+
+	for _, key := range keys {
+		value := ctx.Labels[key]
+		buff.WriteString(fmt.Sprintf("\n  %s: %s", key, value))
+	}
 	buff.WriteString("\n------------------")
 	return buff.String()
 }
@@ -54,10 +51,10 @@ func (ctx Context) String() string {
 // Conditions returns Conditions
 func (ctx Context) Conditions() Conditions {
 	conditions := Conditions{}
-	conditions[ConditionEnvironment] = ctx.Environment
-	conditions[ConditionEnvironmentType] = ctx.EnvironmentType
 	conditions[ConditionContextName] = ctx.Name
-	conditions[ConditionContextType] = ctx.Type
+	for key, value := range ctx.Labels {
+		conditions[key] = value
+	}
 	return conditions
 }
 

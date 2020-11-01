@@ -40,10 +40,12 @@ var mockHomePathResolver = func() (string, error) {
 func TestFindInConfigs(t *testing.T) {
 	context := stevedore.Context{
 		Name:              "context-a",
-		Type:              "components",
-		Environment:       "staging",
 		KubernetesContext: "minikube",
-		EnvironmentType:   "staging",
+		Labels: stevedore.Conditions{
+			"contextType":     "components",
+			"environment":     "staging",
+			"environmentType": "staging",
+		},
 	}
 
 	t.Run("it should return the config file without extension", func(t *testing.T) {
@@ -91,10 +93,12 @@ func TestFindInConfigs(t *testing.T) {
 func TestResolveAndValidate(t *testing.T) {
 	context := stevedore.Context{
 		Name:              "context-a",
-		Type:              "components",
-		Environment:       "staging",
 		KubernetesContext: "minikube",
-		EnvironmentType:   "staging",
+		Labels: stevedore.Conditions{
+			"contextType":     "components",
+			"environment":     "staging",
+			"environmentType": "staging",
+		},
 	}
 
 	t.Run("should return the given kubeconfig if its not empty", func(t *testing.T) {
@@ -112,11 +116,13 @@ func TestResolveAndValidate(t *testing.T) {
 		memFs := afero.NewMemMapFs()
 		contextWithKubeConfig := stevedore.Context{
 			Name:              "context-a",
-			Type:              "components",
-			Environment:       "staging",
 			KubernetesContext: "minikube",
-			EnvironmentType:   "staging",
 			KubeConfigFile:    "~/.kube/configs/minikube",
+			Labels: stevedore.Conditions{
+				"contextType":     "components",
+				"environment":     "staging",
+				"environmentType": "staging",
+			},
 		}
 
 		_ = afero.WriteFile(memFs, contextWithKubeConfig.KubeConfigFile, []byte("file content"), 0644)

@@ -44,14 +44,17 @@ func (info *Info) FilterBy(responses stevedore.Responses) Info {
 	return newInfo
 }
 
-func info(manifests stevedore.ManifestFiles,
+func info(
+	manifests stevedore.ManifestFiles,
 	overrides stevedore.Overrides,
 	stevedoreContext stevedore.Context,
 	envs stevedore.Substitute,
 	ignores stevedore.Ignores,
-	providers config.Providers) (*Info, error) {
+	providers config.Providers,
+	labels stevedore.Labels,
+) (*Info, error) {
 
-	enrichedManifestFiles, ignoredComponents, err := manifests.Enrich(overrides, stevedoreContext, envs, ignores, providers)
+	enrichedManifestFiles, ignoredComponents, err := manifests.Enrich(overrides, stevedoreContext, envs, ignores, providers, labels)
 	if err != nil {
 		return nil, err
 	}

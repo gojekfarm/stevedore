@@ -44,10 +44,10 @@ func (envsFiles EnvsFiles) extractEnvs() stevedore.EnvSpecifications {
 }
 
 // SortAndMerge will sort all envs based on a pre-determined order and merge all the env substitute into one
-func (envsFiles EnvsFiles) SortAndMerge(envs stevedore.Substitute) (stevedore.Substitute, error) {
+func (envsFiles EnvsFiles) SortAndMerge(envs stevedore.Substitute, labels stevedore.Labels) (stevedore.Substitute, error) {
 	substitutes := stevedore.Substitute{}
 	applicableEnvs := envsFiles.extractEnvs()
-	applicableEnvs.Sort()
+	applicableEnvs.Sort(labels)
 
 	for _, env := range applicableEnvs {
 		result, err := substitutes.Merge(env.Values)

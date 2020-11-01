@@ -12,6 +12,6 @@ func (spec OverrideSpecification) IsValid() error {
 	return validate.Struct(spec)
 }
 
-func (spec OverrideSpecification) weight() int {
-	return spec.Matches.Weight()
+func (spec OverrideSpecification) weight(labels Labels) int {
+	return spec.Matches.Weight(labels)
 }

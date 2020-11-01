@@ -23,13 +23,18 @@ func NewManifests(
 	}
 	reporter.ReportContext(ctx)
 
+	labels, err := contextProvider.Labels()
+	if err != nil {
+		return nil, err
+	}
+
 	envs, err := envProvider.Envs()
 	if err != nil {
 		return nil, err
 	}
 
 	filteredEnvs := envs.Filter(ctx)
-	substitutes, err := filteredEnvs.SortAndMerge(environment.Fetch())
+	substitutes, err := filteredEnvs.SortAndMerge(environment.Fetch(), labels)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +63,7 @@ func NewManifests(
 		return nil, err
 	}
 
-	info, err := info(manifests, overrides, ctx, substitutes, ignores, providers)
+	info, err := info(manifests, overrides, ctx, substitutes, ignores, providers, labels)
 	if err != nil {
 		return nil, err
 	}

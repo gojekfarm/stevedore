@@ -68,7 +68,7 @@ func TestReleaseSpecificationsReplace(t *testing.T) {
 			map[string]interface{}{"ENV": "staging", "NAME": "x-service", "OPTION": "repl"}),
 		}
 
-		actual, err := releaseSpecifications.Replace(stevedore.Context{Environment: "staging"}, envs, configProviders)
+		actual, err := releaseSpecifications.Replace(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}, envs, configProviders)
 
 		assert.Nil(t, err)
 		assert.NotNil(t, actual)
@@ -129,7 +129,7 @@ func TestReleaseSpecificationsReplace(t *testing.T) {
 			},
 		}
 
-		actual, err := releaseSpecifications.Replace(stevedore.Context{Environment: "staging"}, envs, configProviders)
+		actual, err := releaseSpecifications.Replace(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}, envs, configProviders)
 
 		if assert.NotNil(t, err) {
 			assert.Equal(t, "Unable to replace 4 variable(s):\n\t1. ${X_GAME}\n\t2. ${X_NAME}\n\t3. ${Y_GAME}\n\t4. ${Y_NAME}", err.Error())
@@ -186,7 +186,7 @@ func TestReleaseSpecificationsReplace(t *testing.T) {
 			},
 		}
 
-		actual, err := releaseSpecifications.Replace(stevedore.Context{Environment: "staging"}, envs, configProviders)
+		actual, err := releaseSpecifications.Replace(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}, envs, configProviders)
 
 		if assert.NotNil(t, err) {
 			assert.Equal(t, "error in fetching from provider: unable to fetch configuration at this time", err.Error())
@@ -284,7 +284,21 @@ func TestReleaseSpecificationsEnrichWith(t *testing.T) {
 			},
 		}
 
-		actual := releaseSpecifications.EnrichWith(stevedore.Context{EnvironmentType: "staging", Environment: "some-specific-staging-env"}, overrides)
+		labels := stevedore.Labels{
+			{Name: "environmentType"},
+			{Name: "environment"},
+			{Name: "contextType"},
+			{Name: "contextName"},
+			{Name: "applicationName"},
+		}
+
+		actual := releaseSpecifications.EnrichWith(
+			stevedore.Context{
+				Labels: stevedore.Conditions{"environmentType": "staging", "environment": "some-specific-staging-env"},
+			},
+			overrides,
+			labels,
+		)
 
 		assert.Equal(t, expected, actual)
 	})

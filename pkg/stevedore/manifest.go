@@ -18,8 +18,8 @@ type Manifest struct {
 }
 
 // EnrichWith will return enriched manifest with final merged values
-func (manifest Manifest) EnrichWith(context Context, overrides Overrides) Manifest {
-	enrichedApplications := manifest.Spec.EnrichWith(context, overrides)
+func (manifest Manifest) EnrichWith(context Context, overrides Overrides, labels Labels) Manifest {
+	enrichedApplications := manifest.Spec.EnrichWith(context, overrides, labels)
 	return Manifest{DeployTo: manifest.DeployTo, Spec: enrichedApplications}
 }
 

@@ -395,7 +395,20 @@ func TestManifestEnrichWith(t *testing.T) {
 			},
 		}
 
-		actual := manifest.EnrichWith(stevedore.Context{EnvironmentType: "staging", Environment: "some-specific-staging-env"}, overrides)
+		labels := stevedore.Labels{
+			{Name: "environmentType"},
+			{Name: "environment"},
+			{Name: "contextType"},
+			{Name: "contextName"},
+			{Name: "applicationName"},
+		}
+
+		actual := manifest.EnrichWith(stevedore.Context{
+			Labels: stevedore.Conditions{
+				"environmentType": "staging",
+				"environment":     "some-specific-staging-env",
+			},
+		}, overrides, labels)
 
 		assert.Equal(t, expected, actual)
 	})
@@ -463,7 +476,7 @@ func TestManifestReplace(t *testing.T) {
 			},
 		}
 
-		actual, err := manifest.Replace(stevedore.Context{Environment: "staging"}, envs, configProviders)
+		actual, err := manifest.Replace(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}, envs, configProviders)
 
 		assert.Nil(t, err)
 		assert.NotNil(t, actual)
@@ -525,7 +538,7 @@ func TestManifestReplace(t *testing.T) {
 			},
 		}
 
-		actual, err := manifest.Replace(stevedore.Context{Environment: "staging"}, envs, configProviders)
+		actual, err := manifest.Replace(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}, envs, configProviders)
 
 		if assert.NotNil(t, err) {
 			assert.Equal(t, "Unable to replace 4 variable(s):\n\t1. ${X_GAME}\n\t2. ${X_NAME}\n\t3. ${Y_GAME}\n\t4. ${Y_NAME}", err.Error())

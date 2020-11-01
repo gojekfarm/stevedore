@@ -19,17 +19,18 @@ const ContextEnv = "STEVEDORE_CONTEXT"
 const defaultFileMode = 0660
 const defaultDirMode = 0770
 
-// Configuration config to wrap all stevedore contexts and store config
-type Configuration struct {
-	Contexts Contexts `yaml:"contexts"`
-	Current  string   `yaml:"current"`
-	fs       afero.Fs
-	filename string
-}
-
 // AppConfigStore to fetch configurations specific to release specifications
 type AppConfigStore struct {
 	Host string `yaml:"host"`
+}
+
+// Configuration config to wrap all stevedore contexts and store config
+type Configuration struct {
+	Contexts   Contexts `yaml:"contexts"`
+	UserLabels Labels   `yaml:"labels"`
+	Current    string   `yaml:"current"`
+	fs         afero.Fs
+	filename   string
 }
 
 // NewConfigurationFromFile loads stevedore config from file
@@ -147,4 +148,28 @@ func (s *Configuration) save() error {
 	}()
 
 	return yaml.NewEncoder(f).Encode(s)
+}
+
+// Labels returns the user defined labels and appends the context and environment
+func (s *Configuration) Labels() Labels {
+	userLabels := Labels{}
+	maxWeight := 0
+	nextWeight := func(baseWeight int, incBy int) int {
+		if baseWeight == 0 {
+			return 0
+		}
+		return baseWeight + incBy
+	}
+	for _, label := range s.UserLabels {
+		if maxWeight < label.Weight {
+			maxWeight = label.Weight
+		}
+		userLabels = append(userLabels, label)
+	}
+	additionalLabels := []Label{
+		{Name: ConditionEnvironment, Weight: nextWeight(maxWeight, 1)},
+		{Name: ConditionContextName, Weight: nextWeight(maxWeight, 2)},
+		{Name: ConditionApplicationName, Weight: nextWeight(maxWeight, 3)},
+	}
+	return append(userLabels, additionalLabels...)
 }

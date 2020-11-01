@@ -99,9 +99,11 @@ func TestMatchedOverrideSpecifications(t *testing.T) {
 		envComponentsProductionCtx := stevedore.Context{
 			Name:              "components-production",
 			KubernetesContext: "gke://components-production",
-			Type:              "components",
-			EnvironmentType:   "production",
-			Environment:       "env_production",
+			Labels: stevedore.Conditions{
+				"contextType":     "components",
+				"environmentType": "production",
+				"environment":     "env_production",
+			},
 		}
 
 		predicate := stevedore.NewPredicate(rideServiceApp, envComponentsProductionCtx)
@@ -113,7 +115,15 @@ func TestMatchedOverrideSpecifications(t *testing.T) {
 			rideServiceFullMatchOverride,
 		}
 
-		matchedOverrideSpecifications := overrideSpecifications.CollateBy(predicate)
+		labels := stevedore.Labels{
+			{Name: "environmentType"},
+			{Name: "environment"},
+			{Name: "contextType"},
+			{Name: "contextName"},
+			{Name: "applicationName"},
+		}
+
+		matchedOverrideSpecifications := overrideSpecifications.CollateBy(predicate, labels)
 
 		assert.Equal(t, expectedOverrideSpecifications, matchedOverrideSpecifications)
 	})
@@ -142,15 +152,17 @@ func TestMatchedOverrideSpecifications(t *testing.T) {
 		envComponentsProductionCtx := stevedore.Context{
 			Name:              "components-production",
 			KubernetesContext: "gke://components-production",
-			Type:              "components",
-			EnvironmentType:   "test-environment",
-			Environment:       "env_production",
+			Labels: stevedore.Conditions{
+				"type":            "components",
+				"environmentType": "test-environment",
+				"environment":     "env_production",
+			},
 		}
 
 		predicate := stevedore.NewPredicate(abcServiceApp, envComponentsProductionCtx)
 		expectedOverrideSpecifications := stevedore.OverrideSpecifications{}
 
-		matchedOverrideSpecifications := overrideSpecifications.CollateBy(predicate)
+		matchedOverrideSpecifications := overrideSpecifications.CollateBy(predicate, stevedore.Labels{})
 
 		assert.Equal(t, expectedOverrideSpecifications, matchedOverrideSpecifications)
 	})

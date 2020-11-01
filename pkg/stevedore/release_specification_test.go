@@ -64,7 +64,21 @@ func TestReleaseSpecificationEnrichWith(t *testing.T) {
 			},
 		}
 
-		actual := releaseSpecification.EnrichWith(stevedore.Context{EnvironmentType: "staging"}, overrides)
+		labels := stevedore.Labels{
+			{Name: "environmentType"},
+			{Name: "environment"},
+			{Name: "contextType"},
+			{Name: "contextName"},
+			{Name: "applicationName"},
+		}
+
+		actual := releaseSpecification.EnrichWith(
+			stevedore.Context{
+				Labels: stevedore.Conditions{"environmentType": "staging"},
+			},
+			overrides,
+			labels,
+		)
 
 		assert.Equal(t, expected, actual)
 	})
@@ -124,7 +138,7 @@ func TestReleaseSpecificationReplace(t *testing.T) {
 			},
 			map[string]interface{}{"ENV": "staging", "NAME": "x-service", "OPTION": "repl", "OPTION1": "repl4", "OPTION2": "repl3", "OPTION3": "repl7"})
 
-		actual, err := releaseSpecification.Replace(stevedore.Context{Environment: "staging"}, envs, configProviders)
+		actual, err := releaseSpecification.Replace(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}, envs, configProviders)
 
 		assert.Nil(t, err)
 		assert.NotNil(t, actual)
@@ -172,7 +186,7 @@ func TestReleaseSpecificationReplace(t *testing.T) {
 			},
 			nil)
 
-		actual, err := releaseSpecification.Replace(stevedore.Context{Environment: "staging"}, stevedore.Substitute{}, config.Providers{})
+		actual, err := releaseSpecification.Replace(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}, stevedore.Substitute{}, config.Providers{})
 
 		assert.Nil(t, err)
 		assert.NotNil(t, actual)
@@ -215,7 +229,7 @@ func TestReleaseSpecificationReplace(t *testing.T) {
 			},
 		}
 
-		actual, err := releaseSpecification.Replace(stevedore.Context{Environment: "staging"}, envs, configProviders)
+		actual, err := releaseSpecification.Replace(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}, envs, configProviders)
 
 		if assert.NotNil(t, err) {
 			assert.Equal(t, "Unable to replace 2 variable(s):\n\t1. ${GAME}\n\t2. ${NAME}", err.Error())
@@ -253,7 +267,7 @@ func TestReleaseSpecificationReplace(t *testing.T) {
 			},
 		}
 
-		actual, err := releaseSpecification.Replace(stevedore.Context{Environment: "staging"}, stevedore.Substitute{}, configProviders)
+		actual, err := releaseSpecification.Replace(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}, stevedore.Substitute{}, configProviders)
 
 		if assert.NotNil(t, err) {
 			assert.Equal(t, "error in fetching from provider: unable to fetch group secret at this time", err.Error())
@@ -290,7 +304,7 @@ func TestReleaseSpecificationReplace(t *testing.T) {
 			},
 		}
 
-		actual, err := releaseSpecification.Replace(stevedore.Context{Environment: "staging"}, stevedore.Substitute{}, configProviders)
+		actual, err := releaseSpecification.Replace(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}, stevedore.Substitute{}, configProviders)
 
 		if assert.NotNil(t, err) {
 			assert.Equal(t, "error in fetching from provider: unable to fetch configuration at this time", err.Error())
@@ -347,7 +361,7 @@ func TestReleaseSpecificationSubstitutedVariables(t *testing.T) {
 
 		expected := stevedore.Substitute{"OPTION1": "repl4", "OPTION2": "repl3", "OPTION3": "repl7", "ENV": "staging", "NAME": "x-service"}
 
-		actual, err := releaseSpecification.Replace(stevedore.Context{Environment: "staging"}, envs, configProviders)
+		actual, err := releaseSpecification.Replace(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}, envs, configProviders)
 
 		assert.Nil(t, err)
 		assert.NotNil(t, actual)

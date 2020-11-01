@@ -9,10 +9,10 @@ import (
 type ReleaseSpecifications []ReleaseSpecification
 
 // EnrichWith will return enriched applications with final merged values
-func (specs ReleaseSpecifications) EnrichWith(context Context, overrides Overrides) ReleaseSpecifications {
+func (specs ReleaseSpecifications) EnrichWith(context Context, overrides Overrides, labels Labels) ReleaseSpecifications {
 	applications := ReleaseSpecifications{}
 	for _, app := range specs {
-		applications = append(applications, app.EnrichWith(context, overrides))
+		applications = append(applications, app.EnrichWith(context, overrides, labels))
 	}
 	return applications
 }

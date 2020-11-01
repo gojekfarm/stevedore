@@ -9,9 +9,9 @@ import (
 
 func TestContextsExists(t *testing.T) {
 	t.Run("should return true if context name already exists", func(t *testing.T) {
-		existingCtx := Context{Name: "components", KubernetesContext: "components", Environment: "env"}
+		existingCtx := Context{Name: "components", KubernetesContext: "components"}
 		contexts := Contexts{
-			Context{Name: "services", KubernetesContext: "services", Environment: "env"},
+			Context{Name: "services", KubernetesContext: "services"},
 			existingCtx,
 		}
 		index, exists := contexts.Find("components")
@@ -22,8 +22,8 @@ func TestContextsExists(t *testing.T) {
 
 	t.Run("should return false if context name already exists", func(t *testing.T) {
 		contexts := Contexts{
-			Context{Name: "components", KubernetesContext: "components", Environment: "env"},
-			Context{Name: "services", KubernetesContext: "services", Environment: "env"},
+			Context{Name: "components", KubernetesContext: "components"},
+			Context{Name: "services", KubernetesContext: "services"},
 		}
 
 		index, exists := contexts.Find("not-in-list")
@@ -43,23 +43,13 @@ func TestContextValid(t *testing.T) {
 	emptyScenarios := []scenario{
 		{
 			name:         "name is not provided",
-			context:      Context{KubernetesContext: "components", Environment: "env", EnvironmentType: "staging", Type: "components"},
+			context:      Context{KubernetesContext: "components"},
 			errorMessage: "Key: 'Context.Name' Error:Field validation for 'Name' failed on the 'required' tag",
 		},
 		{
 			name:         "kubernetes context is not provided",
-			context:      Context{Name: "components", Environment: "env", EnvironmentType: "staging", Type: "components"},
+			context:      Context{Name: "components"},
 			errorMessage: "Key: 'Context.KubernetesContext' Error:Field validation for 'KubernetesContext' failed on the 'required' tag",
-		},
-		{
-			name:         "environment is not provided",
-			context:      Context{Name: "components", KubernetesContext: "components", EnvironmentType: "staging", Type: "components"},
-			errorMessage: "Key: 'Context.Environment' Error:Field validation for 'Environment' failed on the 'required' tag",
-		},
-		{
-			name:         "environment type is not provided",
-			context:      Context{Name: "components", KubernetesContext: "components", Environment: "env", Type: "components"},
-			errorMessage: "Key: 'Context.EnvironmentType' Error:Field validation for 'EnvironmentType' failed on the 'required' tag",
 		},
 	}
 
@@ -76,16 +66,26 @@ func TestContextValid(t *testing.T) {
 
 func TestContextString(t *testing.T) {
 	t.Run("it should return context as string", func(t *testing.T) {
-		context := Context{Name: "components", Type: "services", EnvironmentType: "staging", KubernetesContext: "components", Environment: "env", KubeConfigFile: "~/.kube/configs/minikube"}
+		context := Context{
+			Name:              "components",
+			KubernetesContext: "components",
+			KubeConfigFile:    "~/.kube/configs/minikube",
+			Labels: Conditions{
+				"contextType":     "services",
+				"environmentType": "staging",
+				"environment":     "env",
+			},
+		}
 		expected := `
 Context Details:
 ------------------
 Name: components
-Type: services
-Environment: env
 Kubernetes Context: components
-Environment Type: staging
 KubeConfig File: ~/.kube/configs/minikube
+Labels:
+  contextType: services
+  environment: env
+  environmentType: staging
 ------------------`
 
 		content := context.String()
@@ -96,8 +96,16 @@ KubeConfig File: ~/.kube/configs/minikube
 
 func TestContextConditions(t *testing.T) {
 	t.Run("it should return conditions", func(t *testing.T) {
-		context := Context{Name: "components", Type: "services", EnvironmentType: "staging", KubernetesContext: "components", Environment: "env"}
-		expected := Conditions{ConditionContextName: "components", ConditionContextType: "services", ConditionEnvironmentType: "staging", ConditionEnvironment: "env"}
+		context := Context{
+			Name:              "components",
+			KubernetesContext: "components",
+			Labels: Conditions{
+				"contextType":     "services",
+				"environmentType": "staging",
+				"environment":     "env",
+			},
+		}
+		expected := Conditions{ConditionContextName: "components", "contextType": "services", "environmentType": "staging", "environment": "env"}
 		conditions := context.Conditions()
 
 		assert.Equal(t, expected, conditions)
@@ -105,8 +113,23 @@ func TestContextConditions(t *testing.T) {
 }
 
 func TestContextMap(t *testing.T) {
-	context := Context{Name: "components", Type: "services", EnvironmentType: "staging", KubernetesContext: "components", Environment: "env"}
-	expected := map[string]string{"name": "components", "type": "services", "environmentType": "staging", "kubernetesContext": "components", "environment": "env", "kubeConfigFile": ""}
+	context := Context{
+		Name: "components",
+		Labels: Conditions{
+			"type":              "services",
+			"environmentType":   "staging",
+			"kubernetesContext": "components",
+			"environment":       "env",
+		},
+		KubernetesContext: "components",
+	}
+	expected := map[string]string{
+		"contextName":       "components",
+		"type":              "services",
+		"environmentType":   "staging",
+		"kubernetesContext": "components",
+		"environment":       "env",
+	}
 
 	actual, err := context.Map()
 

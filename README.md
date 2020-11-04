@@ -17,23 +17,34 @@ Stevedore a tool to load the cluster with containers for kubernetes to orchestra
 
 ## Table of Contents
 
-1. [Getting Started](#getting-started)
+* [Installation](#installation)
+* [Getting Started](#getting-started)
 
-   1.1 [Stevedore Context](#stevedore-context)
+   * [Stevedore Context](#stevedore-context)
 
-   1.2 [Manifest](#Manifest)
+   * [Manifest](#Manifest)
 
-   1.3 [Plan](#plan)
+   * [Plan](#plan)
 
-   1.4 [Apply](#apply)
+   * [Apply](#apply)
 
-   1.5 [Using Override](#using-override)
+   * [Using Override](#using-override)
 
-   1.6 [Using Env](#using-env)
+   * [Using Env](#using-env)
 
-2. [Terminology](#terminology)
+* [Terminology](#terminology)
 
-3. [Development](#development)
+* [Development](#development)
+
+## Installation
+
+### Install from source
+```
+git clone git@github.com:gojekfarm/stevedore.git
+cd stevedore
+make install ## Required to have go installed in the machine
+stevedore --help ## Verify the installation
+```
 
 ## Getting Started
 

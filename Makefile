@@ -11,6 +11,8 @@ SHELL=bash -o pipefail
 DEFAULT_HELM_REPO_NAME?="chartmuseum"
 BUILD_ARGS="-s -w -X main.version=$(VERSION) -X main.build=$(BUILD) -X github.com/gojek/stevedore/cmd/repo.defaultHelmRepoName=$(DEFAULT_HELM_REPO_NAME)"
 BUILD?=$(shell git describe --always --dirty 2> /dev/null)
+GOOS := $(shell go env GOOS)
+GOARCH := $(shell go env GOARCH)
 ifeq ($(BUILD),)
 	BUILD=dev
 endif
@@ -70,10 +72,7 @@ build-common: vet lint test compile
 compile: compile-app ## Compile stevedore
 
 compile-app: ensure-build-dir
-	$(GO_BINARY) build -mod=vendor -ldflags $(BUILD_ARGS) -o $(APP_EXECUTABLE) ./main.go
-
-compile-linux: ensure-build-dir ## Compile stevedore for linux
-	GOOS=linux GOARCH=amd64 $(GO_BINARY) build -mod=vendor -ldflags $(BUILD_ARGS) -o $(APP_EXECUTABLE) ./main.go
+	GOOS=${GOOS} GOARCH=${GOARCH} CGO_ENABLED=0 $(GO_BINARY) build -mod=vendor -ldflags $(BUILD_ARGS) -o $(APP_EXECUTABLE) ./main.go
 
 fmt:
 	GOFLAGS="-mod=vendor" $(GO_BINARY) fmt $(SRC_PACKAGES)

@@ -5,7 +5,7 @@ builds:
     goarch:
       - amd64
     ldflags:
-      - -s -w -X main.version={{.Version}} -X main.build={{.ShortCommit}}
+      - -s -w -X main.version={{.Version}}
 archives:
   - replacements:
       darwin: Darwin
@@ -14,9 +14,5 @@ archives:
 checksum:
   name_template: "checksums.txt"
 snapshot:
-  name_template: "{{ .Tag }}-SNAPSHOT-{{.ShortCommit}}"
-changelog:
-  sort: asc
-release:
-  draft: true
+  name_template: "master-{{.ShortCommit}}"
 

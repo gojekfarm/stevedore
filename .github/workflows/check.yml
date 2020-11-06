@@ -1,5 +1,7 @@
-on: [push, pull_request]
 name: Check
+
+on: [push, pull_request]
+
 jobs:
   lint:
     runs-on: ubuntu-20.04
@@ -8,7 +10,7 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: 1.14.x
-    - name: Checkout Code
+    - name: Checkout code
       uses: actions/checkout@v2
     - name: Lint
       run: make lint
@@ -20,11 +22,11 @@ jobs:
       uses: actions/setup-go@v2
       with:
         go-version: 1.14.x
-    - name: Checkout Code
+    - name: Checkout code
       uses: actions/checkout@v2
     - name: Unit Tests
       run: make test-cover-html
-    - name: Store Coverage Report
+    - name: Store coverage report
       uses: actions/upload-artifact@v2
       with:
         name: coverage-report

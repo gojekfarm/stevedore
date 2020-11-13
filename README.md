@@ -54,6 +54,17 @@ make install ## Required to have go installed in the machine
 stevedore --help ## Verify the installation
 ```
 
+### Use Docker image
+```
+alias stevedore="docker run -it -v ~/.config/stevedore:/root/.config/stevedore -v ~/.kube:/root/.kube -v $PWD:/workdir thecasualcoder/stevedore"
+stevedore --help
+```
+
+Note: In the above command, we are mounting
+1. `~/.config/stevedore` for stevedore to store the stevedore context
+2. `~/.kube` for stevedore to connect to kubernetes cluster
+3. `$PWD` for running plan/apply using yaml files in current working directory
+
 ## Getting Started
 
 Example guide for installing 'redis' helm chart via the stevedore into minikube.

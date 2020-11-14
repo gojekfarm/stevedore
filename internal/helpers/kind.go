@@ -2,11 +2,12 @@ package helpers
 
 import (
 	"fmt"
+	"path"
+
 	"github.com/gojek/stevedore/cmd/cli"
 	"github.com/gojek/stevedore/internal/cli/kind"
 	stringUtils "github.com/gojek/stevedore/pkg/utils/string"
 	"github.com/spf13/afero"
-	"path"
 )
 
 func kubeConfigFile(clusterName string) string {

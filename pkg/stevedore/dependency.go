@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"crypto/sha256"
 	"fmt"
+	"sort"
+
 	"gopkg.in/yaml.v2"
 	"helm.sh/helm/v3/pkg/chart"
-	"sort"
 )
 
 // Dependency represent a chart details

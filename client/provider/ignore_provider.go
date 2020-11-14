@@ -2,12 +2,13 @@ package provider
 
 import (
 	"bytes"
+	"path"
+	"path/filepath"
+
 	"github.com/gojek/stevedore/pkg/config"
 	"github.com/gojek/stevedore/pkg/file"
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/spf13/afero"
-	"path"
-	"path/filepath"
 )
 
 const stevedoreIgnoreFileName = ".stevedoreignore"

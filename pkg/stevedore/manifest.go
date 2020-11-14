@@ -2,9 +2,10 @@ package stevedore
 
 import (
 	"fmt"
+	"io"
+
 	"github.com/gojek/stevedore/pkg/config"
 	"github.com/gojek/stevedore/pkg/utils/string"
-	"io"
 )
 
 // Manifest is a Stevedore Manifest to wrap all configurations necessary for Stevedore to deploy

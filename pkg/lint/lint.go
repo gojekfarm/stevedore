@@ -2,8 +2,9 @@ package lint
 
 import (
 	"fmt"
-	"github.com/gojek/stevedore/pkg/stevedore"
 	"strings"
+
+	"github.com/gojek/stevedore/pkg/stevedore"
 )
 
 // Error represents lint error

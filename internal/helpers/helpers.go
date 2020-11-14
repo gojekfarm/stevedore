@@ -2,10 +2,11 @@ package helpers
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/gojek/stevedore/cmd/cli"
 	"github.com/gojek/stevedore/internal/cli/command"
 	"github.com/spf13/afero"
-	"strings"
 )
 
 var testFileDir string

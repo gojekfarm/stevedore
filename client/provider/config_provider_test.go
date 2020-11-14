@@ -1,9 +1,9 @@
 package provider
 
 import (
+	"fmt"
 	"testing"
 
-	"fmt"
 	"github.com/gojek/stevedore/client/internal/mocks/micro/go-micro"
 	"github.com/gojek/stevedore/pkg/plugin"
 	"github.com/golang/mock/gomock"

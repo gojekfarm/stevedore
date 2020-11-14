@@ -2,12 +2,13 @@ package provider
 
 import (
 	"fmt"
+	"strconv"
+
 	pkgConfig "github.com/gojek/stevedore/pkg/config"
 	"github.com/gojek/stevedore/pkg/plugin"
 	"github.com/micro/go-micro/config"
 	"github.com/micro/go-micro/config/source/consul"
 	"github.com/mitchellh/mapstructure"
-	"strconv"
 )
 
 func init() {

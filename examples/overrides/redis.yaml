@@ -7,10 +7,10 @@ spec:
       master:
         resources:
           requests:
-            memory: 256Mi 
+            memory: 256Mi
             cpu: 100m
       slave:
         resources:
           requests:
-            memory: 256Mi 
+            memory: 256Mi
             cpu: 100m

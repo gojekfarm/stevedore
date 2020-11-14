@@ -2,6 +2,7 @@ package manifest
 
 import (
 	"fmt"
+
 	"github.com/gojek/stevedore/client/provider"
 
 	"github.com/gojek/stevedore/cmd/cli"

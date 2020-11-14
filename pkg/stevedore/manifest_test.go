@@ -2,12 +2,12 @@ package stevedore_test
 
 import (
 	"fmt"
+	"strings"
+	"testing"
+
 	"github.com/gojek/stevedore/client/provider"
 	mockPlugin "github.com/gojek/stevedore/pkg/internal/mocks/plugin"
 	pkgPlugin "github.com/gojek/stevedore/pkg/plugin"
-
-	"strings"
-	"testing"
 
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/golang/mock/gomock"

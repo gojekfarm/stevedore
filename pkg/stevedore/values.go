@@ -3,9 +3,10 @@ package stevedore
 import (
 	"bytes"
 	"fmt"
+	"regexp"
+
 	"github.com/imdario/mergo"
 	"gopkg.in/yaml.v2"
-	"regexp"
 )
 
 var variablePattern *regexp.Regexp

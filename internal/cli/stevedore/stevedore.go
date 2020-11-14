@@ -2,6 +2,7 @@ package stevedore
 
 import (
 	"fmt"
+
 	"github.com/gojek/stevedore/internal/cli/command"
 	"github.com/gojek/stevedore/pkg/stevedore"
 )

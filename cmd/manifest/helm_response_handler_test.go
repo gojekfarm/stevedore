@@ -2,9 +2,10 @@ package manifest
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestPlan_render(t *testing.T) {

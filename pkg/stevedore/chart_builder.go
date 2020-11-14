@@ -3,11 +3,12 @@ package stevedore
 import (
 	"bytes"
 	"context"
+	"log"
+	"path/filepath"
+
 	"github.com/chartmuseum/helm-push/pkg/helm"
 	"gopkg.in/yaml.v2"
 	"helm.sh/helm/v3/pkg/chart"
-	"log"
-	"path/filepath"
 )
 
 // ChartBuilder provides necessary methods

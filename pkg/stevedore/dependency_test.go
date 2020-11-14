@@ -1,9 +1,10 @@
 package stevedore
 
 import (
+	"testing"
+
 	"github.com/stretchr/testify/assert"
 	"helm.sh/helm/v3/pkg/chart"
-	"testing"
 )
 
 func TestNewDependencies(t *testing.T) {

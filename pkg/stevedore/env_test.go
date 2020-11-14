@@ -2,9 +2,10 @@ package stevedore_test
 
 import (
 	"fmt"
-	"github.com/google/go-cmp/cmp"
 	"strings"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/stretchr/testify/assert"

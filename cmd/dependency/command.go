@@ -2,6 +2,8 @@ package dependency
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/gojek/stevedore/client/provider"
 	"github.com/gojek/stevedore/cmd/plugin"
 	"github.com/gojek/stevedore/cmd/repo"
@@ -10,7 +12,6 @@ import (
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"strings"
 )
 
 // Action type represents manifest related actions

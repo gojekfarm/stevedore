@@ -1,9 +1,10 @@
 package plugin
 
 import (
+	"net/rpc"
+
 	"github.com/hashicorp/go-plugin"
 	"gopkg.in/yaml.v2"
-	"net/rpc"
 )
 
 var _ ConfigInterface = &RPCClient{}

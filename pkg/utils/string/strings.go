@@ -1,8 +1,9 @@
 package stringutils
 
 import (
-	"github.com/gojek/stevedore/pkg/utils/map"
 	"unicode"
+
+	"github.com/gojek/stevedore/pkg/utils/map"
 )
 
 // Contains checks if the given string array contains given string

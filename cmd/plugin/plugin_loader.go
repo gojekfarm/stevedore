@@ -2,17 +2,18 @@ package plugin
 
 import (
 	"fmt"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"regexp"
+	"strings"
+
 	"github.com/gojek/stevedore/client/provider"
 	"github.com/gojek/stevedore/log"
 	pluginPkg "github.com/gojek/stevedore/pkg/plugin"
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/go-plugin"
 	"github.com/spf13/afero"
-	"os"
-	"os/exec"
-	"path/filepath"
-	"regexp"
-	"strings"
 )
 
 // NameFormat is the format in which plugins should be named

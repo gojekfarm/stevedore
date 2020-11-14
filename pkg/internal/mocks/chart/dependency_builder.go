@@ -6,35 +6,36 @@ package chartMocks
 
 import (
 	context "context"
+	reflect "reflect"
+
 	stevedore "github.com/gojek/stevedore/pkg/stevedore"
 	gomock "github.com/golang/mock/gomock"
-	reflect "reflect"
 )
 
-// MockDependencyBuilder is a mock of DependencyBuilder interface
+// MockDependencyBuilder is a mock of DependencyBuilder interface.
 type MockDependencyBuilder struct {
 	ctrl     *gomock.Controller
 	recorder *MockDependencyBuilderMockRecorder
 }
 
-// MockDependencyBuilderMockRecorder is the mock recorder for MockDependencyBuilder
+// MockDependencyBuilderMockRecorder is the mock recorder for MockDependencyBuilder.
 type MockDependencyBuilderMockRecorder struct {
 	mock *MockDependencyBuilder
 }
 
-// NewMockDependencyBuilder creates a new mock instance
+// NewMockDependencyBuilder creates a new mock instance.
 func NewMockDependencyBuilder(ctrl *gomock.Controller) *MockDependencyBuilder {
 	mock := &MockDependencyBuilder{ctrl: ctrl}
 	mock.recorder = &MockDependencyBuilderMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockDependencyBuilder) EXPECT() *MockDependencyBuilderMockRecorder {
 	return m.recorder
 }
 
-// Build mocks base method
+// Build mocks base method.
 func (m *MockDependencyBuilder) Build(ctx context.Context, manifests stevedore.ManifestFiles) (stevedore.ManifestFiles, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Build", ctx, manifests)
@@ -43,13 +44,13 @@ func (m *MockDependencyBuilder) Build(ctx context.Context, manifests stevedore.M
 	return ret0, ret1
 }
 
-// Build indicates an expected call of Build
+// Build indicates an expected call of Build.
 func (mr *MockDependencyBuilderMockRecorder) Build(ctx, manifests interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Build", reflect.TypeOf((*MockDependencyBuilder)(nil).Build), ctx, manifests)
 }
 
-// UpdateRepo mocks base method
+// UpdateRepo mocks base method.
 func (m *MockDependencyBuilder) UpdateRepo() error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateRepo")
@@ -57,13 +58,13 @@ func (m *MockDependencyBuilder) UpdateRepo() error {
 	return ret0
 }
 
-// UpdateRepo indicates an expected call of UpdateRepo
+// UpdateRepo indicates an expected call of UpdateRepo.
 func (mr *MockDependencyBuilderMockRecorder) UpdateRepo() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateRepo", reflect.TypeOf((*MockDependencyBuilder)(nil).UpdateRepo))
 }
 
-// BuildChart mocks base method
+// BuildChart mocks base method.
 func (m *MockDependencyBuilder) BuildChart(ctx context.Context, releaseSpecification stevedore.ReleaseSpecification) (stevedore.ReleaseSpecification, bool, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "BuildChart", ctx, releaseSpecification)
@@ -73,7 +74,7 @@ func (m *MockDependencyBuilder) BuildChart(ctx context.Context, releaseSpecifica
 	return ret0, ret1, ret2
 }
 
-// BuildChart indicates an expected call of BuildChart
+// BuildChart indicates an expected call of BuildChart.
 func (mr *MockDependencyBuilderMockRecorder) BuildChart(ctx, releaseSpecification interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "BuildChart", reflect.TypeOf((*MockDependencyBuilder)(nil).BuildChart), ctx, releaseSpecification)

@@ -1,8 +1,9 @@
 package provider_test
 
 import (
-	"github.com/google/go-cmp/cmp"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 
 	"github.com/gojek/stevedore/client/provider"
 	"github.com/gojek/stevedore/pkg/stevedore"

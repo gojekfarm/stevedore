@@ -2,11 +2,12 @@ package command
 
 import (
 	"fmt"
-	"github.com/gojek/stevedore/pkg/stevedore"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"os"
 	"path"
+
+	"github.com/gojek/stevedore/pkg/stevedore"
+	"gopkg.in/yaml.v2"
 )
 
 // SaveEnvs save envs into temporary dir

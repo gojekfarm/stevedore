@@ -1,8 +1,9 @@
 package utils
 
 import (
-	"github.com/spf13/afero"
 	"os"
+
+	"github.com/spf13/afero"
 )
 
 // FileUtils is wrapper around fs to give additional functions

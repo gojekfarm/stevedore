@@ -1,9 +1,10 @@
 package stringutils_test
 
 import (
+	"testing"
+
 	"github.com/gojek/stevedore/pkg/utils/string"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestContains(t *testing.T) {

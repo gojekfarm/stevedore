@@ -1,9 +1,10 @@
 package plugin
 
 import (
+	"net/rpc"
+
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/hashicorp/go-plugin"
-	"net/rpc"
 )
 
 var _ ManifestInterface = &RPCClient{}

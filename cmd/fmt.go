@@ -2,12 +2,13 @@ package cmd
 
 import (
 	"fmt"
+	"io"
+	"strings"
+
 	"github.com/gojek/stevedore/client/yaml"
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	"io"
-	"strings"
 )
 
 var (

@@ -5,35 +5,36 @@
 package mockProvider
 
 import (
+	reflect "reflect"
+
 	stevedore "github.com/gojek/stevedore/pkg/stevedore"
 	gomock "github.com/golang/mock/gomock"
-	reflect "reflect"
 )
 
-// MockContextProvider is a mock of ContextProvider interface
+// MockContextProvider is a mock of ContextProvider interface.
 type MockContextProvider struct {
 	ctrl     *gomock.Controller
 	recorder *MockContextProviderMockRecorder
 }
 
-// MockContextProviderMockRecorder is the mock recorder for MockContextProvider
+// MockContextProviderMockRecorder is the mock recorder for MockContextProvider.
 type MockContextProviderMockRecorder struct {
 	mock *MockContextProvider
 }
 
-// NewMockContextProvider creates a new mock instance
+// NewMockContextProvider creates a new mock instance.
 func NewMockContextProvider(ctrl *gomock.Controller) *MockContextProvider {
 	mock := &MockContextProvider{ctrl: ctrl}
 	mock.recorder = &MockContextProviderMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockContextProvider) EXPECT() *MockContextProviderMockRecorder {
 	return m.recorder
 }
 
-// Context mocks base method
+// Context mocks base method.
 func (m *MockContextProvider) Context() (stevedore.Context, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Context")
@@ -42,7 +43,7 @@ func (m *MockContextProvider) Context() (stevedore.Context, error) {
 	return ret0, ret1
 }
 
-// Context indicates an expected call of Context
+// Context indicates an expected call of Context.
 func (mr *MockContextProviderMockRecorder) Context() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Context", reflect.TypeOf((*MockContextProvider)(nil).Context))

@@ -2,6 +2,7 @@ package provider
 
 import (
 	"fmt"
+
 	"github.com/gojek/stevedore/pkg/config"
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/spf13/afero"

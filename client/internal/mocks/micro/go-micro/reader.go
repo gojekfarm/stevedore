@@ -5,37 +5,38 @@
 package mocks
 
 import (
-	gomock "github.com/golang/mock/gomock"
 	reader "github.com/micro/go-micro/config/reader"
-	source "github.com/micro/go-micro/config/source"
 	reflect "reflect"
 	time "time"
+
+	gomock "github.com/golang/mock/gomock"
+	source "github.com/micro/go-micro/config/source"
 )
 
-// MockReader is a mock of Reader interface
+// MockReader is a mock of Reader interface.
 type MockReader struct {
 	ctrl     *gomock.Controller
 	recorder *MockReaderMockRecorder
 }
 
-// MockReaderMockRecorder is the mock recorder for MockReader
+// MockReaderMockRecorder is the mock recorder for MockReader.
 type MockReaderMockRecorder struct {
 	mock *MockReader
 }
 
-// NewMockReader creates a new mock instance
+// NewMockReader creates a new mock instance.
 func NewMockReader(ctrl *gomock.Controller) *MockReader {
 	mock := &MockReader{ctrl: ctrl}
 	mock.recorder = &MockReaderMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockReader) EXPECT() *MockReaderMockRecorder {
 	return m.recorder
 }
 
-// Merge mocks base method
+// Merge mocks base method.
 func (m *MockReader) Merge(arg0 ...*source.ChangeSet) (*source.ChangeSet, error) {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{}
@@ -48,13 +49,13 @@ func (m *MockReader) Merge(arg0 ...*source.ChangeSet) (*source.ChangeSet, error)
 	return ret0, ret1
 }
 
-// Merge indicates an expected call of Merge
+// Merge indicates an expected call of Merge.
 func (mr *MockReaderMockRecorder) Merge(arg0 ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Merge", reflect.TypeOf((*MockReader)(nil).Merge), arg0...)
 }
 
-// Values mocks base method
+// Values mocks base method.
 func (m *MockReader) Values(arg0 *source.ChangeSet) (reader.Values, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Values", arg0)
@@ -63,13 +64,13 @@ func (m *MockReader) Values(arg0 *source.ChangeSet) (reader.Values, error) {
 	return ret0, ret1
 }
 
-// Values indicates an expected call of Values
+// Values indicates an expected call of Values.
 func (mr *MockReaderMockRecorder) Values(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Values", reflect.TypeOf((*MockReader)(nil).Values), arg0)
 }
 
-// String mocks base method
+// String mocks base method.
 func (m *MockReader) String() string {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "String")
@@ -77,36 +78,36 @@ func (m *MockReader) String() string {
 	return ret0
 }
 
-// String indicates an expected call of String
+// String indicates an expected call of String.
 func (mr *MockReaderMockRecorder) String() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "String", reflect.TypeOf((*MockReader)(nil).String))
 }
 
-// MockValues is a mock of Values interface
+// MockValues is a mock of Values interface.
 type MockValues struct {
 	ctrl     *gomock.Controller
 	recorder *MockValuesMockRecorder
 }
 
-// MockValuesMockRecorder is the mock recorder for MockValues
+// MockValuesMockRecorder is the mock recorder for MockValues.
 type MockValuesMockRecorder struct {
 	mock *MockValues
 }
 
-// NewMockValues creates a new mock instance
+// NewMockValues creates a new mock instance.
 func NewMockValues(ctrl *gomock.Controller) *MockValues {
 	mock := &MockValues{ctrl: ctrl}
 	mock.recorder = &MockValuesMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockValues) EXPECT() *MockValuesMockRecorder {
 	return m.recorder
 }
 
-// Bytes mocks base method
+// Bytes mocks base method.
 func (m *MockValues) Bytes() []byte {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Bytes")
@@ -114,13 +115,13 @@ func (m *MockValues) Bytes() []byte {
 	return ret0
 }
 
-// Bytes indicates an expected call of Bytes
+// Bytes indicates an expected call of Bytes.
 func (mr *MockValuesMockRecorder) Bytes() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Bytes", reflect.TypeOf((*MockValues)(nil).Bytes))
 }
 
-// Get mocks base method
+// Get mocks base method.
 func (m *MockValues) Get(path ...string) reader.Value {
 	m.ctrl.T.Helper()
 	varargs := []interface{}{}
@@ -132,13 +133,13 @@ func (m *MockValues) Get(path ...string) reader.Value {
 	return ret0
 }
 
-// Get indicates an expected call of Get
+// Get indicates an expected call of Get.
 func (mr *MockValuesMockRecorder) Get(path ...interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockValues)(nil).Get), path...)
 }
 
-// Map mocks base method
+// Map mocks base method.
 func (m *MockValues) Map() map[string]interface{} {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Map")
@@ -146,13 +147,13 @@ func (m *MockValues) Map() map[string]interface{} {
 	return ret0
 }
 
-// Map indicates an expected call of Map
+// Map indicates an expected call of Map.
 func (mr *MockValuesMockRecorder) Map() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Map", reflect.TypeOf((*MockValues)(nil).Map))
 }
 
-// Scan mocks base method
+// Scan mocks base method.
 func (m *MockValues) Scan(v interface{}) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Scan", v)
@@ -160,36 +161,36 @@ func (m *MockValues) Scan(v interface{}) error {
 	return ret0
 }
 
-// Scan indicates an expected call of Scan
+// Scan indicates an expected call of Scan.
 func (mr *MockValuesMockRecorder) Scan(v interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Scan", reflect.TypeOf((*MockValues)(nil).Scan), v)
 }
 
-// MockValue is a mock of Value interface
+// MockValue is a mock of Value interface.
 type MockValue struct {
 	ctrl     *gomock.Controller
 	recorder *MockValueMockRecorder
 }
 
-// MockValueMockRecorder is the mock recorder for MockValue
+// MockValueMockRecorder is the mock recorder for MockValue.
 type MockValueMockRecorder struct {
 	mock *MockValue
 }
 
-// NewMockValue creates a new mock instance
+// NewMockValue creates a new mock instance.
 func NewMockValue(ctrl *gomock.Controller) *MockValue {
 	mock := &MockValue{ctrl: ctrl}
 	mock.recorder = &MockValueMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockValue) EXPECT() *MockValueMockRecorder {
 	return m.recorder
 }
 
-// Bool mocks base method
+// Bool mocks base method.
 func (m *MockValue) Bool(def bool) bool {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Bool", def)
@@ -197,13 +198,13 @@ func (m *MockValue) Bool(def bool) bool {
 	return ret0
 }
 
-// Bool indicates an expected call of Bool
+// Bool indicates an expected call of Bool.
 func (mr *MockValueMockRecorder) Bool(def interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Bool", reflect.TypeOf((*MockValue)(nil).Bool), def)
 }
 
-// Int mocks base method
+// Int mocks base method.
 func (m *MockValue) Int(def int) int {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Int", def)
@@ -211,13 +212,13 @@ func (m *MockValue) Int(def int) int {
 	return ret0
 }
 
-// Int indicates an expected call of Int
+// Int indicates an expected call of Int.
 func (mr *MockValueMockRecorder) Int(def interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Int", reflect.TypeOf((*MockValue)(nil).Int), def)
 }
 
-// String mocks base method
+// String mocks base method.
 func (m *MockValue) String(def string) string {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "String", def)
@@ -225,13 +226,13 @@ func (m *MockValue) String(def string) string {
 	return ret0
 }
 
-// String indicates an expected call of String
+// String indicates an expected call of String.
 func (mr *MockValueMockRecorder) String(def interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "String", reflect.TypeOf((*MockValue)(nil).String), def)
 }
 
-// Float64 mocks base method
+// Float64 mocks base method.
 func (m *MockValue) Float64(def float64) float64 {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Float64", def)
@@ -239,13 +240,13 @@ func (m *MockValue) Float64(def float64) float64 {
 	return ret0
 }
 
-// Float64 indicates an expected call of Float64
+// Float64 indicates an expected call of Float64.
 func (mr *MockValueMockRecorder) Float64(def interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Float64", reflect.TypeOf((*MockValue)(nil).Float64), def)
 }
 
-// Duration mocks base method
+// Duration mocks base method.
 func (m *MockValue) Duration(def time.Duration) time.Duration {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Duration", def)
@@ -253,13 +254,13 @@ func (m *MockValue) Duration(def time.Duration) time.Duration {
 	return ret0
 }
 
-// Duration indicates an expected call of Duration
+// Duration indicates an expected call of Duration.
 func (mr *MockValueMockRecorder) Duration(def interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Duration", reflect.TypeOf((*MockValue)(nil).Duration), def)
 }
 
-// StringSlice mocks base method
+// StringSlice mocks base method.
 func (m *MockValue) StringSlice(def []string) []string {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "StringSlice", def)
@@ -267,13 +268,13 @@ func (m *MockValue) StringSlice(def []string) []string {
 	return ret0
 }
 
-// StringSlice indicates an expected call of StringSlice
+// StringSlice indicates an expected call of StringSlice.
 func (mr *MockValueMockRecorder) StringSlice(def interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StringSlice", reflect.TypeOf((*MockValue)(nil).StringSlice), def)
 }
 
-// StringMap mocks base method
+// StringMap mocks base method.
 func (m *MockValue) StringMap(def map[string]string) map[string]string {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "StringMap", def)
@@ -281,13 +282,13 @@ func (m *MockValue) StringMap(def map[string]string) map[string]string {
 	return ret0
 }
 
-// StringMap indicates an expected call of StringMap
+// StringMap indicates an expected call of StringMap.
 func (mr *MockValueMockRecorder) StringMap(def interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "StringMap", reflect.TypeOf((*MockValue)(nil).StringMap), def)
 }
 
-// Scan mocks base method
+// Scan mocks base method.
 func (m *MockValue) Scan(val interface{}) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Scan", val)
@@ -295,13 +296,13 @@ func (m *MockValue) Scan(val interface{}) error {
 	return ret0
 }
 
-// Scan indicates an expected call of Scan
+// Scan indicates an expected call of Scan.
 func (mr *MockValueMockRecorder) Scan(val interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Scan", reflect.TypeOf((*MockValue)(nil).Scan), val)
 }
 
-// Bytes mocks base method
+// Bytes mocks base method.
 func (m *MockValue) Bytes() []byte {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Bytes")
@@ -309,7 +310,7 @@ func (m *MockValue) Bytes() []byte {
 	return ret0
 }
 
-// Bytes indicates an expected call of Bytes
+// Bytes indicates an expected call of Bytes.
 func (mr *MockValueMockRecorder) Bytes() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Bytes", reflect.TypeOf((*MockValue)(nil).Bytes))

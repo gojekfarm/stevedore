@@ -2,8 +2,9 @@ package manifest
 
 import (
 	"fmt"
-	"github.com/spf13/afero"
 	"os"
+
+	"github.com/spf13/afero"
 )
 
 var readWritePermission = os.FileMode(0666)

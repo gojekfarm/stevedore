@@ -1,9 +1,10 @@
 package stevedore_test
 
 import (
-	"github.com/google/go-cmp/cmp"
 	"reflect"
 	"testing"
+
+	"github.com/google/go-cmp/cmp"
 
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/stretchr/testify/assert"

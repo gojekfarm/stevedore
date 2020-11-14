@@ -1,12 +1,13 @@
 package utils_test
 
 import (
-	"github.com/gojek/stevedore/pkg/utils"
-	"github.com/spf13/afero"
-	"github.com/stretchr/testify/assert"
 	"os"
 	"path"
 	"testing"
+
+	"github.com/gojek/stevedore/pkg/utils"
+	"github.com/spf13/afero"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestFileUtilsTempDir(t *testing.T) {

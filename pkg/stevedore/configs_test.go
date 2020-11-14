@@ -2,6 +2,8 @@ package stevedore_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/gojek/stevedore/client/provider"
 	"github.com/gojek/stevedore/pkg/internal/mocks/plugin"
 	pkgPlugin "github.com/gojek/stevedore/pkg/plugin"
@@ -9,7 +11,6 @@ import (
 	"github.com/golang/mock/gomock"
 	"github.com/google/go-cmp/cmp"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestConfigsFetch(t *testing.T) {

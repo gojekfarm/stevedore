@@ -2,9 +2,10 @@ package config
 
 import (
 	"fmt"
-	"github.com/mitchellh/go-homedir"
 	"path/filepath"
 	"strings"
+
+	"github.com/mitchellh/go-homedir"
 )
 
 var version string

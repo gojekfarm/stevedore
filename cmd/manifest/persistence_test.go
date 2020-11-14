@@ -1,11 +1,12 @@
 package manifest
 
 import (
+	"os"
+	"testing"
+
 	"github.com/gojek/stevedore/cmd/internal/mocks"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
-	"os"
-	"testing"
 )
 
 func TestDiskPersistenceWrite(t *testing.T) {

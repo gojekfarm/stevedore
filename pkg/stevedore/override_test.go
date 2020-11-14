@@ -2,9 +2,10 @@ package stevedore_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestOverrideSpecificationIsValid(t *testing.T) {

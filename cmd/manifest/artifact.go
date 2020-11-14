@@ -2,12 +2,13 @@ package manifest
 
 import (
 	"fmt"
+	"os"
+	"path/filepath"
+
 	"github.com/gojek/stevedore/log"
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/spf13/afero"
 	"gopkg.in/yaml.v2"
-	"os"
-	"path/filepath"
 )
 
 // Artifact interface to generate artifact

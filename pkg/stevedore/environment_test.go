@@ -1,9 +1,10 @@
 package stevedore_test
 
 import (
+	"testing"
+
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestEnvironmentsContains(t *testing.T) {

@@ -5,35 +5,36 @@
 package mocks
 
 import (
+	reflect "reflect"
+
 	gomock "github.com/golang/mock/gomock"
 	provenance "helm.sh/helm/v3/pkg/provenance"
-	reflect "reflect"
 )
 
-// MockChartDownloader is a mock of ChartDownloader interface
+// MockChartDownloader is a mock of ChartDownloader interface.
 type MockChartDownloader struct {
 	ctrl     *gomock.Controller
 	recorder *MockChartDownloaderMockRecorder
 }
 
-// MockChartDownloaderMockRecorder is the mock recorder for MockChartDownloader
+// MockChartDownloaderMockRecorder is the mock recorder for MockChartDownloader.
 type MockChartDownloaderMockRecorder struct {
 	mock *MockChartDownloader
 }
 
-// NewMockChartDownloader creates a new mock instance
+// NewMockChartDownloader creates a new mock instance.
 func NewMockChartDownloader(ctrl *gomock.Controller) *MockChartDownloader {
 	mock := &MockChartDownloader{ctrl: ctrl}
 	mock.recorder = &MockChartDownloaderMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockChartDownloader) EXPECT() *MockChartDownloaderMockRecorder {
 	return m.recorder
 }
 
-// DownloadTo mocks base method
+// DownloadTo mocks base method.
 func (m *MockChartDownloader) DownloadTo(ref, version, dest string) (string, *provenance.Verification, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DownloadTo", ref, version, dest)
@@ -43,36 +44,36 @@ func (m *MockChartDownloader) DownloadTo(ref, version, dest string) (string, *pr
 	return ret0, ret1, ret2
 }
 
-// DownloadTo indicates an expected call of DownloadTo
+// DownloadTo indicates an expected call of DownloadTo.
 func (mr *MockChartDownloaderMockRecorder) DownloadTo(ref, version, dest interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DownloadTo", reflect.TypeOf((*MockChartDownloader)(nil).DownloadTo), ref, version, dest)
 }
 
-// MockChartVerifier is a mock of ChartVerifier interface
+// MockChartVerifier is a mock of ChartVerifier interface.
 type MockChartVerifier struct {
 	ctrl     *gomock.Controller
 	recorder *MockChartVerifierMockRecorder
 }
 
-// MockChartVerifierMockRecorder is the mock recorder for MockChartVerifier
+// MockChartVerifierMockRecorder is the mock recorder for MockChartVerifier.
 type MockChartVerifierMockRecorder struct {
 	mock *MockChartVerifier
 }
 
-// NewMockChartVerifier creates a new mock instance
+// NewMockChartVerifier creates a new mock instance.
 func NewMockChartVerifier(ctrl *gomock.Controller) *MockChartVerifier {
 	mock := &MockChartVerifier{ctrl: ctrl}
 	mock.recorder = &MockChartVerifierMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockChartVerifier) EXPECT() *MockChartVerifierMockRecorder {
 	return m.recorder
 }
 
-// VerifyChart mocks base method
+// VerifyChart mocks base method.
 func (m *MockChartVerifier) VerifyChart(path, keyring string) (*provenance.Verification, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "VerifyChart", path, keyring)
@@ -81,7 +82,7 @@ func (m *MockChartVerifier) VerifyChart(path, keyring string) (*provenance.Verif
 	return ret0, ret1
 }
 
-// VerifyChart indicates an expected call of VerifyChart
+// VerifyChart indicates an expected call of VerifyChart.
 func (mr *MockChartVerifierMockRecorder) VerifyChart(path, keyring interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "VerifyChart", reflect.TypeOf((*MockChartVerifier)(nil).VerifyChart), path, keyring)

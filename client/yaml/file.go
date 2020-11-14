@@ -3,12 +3,13 @@ package yaml
 import (
 	"bytes"
 	"fmt"
+	"io"
+	"path"
+
 	"github.com/Masterminds/semver"
 	"github.com/gojek/stevedore/pkg/file"
 	"github.com/spf13/afero"
 	"gopkg.in/yaml.v2"
-	"io"
-	"path"
 )
 
 // Files represents collection of file

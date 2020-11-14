@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+
 	"github.com/gojek/stevedore/cmd/cli"
 	"github.com/gojek/stevedore/pkg/stevedore"
 )

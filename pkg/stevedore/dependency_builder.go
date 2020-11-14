@@ -4,12 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	pkgHttp "github.com/gojek/stevedore/pkg/http"
-	"helm.sh/helm/v3/pkg/repo"
 	"net/http"
 	"net/url"
 	"path"
 	"sort"
+
+	pkgHttp "github.com/gojek/stevedore/pkg/http"
+	"helm.sh/helm/v3/pkg/repo"
 
 	"github.com/blang/semver"
 	"github.com/chartmuseum/helm-push/pkg/helm"

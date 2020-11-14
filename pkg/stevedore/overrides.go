@@ -2,8 +2,9 @@ package stevedore
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"io"
+
+	"gopkg.in/yaml.v2"
 )
 
 // Overrides is a list of override

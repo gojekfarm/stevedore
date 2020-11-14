@@ -2,9 +2,10 @@ package stevedore
 
 import (
 	"fmt"
+	"io"
+
 	jsoniter "github.com/json-iterator/go"
 	"gopkg.in/yaml.v2"
-	"io"
 )
 
 type marshal = func(in interface{}) ([]byte, error)

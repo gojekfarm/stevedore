@@ -1,8 +1,9 @@
 package provider_test
 
 import (
-	"github.com/gojek/stevedore/client/provider"
 	"testing"
+
+	"github.com/gojek/stevedore/client/provider"
 
 	"github.com/gojek/stevedore/client/internal/mocks"
 	"github.com/gojek/stevedore/pkg/stevedore"

@@ -3,6 +3,10 @@ package helm
 import (
 	"context"
 	"fmt"
+	"log"
+	"os"
+	"strings"
+
 	"github.com/databus23/helm-diff/diff"
 	"github.com/databus23/helm-diff/manifest"
 	"github.com/pkg/errors"
@@ -16,9 +20,6 @@ import (
 	"helm.sh/helm/v3/pkg/release"
 	"helm.sh/helm/v3/pkg/storage/driver"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
-	"log"
-	"os"
-	"strings"
 )
 
 // Client is an abstraction through which helm can be interacted with

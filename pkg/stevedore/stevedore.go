@@ -4,13 +4,14 @@ import (
 	"bytes"
 	"context"
 	"fmt"
+	"net/http"
+	"sync"
+
 	chartMuseumHelm "github.com/chartmuseum/helm-push/pkg/helm"
 	"github.com/gojek/stevedore/pkg/utils"
 	"helm.sh/helm/v3/pkg/cli"
 	"helm.sh/helm/v3/pkg/getter"
 	"helm.sh/helm/v3/pkg/repo"
-	"net/http"
-	"sync"
 
 	"github.com/gojek/stevedore/log"
 	"github.com/gojek/stevedore/pkg/helm"

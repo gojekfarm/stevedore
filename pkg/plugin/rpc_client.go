@@ -2,9 +2,10 @@ package plugin
 
 import (
 	"fmt"
+	"net/rpc"
+
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"gopkg.in/yaml.v2"
-	"net/rpc"
 )
 
 // RPCClient represents a type that contains a RPCClient Client

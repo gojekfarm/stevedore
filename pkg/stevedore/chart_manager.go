@@ -3,13 +3,14 @@ package stevedore
 import (
 	"context"
 	"fmt"
+	"os"
+
 	"helm.sh/helm/v3/pkg/chart"
 	"helm.sh/helm/v3/pkg/chart/loader"
 	"helm.sh/helm/v3/pkg/chartutil"
 	"helm.sh/helm/v3/pkg/cli"
 	"helm.sh/helm/v3/pkg/downloader"
 	"helm.sh/helm/v3/pkg/getter"
-	"os"
 
 	"github.com/chartmuseum/helm-push/pkg/chartmuseum"
 )

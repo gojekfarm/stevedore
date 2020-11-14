@@ -1,8 +1,9 @@
 package helpers
 
 import (
-	"github.com/gojek/stevedore/internal/cli/helm"
 	"regexp"
+
+	"github.com/gojek/stevedore/internal/cli/helm"
 )
 
 var helmRepoRegex = regexp.MustCompile(`(?m)^([\w-]*)\s*([\w:./-]*)`)

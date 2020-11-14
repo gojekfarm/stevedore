@@ -2,12 +2,13 @@ package provider
 
 import (
 	"fmt"
-	"github.com/gojek/stevedore/client/yaml"
-	"github.com/gojek/stevedore/pkg/plugin"
-	stringUtils "github.com/gojek/stevedore/pkg/utils/string"
 	"os"
 	"path"
 	"strconv"
+
+	"github.com/gojek/stevedore/client/yaml"
+	"github.com/gojek/stevedore/pkg/plugin"
+	stringUtils "github.com/gojek/stevedore/pkg/utils/string"
 
 	"github.com/gojek/stevedore/pkg/file"
 	"github.com/gojek/stevedore/pkg/stevedore"

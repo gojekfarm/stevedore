@@ -2,11 +2,12 @@ package cmd
 
 import (
 	"fmt"
+	"io"
+	"testing"
+
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
-	"io"
-	"testing"
 )
 
 func TestFmtFormat(t *testing.T) {

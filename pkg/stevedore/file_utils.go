@@ -1,8 +1,9 @@
 package stevedore
 
 import (
-	"github.com/spf13/afero"
 	"os"
+
+	"github.com/spf13/afero"
 )
 
 // FileUtils to combine Fs and other package methods

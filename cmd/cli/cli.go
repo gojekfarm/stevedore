@@ -2,9 +2,10 @@ package cli
 
 import (
 	"fmt"
-	"github.com/olekukonko/tablewriter"
 	"io"
 	"os"
+
+	"github.com/olekukonko/tablewriter"
 
 	"github.com/fatih/color"
 	"golang.org/x/crypto/ssh/terminal"

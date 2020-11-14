@@ -1,10 +1,12 @@
 package helm
 
 import (
-	"helm.sh/helm/v3/pkg/downloader"
-	"helm.sh/helm/v3/pkg/provenance"
 	"os"
 	"path/filepath"
+
+	"helm.sh/helm/v3/pkg/downloader"
+	"helm.sh/helm/v3/pkg/provenance"
+
 	// load the gcp plugin (required to authenticate against GKE clusters)
 	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 	"k8s.io/client-go/util/homedir"

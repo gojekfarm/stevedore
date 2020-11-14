@@ -1,10 +1,11 @@
 package lint_test
 
 import (
+	"testing"
+
 	"github.com/gojek/stevedore/pkg/lint"
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestLint(t *testing.T) {

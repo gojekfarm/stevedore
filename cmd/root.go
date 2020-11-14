@@ -1,13 +1,14 @@
 package cmd
 
 import (
+	"os"
+	"strings"
+
 	"github.com/gojek/stevedore/cmd/cli"
 	"github.com/gojek/stevedore/cmd/config"
 	"github.com/gojek/stevedore/cmd/plugin"
 	"github.com/gojek/stevedore/log"
 	"github.com/spf13/afero"
-	"os"
-	"strings"
 
 	"github.com/spf13/cobra"
 )

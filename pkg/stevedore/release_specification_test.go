@@ -2,10 +2,11 @@ package stevedore_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/gojek/stevedore/client/provider"
 	"github.com/gojek/stevedore/pkg/config"
 	pkgPlugin "github.com/gojek/stevedore/pkg/plugin"
-	"testing"
 
 	"github.com/gojek/stevedore/pkg/internal/mocks/plugin"
 	"github.com/gojek/stevedore/pkg/stevedore"

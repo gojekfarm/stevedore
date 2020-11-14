@@ -1,8 +1,9 @@
 package manifest
 
 import (
-	"github.com/gojek/stevedore/cmd/cli"
 	"io"
+
+	"github.com/gojek/stevedore/cmd/cli"
 )
 
 // RenderAction to render manifest

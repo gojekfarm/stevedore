@@ -3,6 +3,13 @@ package cmd
 import (
 	"bytes"
 	"fmt"
+	"io"
+	"net/http"
+	"net/url"
+	"os"
+	"path/filepath"
+	"strings"
+
 	"github.com/gojek/stevedore/client/provider"
 	"github.com/gojek/stevedore/cmd/cli"
 	"github.com/gojek/stevedore/cmd/config"
@@ -10,12 +17,6 @@ import (
 	pkgPlugin "github.com/gojek/stevedore/pkg/plugin"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
-	"io"
-	"net/http"
-	"net/url"
-	"os"
-	"path/filepath"
-	"strings"
 )
 
 // pluginCmd represents the plugin command

@@ -2,14 +2,15 @@ package yaml_test
 
 import (
 	"fmt"
+	"io/ioutil"
+	"testing"
+
 	"github.com/gojek/stevedore/client/internal/mocks"
 	"github.com/gojek/stevedore/client/yaml"
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/golang/mock/gomock"
 	"github.com/spf13/afero"
 	"github.com/stretchr/testify/assert"
-	"io/ioutil"
-	"testing"
 )
 
 func TestNewYamlFile(t *testing.T) {

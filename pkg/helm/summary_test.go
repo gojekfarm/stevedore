@@ -1,9 +1,10 @@
 package helm_test
 
 import (
-	"github.com/gojek/stevedore/pkg/helm"
 	"reflect"
 	"testing"
+
+	"github.com/gojek/stevedore/pkg/helm"
 )
 
 func TestResourcesGroupByKind(t *testing.T) {

@@ -2,9 +2,10 @@ package plugin
 
 import (
 	"fmt"
-	"github.com/hashicorp/go-plugin"
 	"net/rpc"
 	"time"
+
+	"github.com/hashicorp/go-plugin"
 )
 
 func rpcCallWithTimeout(client *rpc.Client, rpcCallFunc func() error) error {

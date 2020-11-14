@@ -2,12 +2,13 @@ package manifest_test
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/gojek/stevedore/client/provider"
 	"github.com/gojek/stevedore/cmd/internal/mocks/mockManifest"
 	"github.com/gojek/stevedore/pkg/config"
 	pkgManifest "github.com/gojek/stevedore/pkg/manifest"
 	pkgPlugin "github.com/gojek/stevedore/pkg/plugin"
-	"testing"
 
 	"github.com/gojek/stevedore/cmd/internal/mocks"
 	"github.com/gojek/stevedore/cmd/internal/mocks/mockPlugin"

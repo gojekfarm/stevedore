@@ -2,9 +2,10 @@ package stevedore
 
 import (
 	"fmt"
-	"gopkg.in/yaml.v2"
 	"io"
 	"sort"
+
+	"gopkg.in/yaml.v2"
 )
 
 // Env represents all the env file

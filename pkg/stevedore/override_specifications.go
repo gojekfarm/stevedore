@@ -1,8 +1,9 @@
 package stevedore
 
 import (
-	"github.com/gojek/stevedore/pkg/merger"
 	"sort"
+
+	"github.com/gojek/stevedore/pkg/merger"
 )
 
 // OverrideSpecifications represents array of OverrideSpecification

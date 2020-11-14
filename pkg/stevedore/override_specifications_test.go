@@ -1,10 +1,11 @@
 package stevedore_test
 
 import (
-	"github.com/gojek/stevedore/pkg/stevedore"
-	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
+
+	"github.com/gojek/stevedore/pkg/stevedore"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMatchedOverrideSpecifications(t *testing.T) {

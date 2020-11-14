@@ -3,6 +3,7 @@ package stevedore
 import (
 	"bytes"
 	"fmt"
+
 	"gopkg.in/yaml.v2"
 )
 

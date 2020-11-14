@@ -2,10 +2,11 @@ package stevedore
 
 import (
 	"fmt"
-	"github.com/gojek/stevedore/cmd/cli"
-	"github.com/gojek/stevedore/pkg/config"
 	"os"
 	"path/filepath"
+
+	"github.com/gojek/stevedore/cmd/cli"
+	"github.com/gojek/stevedore/pkg/config"
 
 	"gopkg.in/yaml.v2"
 

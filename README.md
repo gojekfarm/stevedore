@@ -38,6 +38,14 @@ Stevedore a tool to load the cluster with containers for kubernetes to orchestra
 
 ## Installation
 
+### Install using Brew
+
+```
+brew tap thecasualcoder/stable
+brew install stevedore
+stevedore --help ## Verify the installation
+```
+
 ### Install from source
 ```
 git clone git@github.com:gojekfarm/stevedore.git

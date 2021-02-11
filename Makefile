@@ -4,7 +4,7 @@ help: ## Prints help (only for targets with comments)
 
 GO111MODULE=on
 APP=stevedore
-VERSION?=3.3.1
+VERSION?=3.5.2
 APP_EXECUTABLE="./out/$(APP)"
 SRC_PACKAGES=$(shell go list -mod=vendor ./... | grep -v "vendor" | grep -v "swagger")
 SHELL=bash -o pipefail

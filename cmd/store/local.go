@@ -6,8 +6,7 @@ import (
 )
 
 // Local store to get local configuration
-type Local struct {
-}
+type Local struct{}
 
 // Fetch the local configuration
 func (ls Local) Fetch() map[string]interface{} {

@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"os"
 	"path/filepath"
 	"strings"
 
@@ -42,6 +43,9 @@ func SetConfigFilePath(c string) {
 
 // FilePath returns path of stevedore.yaml
 func FilePath() (string, error) {
+	if path, ok := os.LookupEnv("STEVEDORE_CONFIG"); ok {
+		return path, nil
+	}
 	if configFilePath != "" {
 		return configFilePath, nil
 	}

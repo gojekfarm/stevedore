@@ -67,7 +67,7 @@ compress: compile ## Compress the binary
 
 build: fmt build-common ## Build the application
 
-build-common: vet lint test compile
+build-common: lint test compile
 
 compile: compile-app ## Compile stevedore
 
@@ -76,9 +76,6 @@ compile-app: ensure-build-dir
 
 fmt:
 	GOFLAGS="-mod=vendor" $(GO_BINARY) fmt $(SRC_PACKAGES)
-
-vet:
-	$(GO_BINARY) vet -mod=vendor $(SRC_PACKAGES)
 
 lint: setup-golangci-lint
 	$(GOLANGCI_LINT) run -v

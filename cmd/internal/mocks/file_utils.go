@@ -5,38 +5,37 @@
 package mocks
 
 import (
+	gomock "github.com/golang/mock/gomock"
+	afero "github.com/spf13/afero"
 	os "os"
 	reflect "reflect"
 	time "time"
-
-	gomock "github.com/golang/mock/gomock"
-	afero "github.com/spf13/afero"
 )
 
-// MockFileUtils is a mock of FileUtils interface.
+// MockFileUtils is a mock of FileUtils interface
 type MockFileUtils struct {
 	ctrl     *gomock.Controller
 	recorder *MockFileUtilsMockRecorder
 }
 
-// MockFileUtilsMockRecorder is the mock recorder for MockFileUtils.
+// MockFileUtilsMockRecorder is the mock recorder for MockFileUtils
 type MockFileUtilsMockRecorder struct {
 	mock *MockFileUtils
 }
 
-// NewMockFileUtils creates a new mock instance.
+// NewMockFileUtils creates a new mock instance
 func NewMockFileUtils(ctrl *gomock.Controller) *MockFileUtils {
 	mock := &MockFileUtils{ctrl: ctrl}
 	mock.recorder = &MockFileUtilsMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use.
+// EXPECT returns an object that allows the caller to indicate expected use
 func (m *MockFileUtils) EXPECT() *MockFileUtilsMockRecorder {
 	return m.recorder
 }
 
-// Create mocks base method.
+// Create mocks base method
 func (m *MockFileUtils) Create(name string) (afero.File, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", name)
@@ -45,13 +44,13 @@ func (m *MockFileUtils) Create(name string) (afero.File, error) {
 	return ret0, ret1
 }
 
-// Create indicates an expected call of Create.
+// Create indicates an expected call of Create
 func (mr *MockFileUtilsMockRecorder) Create(name interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Create", reflect.TypeOf((*MockFileUtils)(nil).Create), name)
 }
 
-// Mkdir mocks base method.
+// Mkdir mocks base method
 func (m *MockFileUtils) Mkdir(name string, perm os.FileMode) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Mkdir", name, perm)
@@ -59,13 +58,13 @@ func (m *MockFileUtils) Mkdir(name string, perm os.FileMode) error {
 	return ret0
 }
 
-// Mkdir indicates an expected call of Mkdir.
+// Mkdir indicates an expected call of Mkdir
 func (mr *MockFileUtilsMockRecorder) Mkdir(name, perm interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Mkdir", reflect.TypeOf((*MockFileUtils)(nil).Mkdir), name, perm)
 }
 
-// MkdirAll mocks base method.
+// MkdirAll mocks base method
 func (m *MockFileUtils) MkdirAll(path string, perm os.FileMode) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "MkdirAll", path, perm)
@@ -73,13 +72,13 @@ func (m *MockFileUtils) MkdirAll(path string, perm os.FileMode) error {
 	return ret0
 }
 
-// MkdirAll indicates an expected call of MkdirAll.
+// MkdirAll indicates an expected call of MkdirAll
 func (mr *MockFileUtilsMockRecorder) MkdirAll(path, perm interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "MkdirAll", reflect.TypeOf((*MockFileUtils)(nil).MkdirAll), path, perm)
 }
 
-// Open mocks base method.
+// Open mocks base method
 func (m *MockFileUtils) Open(name string) (afero.File, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Open", name)
@@ -88,13 +87,13 @@ func (m *MockFileUtils) Open(name string) (afero.File, error) {
 	return ret0, ret1
 }
 
-// Open indicates an expected call of Open.
+// Open indicates an expected call of Open
 func (mr *MockFileUtilsMockRecorder) Open(name interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Open", reflect.TypeOf((*MockFileUtils)(nil).Open), name)
 }
 
-// OpenFile mocks base method.
+// OpenFile mocks base method
 func (m *MockFileUtils) OpenFile(name string, flag int, perm os.FileMode) (afero.File, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "OpenFile", name, flag, perm)
@@ -103,13 +102,13 @@ func (m *MockFileUtils) OpenFile(name string, flag int, perm os.FileMode) (afero
 	return ret0, ret1
 }
 
-// OpenFile indicates an expected call of OpenFile.
+// OpenFile indicates an expected call of OpenFile
 func (mr *MockFileUtilsMockRecorder) OpenFile(name, flag, perm interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "OpenFile", reflect.TypeOf((*MockFileUtils)(nil).OpenFile), name, flag, perm)
 }
 
-// Remove mocks base method.
+// Remove mocks base method
 func (m *MockFileUtils) Remove(name string) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Remove", name)
@@ -117,13 +116,13 @@ func (m *MockFileUtils) Remove(name string) error {
 	return ret0
 }
 
-// Remove indicates an expected call of Remove.
+// Remove indicates an expected call of Remove
 func (mr *MockFileUtilsMockRecorder) Remove(name interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Remove", reflect.TypeOf((*MockFileUtils)(nil).Remove), name)
 }
 
-// RemoveAll mocks base method.
+// RemoveAll mocks base method
 func (m *MockFileUtils) RemoveAll(path string) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "RemoveAll", path)
@@ -131,13 +130,13 @@ func (m *MockFileUtils) RemoveAll(path string) error {
 	return ret0
 }
 
-// RemoveAll indicates an expected call of RemoveAll.
+// RemoveAll indicates an expected call of RemoveAll
 func (mr *MockFileUtilsMockRecorder) RemoveAll(path interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RemoveAll", reflect.TypeOf((*MockFileUtils)(nil).RemoveAll), path)
 }
 
-// Rename mocks base method.
+// Rename mocks base method
 func (m *MockFileUtils) Rename(oldname, newname string) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Rename", oldname, newname)
@@ -145,13 +144,13 @@ func (m *MockFileUtils) Rename(oldname, newname string) error {
 	return ret0
 }
 
-// Rename indicates an expected call of Rename.
+// Rename indicates an expected call of Rename
 func (mr *MockFileUtilsMockRecorder) Rename(oldname, newname interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Rename", reflect.TypeOf((*MockFileUtils)(nil).Rename), oldname, newname)
 }
 
-// Stat mocks base method.
+// Stat mocks base method
 func (m *MockFileUtils) Stat(name string) (os.FileInfo, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Stat", name)
@@ -160,13 +159,13 @@ func (m *MockFileUtils) Stat(name string) (os.FileInfo, error) {
 	return ret0, ret1
 }
 
-// Stat indicates an expected call of Stat.
+// Stat indicates an expected call of Stat
 func (mr *MockFileUtilsMockRecorder) Stat(name interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Stat", reflect.TypeOf((*MockFileUtils)(nil).Stat), name)
 }
 
-// Name mocks base method.
+// Name mocks base method
 func (m *MockFileUtils) Name() string {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Name")
@@ -174,13 +173,13 @@ func (m *MockFileUtils) Name() string {
 	return ret0
 }
 
-// Name indicates an expected call of Name.
+// Name indicates an expected call of Name
 func (mr *MockFileUtilsMockRecorder) Name() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Name", reflect.TypeOf((*MockFileUtils)(nil).Name))
 }
 
-// Chmod mocks base method.
+// Chmod mocks base method
 func (m *MockFileUtils) Chmod(name string, mode os.FileMode) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Chmod", name, mode)
@@ -188,13 +187,13 @@ func (m *MockFileUtils) Chmod(name string, mode os.FileMode) error {
 	return ret0
 }
 
-// Chmod indicates an expected call of Chmod.
+// Chmod indicates an expected call of Chmod
 func (mr *MockFileUtilsMockRecorder) Chmod(name, mode interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Chmod", reflect.TypeOf((*MockFileUtils)(nil).Chmod), name, mode)
 }
 
-// Chtimes mocks base method.
+// Chtimes mocks base method
 func (m *MockFileUtils) Chtimes(name string, atime, mtime time.Time) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Chtimes", name, atime, mtime)
@@ -202,13 +201,13 @@ func (m *MockFileUtils) Chtimes(name string, atime, mtime time.Time) error {
 	return ret0
 }
 
-// Chtimes indicates an expected call of Chtimes.
+// Chtimes indicates an expected call of Chtimes
 func (mr *MockFileUtilsMockRecorder) Chtimes(name, atime, mtime interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Chtimes", reflect.TypeOf((*MockFileUtils)(nil).Chtimes), name, atime, mtime)
 }
 
-// TempDir mocks base method.
+// TempDir mocks base method
 func (m *MockFileUtils) TempDir(prefix string) (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "TempDir", prefix)
@@ -217,13 +216,13 @@ func (m *MockFileUtils) TempDir(prefix string) (string, error) {
 	return ret0, ret1
 }
 
-// TempDir indicates an expected call of TempDir.
+// TempDir indicates an expected call of TempDir
 func (mr *MockFileUtilsMockRecorder) TempDir(prefix interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "TempDir", reflect.TypeOf((*MockFileUtils)(nil).TempDir), prefix)
 }
 
-// WriteFile mocks base method.
+// WriteFile mocks base method
 func (m *MockFileUtils) WriteFile(filename string, data []byte, perm os.FileMode) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "WriteFile", filename, data, perm)
@@ -231,7 +230,7 @@ func (m *MockFileUtils) WriteFile(filename string, data []byte, perm os.FileMode
 	return ret0
 }
 
-// WriteFile indicates an expected call of WriteFile.
+// WriteFile indicates an expected call of WriteFile
 func (mr *MockFileUtilsMockRecorder) WriteFile(filename, data, perm interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "WriteFile", reflect.TypeOf((*MockFileUtils)(nil).WriteFile), filename, data, perm)

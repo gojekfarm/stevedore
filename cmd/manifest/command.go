@@ -35,6 +35,8 @@ type Command struct {
 	artifactsPath      string
 	confirm            bool
 	helmTimeout        int64
+	hasHelmAtomic      bool
+	helmAtomic         bool
 }
 
 const (
@@ -54,6 +56,7 @@ func NewApplyCmd(fs afero.Fs, cfgFile *string, kubeconfigRequired bool) *Command
 		askConfirmation:    true,
 		confirm:            false,
 		kubeconfigRequired: kubeconfigRequired,
+		hasHelmAtomic:      true,
 	}
 }
 
@@ -215,6 +218,9 @@ func (actionCmd *Command) CobraCommand() (*cobra.Command, error) {
 	if actionCmd.useHelm {
 		repo.AddRepoFlags(&cmd, &actionCmd.helmRepoName)
 		cmd.PersistentFlags().Int64VarP(&actionCmd.helmTimeout, "helm-timeout", "t", 600, "Timeout in seconds(default 10 minutes)")
+		if actionCmd.hasHelmAtomic {
+			cmd.PersistentFlags().BoolVar(&actionCmd.helmAtomic, "helm-atomic", false, "Wait for resources to become ready and delete installation on failure (default: false)")
+		}
 	}
 
 	if actionCmd.kubeconfigRequired {

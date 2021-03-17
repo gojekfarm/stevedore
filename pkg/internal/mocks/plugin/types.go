@@ -5,37 +5,36 @@
 package mockPlugin
 
 import (
-	reflect "reflect"
-
 	plugin "github.com/gojek/stevedore/pkg/plugin"
 	stevedore "github.com/gojek/stevedore/pkg/stevedore"
 	gomock "github.com/golang/mock/gomock"
+	reflect "reflect"
 )
 
-// MockInterface is a mock of Interface interface.
+// MockInterface is a mock of Interface interface
 type MockInterface struct {
 	ctrl     *gomock.Controller
 	recorder *MockInterfaceMockRecorder
 }
 
-// MockInterfaceMockRecorder is the mock recorder for MockInterface.
+// MockInterfaceMockRecorder is the mock recorder for MockInterface
 type MockInterfaceMockRecorder struct {
 	mock *MockInterface
 }
 
-// NewMockInterface creates a new mock instance.
+// NewMockInterface creates a new mock instance
 func NewMockInterface(ctrl *gomock.Controller) *MockInterface {
 	mock := &MockInterface{ctrl: ctrl}
 	mock.recorder = &MockInterfaceMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use.
+// EXPECT returns an object that allows the caller to indicate expected use
 func (m *MockInterface) EXPECT() *MockInterfaceMockRecorder {
 	return m.recorder
 }
 
-// Version mocks base method.
+// Version mocks base method
 func (m *MockInterface) Version() (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Version")
@@ -44,13 +43,13 @@ func (m *MockInterface) Version() (string, error) {
 	return ret0, ret1
 }
 
-// Version indicates an expected call of Version.
+// Version indicates an expected call of Version
 func (mr *MockInterfaceMockRecorder) Version() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Version", reflect.TypeOf((*MockInterface)(nil).Version))
 }
 
-// Flags mocks base method.
+// Flags mocks base method
 func (m *MockInterface) Flags() ([]plugin.Flag, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Flags")
@@ -59,13 +58,13 @@ func (m *MockInterface) Flags() ([]plugin.Flag, error) {
 	return ret0, ret1
 }
 
-// Flags indicates an expected call of Flags.
+// Flags indicates an expected call of Flags
 func (mr *MockInterfaceMockRecorder) Flags() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Flags", reflect.TypeOf((*MockInterface)(nil).Flags))
 }
 
-// Type mocks base method.
+// Type mocks base method
 func (m *MockInterface) Type() (plugin.Type, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Type")
@@ -74,13 +73,13 @@ func (m *MockInterface) Type() (plugin.Type, error) {
 	return ret0, ret1
 }
 
-// Type indicates an expected call of Type.
+// Type indicates an expected call of Type
 func (mr *MockInterfaceMockRecorder) Type() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Type", reflect.TypeOf((*MockInterface)(nil).Type))
 }
 
-// Help mocks base method.
+// Help mocks base method
 func (m *MockInterface) Help() (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Help")
@@ -89,13 +88,13 @@ func (m *MockInterface) Help() (string, error) {
 	return ret0, ret1
 }
 
-// Help indicates an expected call of Help.
+// Help indicates an expected call of Help
 func (mr *MockInterfaceMockRecorder) Help() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Help", reflect.TypeOf((*MockInterface)(nil).Help))
 }
 
-// Close mocks base method.
+// Close mocks base method
 func (m *MockInterface) Close() error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Close")
@@ -103,36 +102,36 @@ func (m *MockInterface) Close() error {
 	return ret0
 }
 
-// Close indicates an expected call of Close.
+// Close indicates an expected call of Close
 func (mr *MockInterfaceMockRecorder) Close() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Close", reflect.TypeOf((*MockInterface)(nil).Close))
 }
 
-// MockConfigInterface is a mock of ConfigInterface interface.
+// MockConfigInterface is a mock of ConfigInterface interface
 type MockConfigInterface struct {
 	ctrl     *gomock.Controller
 	recorder *MockConfigInterfaceMockRecorder
 }
 
-// MockConfigInterfaceMockRecorder is the mock recorder for MockConfigInterface.
+// MockConfigInterfaceMockRecorder is the mock recorder for MockConfigInterface
 type MockConfigInterfaceMockRecorder struct {
 	mock *MockConfigInterface
 }
 
-// NewMockConfigInterface creates a new mock instance.
+// NewMockConfigInterface creates a new mock instance
 func NewMockConfigInterface(ctrl *gomock.Controller) *MockConfigInterface {
 	mock := &MockConfigInterface{ctrl: ctrl}
 	mock.recorder = &MockConfigInterfaceMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use.
+// EXPECT returns an object that allows the caller to indicate expected use
 func (m *MockConfigInterface) EXPECT() *MockConfigInterfaceMockRecorder {
 	return m.recorder
 }
 
-// Version mocks base method.
+// Version mocks base method
 func (m *MockConfigInterface) Version() (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Version")
@@ -141,13 +140,13 @@ func (m *MockConfigInterface) Version() (string, error) {
 	return ret0, ret1
 }
 
-// Version indicates an expected call of Version.
+// Version indicates an expected call of Version
 func (mr *MockConfigInterfaceMockRecorder) Version() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Version", reflect.TypeOf((*MockConfigInterface)(nil).Version))
 }
 
-// Flags mocks base method.
+// Flags mocks base method
 func (m *MockConfigInterface) Flags() ([]plugin.Flag, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Flags")
@@ -156,13 +155,13 @@ func (m *MockConfigInterface) Flags() ([]plugin.Flag, error) {
 	return ret0, ret1
 }
 
-// Flags indicates an expected call of Flags.
+// Flags indicates an expected call of Flags
 func (mr *MockConfigInterfaceMockRecorder) Flags() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Flags", reflect.TypeOf((*MockConfigInterface)(nil).Flags))
 }
 
-// Type mocks base method.
+// Type mocks base method
 func (m *MockConfigInterface) Type() (plugin.Type, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Type")
@@ -171,13 +170,13 @@ func (m *MockConfigInterface) Type() (plugin.Type, error) {
 	return ret0, ret1
 }
 
-// Type indicates an expected call of Type.
+// Type indicates an expected call of Type
 func (mr *MockConfigInterfaceMockRecorder) Type() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Type", reflect.TypeOf((*MockConfigInterface)(nil).Type))
 }
 
-// Help mocks base method.
+// Help mocks base method
 func (m *MockConfigInterface) Help() (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Help")
@@ -186,13 +185,13 @@ func (m *MockConfigInterface) Help() (string, error) {
 	return ret0, ret1
 }
 
-// Help indicates an expected call of Help.
+// Help indicates an expected call of Help
 func (mr *MockConfigInterfaceMockRecorder) Help() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Help", reflect.TypeOf((*MockConfigInterface)(nil).Help))
 }
 
-// Close mocks base method.
+// Close mocks base method
 func (m *MockConfigInterface) Close() error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Close")
@@ -200,13 +199,13 @@ func (m *MockConfigInterface) Close() error {
 	return ret0
 }
 
-// Close indicates an expected call of Close.
+// Close indicates an expected call of Close
 func (mr *MockConfigInterfaceMockRecorder) Close() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Close", reflect.TypeOf((*MockConfigInterface)(nil).Close))
 }
 
-// Fetch mocks base method.
+// Fetch mocks base method
 func (m *MockConfigInterface) Fetch(context map[string]string, data interface{}) (map[string]interface{}, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Fetch", context, data)
@@ -215,36 +214,36 @@ func (m *MockConfigInterface) Fetch(context map[string]string, data interface{})
 	return ret0, ret1
 }
 
-// Fetch indicates an expected call of Fetch.
+// Fetch indicates an expected call of Fetch
 func (mr *MockConfigInterfaceMockRecorder) Fetch(context, data interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockConfigInterface)(nil).Fetch), context, data)
 }
 
-// MockManifestInterface is a mock of ManifestInterface interface.
+// MockManifestInterface is a mock of ManifestInterface interface
 type MockManifestInterface struct {
 	ctrl     *gomock.Controller
 	recorder *MockManifestInterfaceMockRecorder
 }
 
-// MockManifestInterfaceMockRecorder is the mock recorder for MockManifestInterface.
+// MockManifestInterfaceMockRecorder is the mock recorder for MockManifestInterface
 type MockManifestInterfaceMockRecorder struct {
 	mock *MockManifestInterface
 }
 
-// NewMockManifestInterface creates a new mock instance.
+// NewMockManifestInterface creates a new mock instance
 func NewMockManifestInterface(ctrl *gomock.Controller) *MockManifestInterface {
 	mock := &MockManifestInterface{ctrl: ctrl}
 	mock.recorder = &MockManifestInterfaceMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use.
+// EXPECT returns an object that allows the caller to indicate expected use
 func (m *MockManifestInterface) EXPECT() *MockManifestInterfaceMockRecorder {
 	return m.recorder
 }
 
-// Version mocks base method.
+// Version mocks base method
 func (m *MockManifestInterface) Version() (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Version")
@@ -253,13 +252,13 @@ func (m *MockManifestInterface) Version() (string, error) {
 	return ret0, ret1
 }
 
-// Version indicates an expected call of Version.
+// Version indicates an expected call of Version
 func (mr *MockManifestInterfaceMockRecorder) Version() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Version", reflect.TypeOf((*MockManifestInterface)(nil).Version))
 }
 
-// Flags mocks base method.
+// Flags mocks base method
 func (m *MockManifestInterface) Flags() ([]plugin.Flag, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Flags")
@@ -268,13 +267,13 @@ func (m *MockManifestInterface) Flags() ([]plugin.Flag, error) {
 	return ret0, ret1
 }
 
-// Flags indicates an expected call of Flags.
+// Flags indicates an expected call of Flags
 func (mr *MockManifestInterfaceMockRecorder) Flags() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Flags", reflect.TypeOf((*MockManifestInterface)(nil).Flags))
 }
 
-// Type mocks base method.
+// Type mocks base method
 func (m *MockManifestInterface) Type() (plugin.Type, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Type")
@@ -283,13 +282,13 @@ func (m *MockManifestInterface) Type() (plugin.Type, error) {
 	return ret0, ret1
 }
 
-// Type indicates an expected call of Type.
+// Type indicates an expected call of Type
 func (mr *MockManifestInterfaceMockRecorder) Type() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Type", reflect.TypeOf((*MockManifestInterface)(nil).Type))
 }
 
-// Help mocks base method.
+// Help mocks base method
 func (m *MockManifestInterface) Help() (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Help")
@@ -298,13 +297,13 @@ func (m *MockManifestInterface) Help() (string, error) {
 	return ret0, ret1
 }
 
-// Help indicates an expected call of Help.
+// Help indicates an expected call of Help
 func (mr *MockManifestInterfaceMockRecorder) Help() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Help", reflect.TypeOf((*MockManifestInterface)(nil).Help))
 }
 
-// Close mocks base method.
+// Close mocks base method
 func (m *MockManifestInterface) Close() error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Close")
@@ -312,13 +311,13 @@ func (m *MockManifestInterface) Close() error {
 	return ret0
 }
 
-// Close indicates an expected call of Close.
+// Close indicates an expected call of Close
 func (mr *MockManifestInterfaceMockRecorder) Close() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Close", reflect.TypeOf((*MockManifestInterface)(nil).Close))
 }
 
-// Manifests mocks base method.
+// Manifests mocks base method
 func (m *MockManifestInterface) Manifests(arg0 map[string]string) (stevedore.ManifestFiles, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Manifests", arg0)
@@ -327,7 +326,7 @@ func (m *MockManifestInterface) Manifests(arg0 map[string]string) (stevedore.Man
 	return ret0, ret1
 }
 
-// Manifests indicates an expected call of Manifests.
+// Manifests indicates an expected call of Manifests
 func (mr *MockManifestInterfaceMockRecorder) Manifests(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Manifests", reflect.TypeOf((*MockManifestInterface)(nil).Manifests), arg0)

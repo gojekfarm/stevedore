@@ -17,6 +17,7 @@ import (
 
 func TestStevedoreDo(t *testing.T) {
 	var timeout int64 = 10
+	var atomic bool = false
 
 	t.Run("should do nothing for empty releaseSpecifications", func(t *testing.T) {
 		ctrl := gomock.NewController(t)
@@ -30,7 +31,7 @@ func TestStevedoreDo(t *testing.T) {
 			Opts:      opts,
 			Upstaller: upstaller,
 		}
-		responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{}, timeout)
+		responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{}, timeout, atomic)
 
 		assert.Empty(t, responses)
 		assert.Nil(t, err)
@@ -70,7 +71,7 @@ func TestStevedoreDo(t *testing.T) {
 
 		opts := stevedore.Opts{DryRun: true, Parallel: true, Filter: false}
 
-		upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout).Do(func(_, _, releaseSpecification, fileName, responseCh, proceedCh, wg, _ interface{}, t int64) {
+		upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout, atomic).Do(func(_, _, releaseSpecification, fileName, responseCh, proceedCh, wg, _ interface{}, t int64, atomic bool) {
 			proceedCh.(chan<- bool) <- true
 			defer wg.(*sync.WaitGroup).Done()
 
@@ -122,7 +123,7 @@ func TestStevedoreDo(t *testing.T) {
 		}
 		postgresRequest := stevedore.ManifestFile{File: "postgres.yaml", Manifest: manifest}
 		redisRequest := stevedore.ManifestFile{File: "redis.yaml", Manifest: manifest}
-		responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{postgresRequest, redisRequest}, timeout)
+		responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{postgresRequest, redisRequest}, timeout, atomic)
 
 		assert.Len(t, responses, 4)
 		assert.ElementsMatch(t, expectedResponses, responses)
@@ -163,7 +164,7 @@ func TestStevedoreDo(t *testing.T) {
 
 		opts := stevedore.Opts{DryRun: true, Parallel: true, Filter: true}
 
-		upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout).Do(func(_, _, releaseSpecification, fileName, responseCh, proceedCh, wg, _ interface{}, t int64) {
+		upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout, atomic).Do(func(_, _, releaseSpecification, fileName, responseCh, proceedCh, wg, _ interface{}, t int64, atomic bool) {
 			proceedCh.(chan<- bool) <- true
 			defer wg.(*sync.WaitGroup).Done()
 
@@ -207,7 +208,7 @@ func TestStevedoreDo(t *testing.T) {
 		}
 		postgresRequest := stevedore.ManifestFile{File: "postgres.yaml", Manifest: manifest}
 		redisRequest := stevedore.ManifestFile{File: "redis.yaml", Manifest: manifest}
-		responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{postgresRequest, redisRequest}, timeout)
+		responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{postgresRequest, redisRequest}, timeout, atomic)
 
 		assert.Len(t, responses, 2)
 		assert.ElementsMatch(t, expectedResponses, responses)
@@ -259,7 +260,7 @@ func TestStevedoreDo(t *testing.T) {
 			file := "postgres.yaml"
 			opts := stevedore.Opts{DryRun: false, Parallel: false}
 			counter := 0
-			upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64) {
+			upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout, atomic).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64, atomic bool) {
 				counter++
 				defer wg.(*sync.WaitGroup).Done()
 
@@ -303,7 +304,7 @@ func TestStevedoreDo(t *testing.T) {
 				Spec:     releaseSpecifications,
 			}
 			manifestFile := stevedore.ManifestFile{File: "postgres.yaml", Manifest: manifest}
-			responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout)
+			responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout, atomic)
 
 			assert.Len(t, responses, 2)
 			assert.Equal(t, expectedResponses, responses)
@@ -355,7 +356,7 @@ func TestStevedoreDo(t *testing.T) {
 			file := "postgres.yaml"
 			opts := stevedore.Opts{DryRun: true, Parallel: false}
 			counter := 0
-			upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64) {
+			upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout, atomic).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64, atomic bool) {
 				counter++
 				defer wg.(*sync.WaitGroup).Done()
 
@@ -405,7 +406,7 @@ func TestStevedoreDo(t *testing.T) {
 				Spec:     releaseSpecifications,
 			}
 			manifestFile := stevedore.ManifestFile{File: "postgres.yaml", Manifest: manifest}
-			responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout)
+			responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout, atomic)
 
 			assert.Len(t, responses, 3)
 			assert.Equal(t, expectedResponses, responses)
@@ -457,7 +458,7 @@ func TestStevedoreDo(t *testing.T) {
 			file := "postgres.yaml"
 			opts := stevedore.Opts{DryRun: false, Parallel: true}
 			counter := 0
-			upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64) {
+			upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout, atomic).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64, atomic bool) {
 				counter++
 				defer wg.(*sync.WaitGroup).Done()
 
@@ -507,7 +508,7 @@ func TestStevedoreDo(t *testing.T) {
 				Spec:     releaseSpecifications,
 			}
 			manifestFile := stevedore.ManifestFile{File: "postgres.yaml", Manifest: manifest}
-			responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout)
+			responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout, atomic)
 
 			assert.Len(t, responses, 3)
 			assert.Equal(t, expectedResponses, responses)
@@ -559,7 +560,7 @@ func TestStevedoreDo(t *testing.T) {
 			file := "postgres.yaml"
 			opts := stevedore.Opts{DryRun: true, Parallel: true}
 			counter := 0
-			upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64) {
+			upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout, atomic).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64, atomic bool) {
 				counter++
 				defer wg.(*sync.WaitGroup).Done()
 
@@ -609,7 +610,7 @@ func TestStevedoreDo(t *testing.T) {
 				Spec:     releaseSpecifications,
 			}
 			manifestFile := stevedore.ManifestFile{File: "postgres.yaml", Manifest: manifest}
-			responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout)
+			responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout, atomic)
 
 			assert.Len(t, responses, 3)
 			assert.Equal(t, expectedResponses, responses)
@@ -652,7 +653,7 @@ func TestStevedoreDo(t *testing.T) {
 		file := "releaseSpecifications.yaml"
 
 		opts := stevedore.Opts{DryRun: true, Parallel: true}
-		upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64) {
+		upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout, atomic).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64, atomic bool) {
 			defer wg.(*sync.WaitGroup).Done()
 
 			proceedCh.(chan<- bool) <- true
@@ -694,7 +695,7 @@ func TestStevedoreDo(t *testing.T) {
 			Spec:     releaseSpecifications,
 		}
 		manifestFile := stevedore.ManifestFile{File: file, Manifest: manifest}
-		responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout)
+		responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout, atomic)
 
 		assert.Len(t, responses, 2)
 		assert.ElementsMatch(t, expectedResponses, responses)
@@ -735,7 +736,7 @@ func TestStevedoreDo(t *testing.T) {
 
 		file := "releaseSpecifications.yaml"
 		opts := stevedore.Opts{DryRun: true, Parallel: true}
-		upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64) {
+		upstaller.EXPECT().Upstall(context.TODO(), client, gomock.Any(), file, gomock.Any(), gomock.Any(), gomock.Any(), opts, timeout, atomic).Do(func(_, _, releaseSpecification, _, responseCh, proceedCh, wg, _ interface{}, t int64, atomic bool) {
 			defer wg.(*sync.WaitGroup).Done()
 
 			proceedCh.(chan<- bool) <- true
@@ -777,7 +778,7 @@ func TestStevedoreDo(t *testing.T) {
 			Spec:     releaseSpecifications,
 		}
 		manifestFile := stevedore.ManifestFile{File: file, Manifest: manifest}
-		responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout)
+		responses, err := s.Do(context.TODO(), stevedore.ManifestFiles{manifestFile}, timeout, atomic)
 
 		assert.Len(t, responses, 2)
 		assert.ElementsMatch(t, expectedResponses, responses)

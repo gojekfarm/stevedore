@@ -5,36 +5,35 @@
 package mockProvider
 
 import (
-	reflect "reflect"
-
 	stevedore "github.com/gojek/stevedore/pkg/stevedore"
 	gomock "github.com/golang/mock/gomock"
+	reflect "reflect"
 )
 
-// MockIgnoreProvider is a mock of IgnoreProvider interface.
+// MockIgnoreProvider is a mock of IgnoreProvider interface
 type MockIgnoreProvider struct {
 	ctrl     *gomock.Controller
 	recorder *MockIgnoreProviderMockRecorder
 }
 
-// MockIgnoreProviderMockRecorder is the mock recorder for MockIgnoreProvider.
+// MockIgnoreProviderMockRecorder is the mock recorder for MockIgnoreProvider
 type MockIgnoreProviderMockRecorder struct {
 	mock *MockIgnoreProvider
 }
 
-// NewMockIgnoreProvider creates a new mock instance.
+// NewMockIgnoreProvider creates a new mock instance
 func NewMockIgnoreProvider(ctrl *gomock.Controller) *MockIgnoreProvider {
 	mock := &MockIgnoreProvider{ctrl: ctrl}
 	mock.recorder = &MockIgnoreProviderMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use.
+// EXPECT returns an object that allows the caller to indicate expected use
 func (m *MockIgnoreProvider) EXPECT() *MockIgnoreProviderMockRecorder {
 	return m.recorder
 }
 
-// Files mocks base method.
+// Files mocks base method
 func (m *MockIgnoreProvider) Files() ([]string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Files")
@@ -43,13 +42,13 @@ func (m *MockIgnoreProvider) Files() ([]string, error) {
 	return ret0, ret1
 }
 
-// Files indicates an expected call of Files.
+// Files indicates an expected call of Files
 func (mr *MockIgnoreProviderMockRecorder) Files() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Files", reflect.TypeOf((*MockIgnoreProvider)(nil).Files))
 }
 
-// Ignores mocks base method.
+// Ignores mocks base method
 func (m *MockIgnoreProvider) Ignores() (stevedore.Ignores, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Ignores")
@@ -58,7 +57,7 @@ func (m *MockIgnoreProvider) Ignores() (stevedore.Ignores, error) {
 	return ret0, ret1
 }
 
-// Ignores indicates an expected call of Ignores.
+// Ignores indicates an expected call of Ignores
 func (mr *MockIgnoreProviderMockRecorder) Ignores() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Ignores", reflect.TypeOf((*MockIgnoreProvider)(nil).Ignores))

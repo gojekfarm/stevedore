@@ -30,6 +30,8 @@ else
 	GO_BINARY=richgo
 endif
 
+MOCKGEN=$(shell command -v mockgen 2> /dev/null)
+
 ifdef CI_COMMIT_SHORT_SHA
 	BUILD=$(CI_COMMIT_SHORT_SHA)
 endif
@@ -44,7 +46,12 @@ ifeq ($(GOLANGCI_LINT),)
 	curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s $(GOLANGCI_LINT_VERSION)
 endif
 
-setup: setup-richgo setup-golangci-lint ensure-build-dir ## Setup environment
+setup-mockgen:
+ifeq ($(MOCKGEN),)
+	GO111MODULE=on $(GO_BINARY) get -u github.com/golang/mock/mockgen@v1.3.1
+endif
+
+setup: setup-richgo setup-golangci-lint setup-mockgen ensure-build-dir ## Setup environment
 
 all: setup build
 

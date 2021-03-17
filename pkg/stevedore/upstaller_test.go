@@ -8,7 +8,7 @@ import (
 
 	"github.com/databus23/helm-diff/manifest"
 	"github.com/gojek/stevedore/pkg/helm"
-	"github.com/gojek/stevedore/pkg/internal/mocks/helm"
+	mocks "github.com/gojek/stevedore/pkg/internal/mocks/helm"
 	"github.com/gojek/stevedore/pkg/stevedore"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
@@ -18,6 +18,7 @@ func TestUpstaller_upstall(t *testing.T) {
 	var currentReleaseVersion int32
 	chartVersion := ""
 	var timeout int64 = 10
+	var atomic bool = true
 	t.Run("should create helm response when helm upstall succeeds", func(t *testing.T) {
 		t.Run("with parallel true", func(t *testing.T) {
 			opts := stevedore.Opts{Parallel: true, DryRun: true}
@@ -48,7 +49,9 @@ func TestUpstaller_upstall(t *testing.T) {
 				currentReleaseVersion,
 				release.Namespace,
 				valuesYaml,
-				opts.DryRun, timeout).Return(upstallResponse, nil)
+				opts.DryRun,
+				timeout,
+				atomic).Return(upstallResponse, nil)
 
 			responseCh := make(chan stevedore.Response)
 			wg := sync.WaitGroup{}
@@ -57,7 +60,7 @@ func TestUpstaller_upstall(t *testing.T) {
 			releaseSpecification := stevedore.ReleaseSpecification{
 				Release: release,
 			}
-			go stevedore.HelmUpstaller{}.Upstall(context.TODO(), client, releaseSpecification, "postgres.yaml", responseCh, proceed, &wg, opts, timeout)
+			go stevedore.HelmUpstaller{}.Upstall(context.TODO(), client, releaseSpecification, "postgres.yaml", responseCh, proceed, &wg, opts, timeout, atomic)
 
 			wgForAssert := sync.WaitGroup{}
 			wgForAssert.Add(1)
@@ -117,7 +120,9 @@ func TestUpstaller_upstall(t *testing.T) {
 				currentReleaseVersion,
 				release.Namespace,
 				valuesYaml,
-				opts.DryRun, timeout).Return(upstallResponse, nil)
+				opts.DryRun,
+				timeout,
+				atomic).Return(upstallResponse, nil)
 
 			responseCh := make(chan stevedore.Response)
 			wg := sync.WaitGroup{}
@@ -126,7 +131,7 @@ func TestUpstaller_upstall(t *testing.T) {
 			releaseSpecification := stevedore.ReleaseSpecification{
 				Release: release,
 			}
-			go stevedore.HelmUpstaller{}.Upstall(context.TODO(), client, releaseSpecification, "postgres.yaml", responseCh, proceed, &wg, opts, timeout)
+			go stevedore.HelmUpstaller{}.Upstall(context.TODO(), client, releaseSpecification, "postgres.yaml", responseCh, proceed, &wg, opts, timeout, atomic)
 
 			wgForAssert := sync.WaitGroup{}
 			wgForAssert.Add(1)
@@ -186,7 +191,9 @@ func TestUpstaller_upstall(t *testing.T) {
 			currentReleaseVersion,
 			release.Namespace,
 			valuesYaml,
-			opts.DryRun, timeout).Return(upstallResponse, nil)
+			opts.DryRun,
+			timeout,
+			atomic).Return(upstallResponse, nil)
 
 		responseCh := make(chan stevedore.Response)
 		wg := sync.WaitGroup{}
@@ -195,7 +202,7 @@ func TestUpstaller_upstall(t *testing.T) {
 		releaseSpecification := stevedore.ReleaseSpecification{
 			Release: release,
 		}
-		go stevedore.HelmUpstaller{}.Upstall(context.TODO(), client, releaseSpecification, "postgres.yaml", responseCh, proceed, &wg, opts, timeout)
+		go stevedore.HelmUpstaller{}.Upstall(context.TODO(), client, releaseSpecification, "postgres.yaml", responseCh, proceed, &wg, opts, timeout, atomic)
 
 		<-proceed
 
@@ -244,7 +251,8 @@ func TestUpstaller_upstall(t *testing.T) {
 				currentReleaseVersion,
 				release.Namespace,
 				valuesYaml,
-				opts.DryRun, timeout).Return(helm.UpstallResponse{}, fmt.Errorf("something went wrong"))
+				opts.DryRun,
+				timeout, atomic).Return(helm.UpstallResponse{}, fmt.Errorf("something went wrong"))
 
 			responseCh := make(chan stevedore.Response)
 			wg := sync.WaitGroup{}
@@ -253,7 +261,7 @@ func TestUpstaller_upstall(t *testing.T) {
 			releaseSpecification := stevedore.ReleaseSpecification{
 				Release: release,
 			}
-			go stevedore.HelmUpstaller{}.Upstall(context.TODO(), client, releaseSpecification, "postgres.yaml", responseCh, proceed, &wg, opts, timeout)
+			go stevedore.HelmUpstaller{}.Upstall(context.TODO(), client, releaseSpecification, "postgres.yaml", responseCh, proceed, &wg, opts, timeout, atomic)
 
 			wgForAssert := sync.WaitGroup{}
 			wgForAssert.Add(1)
@@ -307,7 +315,8 @@ func TestUpstaller_upstall(t *testing.T) {
 				currentReleaseVersion,
 				release.Namespace,
 				valuesYaml,
-				opts.DryRun, timeout).Return(helm.UpstallResponse{}, fmt.Errorf("something went wrong"))
+				opts.DryRun,
+				timeout, atomic).Return(helm.UpstallResponse{}, fmt.Errorf("something went wrong"))
 
 			responseCh := make(chan stevedore.Response)
 			wg := sync.WaitGroup{}
@@ -316,7 +325,7 @@ func TestUpstaller_upstall(t *testing.T) {
 			releaseSpecification := stevedore.ReleaseSpecification{
 				Release: release,
 			}
-			go stevedore.HelmUpstaller{}.Upstall(context.TODO(), client, releaseSpecification, "postgres.yaml", responseCh, proceed, &wg, opts, timeout)
+			go stevedore.HelmUpstaller{}.Upstall(context.TODO(), client, releaseSpecification, "postgres.yaml", responseCh, proceed, &wg, opts, timeout, atomic)
 
 			wgForAssert := sync.WaitGroup{}
 			wgForAssert.Add(1)

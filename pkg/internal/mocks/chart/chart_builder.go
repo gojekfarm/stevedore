@@ -6,36 +6,35 @@ package chartMocks
 
 import (
 	context "context"
-	reflect "reflect"
-
 	stevedore "github.com/gojek/stevedore/pkg/stevedore"
 	gomock "github.com/golang/mock/gomock"
+	reflect "reflect"
 )
 
-// MockChartBuilder is a mock of ChartBuilder interface.
+// MockChartBuilder is a mock of ChartBuilder interface
 type MockChartBuilder struct {
 	ctrl     *gomock.Controller
 	recorder *MockChartBuilderMockRecorder
 }
 
-// MockChartBuilderMockRecorder is the mock recorder for MockChartBuilder.
+// MockChartBuilderMockRecorder is the mock recorder for MockChartBuilder
 type MockChartBuilderMockRecorder struct {
 	mock *MockChartBuilder
 }
 
-// NewMockChartBuilder creates a new mock instance.
+// NewMockChartBuilder creates a new mock instance
 func NewMockChartBuilder(ctrl *gomock.Controller) *MockChartBuilder {
 	mock := &MockChartBuilder{ctrl: ctrl}
 	mock.recorder = &MockChartBuilderMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use.
+// EXPECT returns an object that allows the caller to indicate expected use
 func (m *MockChartBuilder) EXPECT() *MockChartBuilderMockRecorder {
 	return m.recorder
 }
 
-// Build mocks base method.
+// Build mocks base method
 func (m *MockChartBuilder) Build(ctx context.Context, chartName, version, appVersion string, dependencies stevedore.Dependencies) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Build", ctx, chartName, version, appVersion, dependencies)
@@ -43,7 +42,7 @@ func (m *MockChartBuilder) Build(ctx context.Context, chartName, version, appVer
 	return ret0
 }
 
-// Build indicates an expected call of Build.
+// Build indicates an expected call of Build
 func (mr *MockChartBuilderMockRecorder) Build(ctx, chartName, version, appVersion, dependencies interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Build", reflect.TypeOf((*MockChartBuilder)(nil).Build), ctx, chartName, version, appVersion, dependencies)

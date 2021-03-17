@@ -18,13 +18,14 @@ type HelmAction struct {
 	filter       bool
 	helmRepoName string
 	helmTimeout  int64
+	helmAtomic   bool
 }
 
 type actionErrors []error
 
 // NewHelmAction returns HelmAction with given arguments
-func NewHelmAction(info Info, kubeconfig string, dryRun bool, parallel bool, filter bool, helmRepoName string, helmTimeout int64) HelmAction {
-	return HelmAction{info, kubeconfig, dryRun, parallel, filter, helmRepoName, helmTimeout}
+func NewHelmAction(info Info, kubeconfig string, dryRun bool, parallel bool, filter bool, helmRepoName string, helmTimeout int64, helmAtomic bool) HelmAction {
+	return HelmAction{info, kubeconfig, dryRun, parallel, filter, helmRepoName, helmTimeout, helmAtomic}
 }
 
 // Do will plan/apply manifests
@@ -32,7 +33,7 @@ func (action HelmAction) Do() (Info, error) {
 	manifestFiles := action.info.ManifestFiles
 	opts := stevedore.Opts{DryRun: action.dryRun, Parallel: action.parallel, Filter: action.filter}
 
-	responses, err := stevedore.CreateResponse(context.TODO(), manifestFiles, opts, action.helmRepoName, action.helmTimeout)
+	responses, err := stevedore.CreateResponse(context.TODO(), manifestFiles, opts, action.helmRepoName, action.helmTimeout, action.helmAtomic)
 
 	if err != nil {
 		return Info{}, err

@@ -9,9 +9,11 @@ type Action interface {
 func NewAction(cmd Command, info Info) Action {
 	switch cmd.name {
 	case applyCommand:
-		return NewHelmAction(info, cmd.kubeconfig, false, false, false, cmd.helmRepoName, cmd.helmTimeout)
+		return NewHelmAction(info, cmd.kubeconfig, false, false, false, cmd.helmRepoName,
+			cmd.helmTimeout, cmd.helmAtomic)
 	case planCommand:
-		return NewHelmAction(info, cmd.kubeconfig, true, true, true, cmd.helmRepoName, cmd.helmTimeout)
+		return NewHelmAction(info, cmd.kubeconfig, true, true, true, cmd.helmRepoName,
+			cmd.helmTimeout, false)
 	default:
 		return RenderAction{info: info}
 	}

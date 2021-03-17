@@ -34,7 +34,7 @@ type Stevedore struct {
 }
 
 // CreateResponse will take the manifests and helmClients and produce response based on given Opts
-func CreateResponse(ctx context.Context, manifestFiles ManifestFiles, opts Opts, helmRepoName string, helmTimeout int64) (Responses, error) {
+func CreateResponse(ctx context.Context, manifestFiles ManifestFiles, opts Opts, helmRepoName string, helmTimeout int64, helmAtomic bool) (Responses, error) {
 	select {
 	case <-ctx.Done():
 		return nil, fmt.Errorf("request aborted abruptly by client")
@@ -44,7 +44,7 @@ func CreateResponse(ctx context.Context, manifestFiles ManifestFiles, opts Opts,
 			return nil, err
 		}
 		s := Stevedore{Client: &helm.DefaultClient{}, Opts: opts, Upstaller: HelmUpstaller{}, DependencyBuilder: dependencyBuilder}
-		responses, _ := s.Do(ctx, manifestFiles, helmTimeout)
+		responses, _ := s.Do(ctx, manifestFiles, helmTimeout, helmAtomic)
 		return responses, nil
 	}
 }
@@ -81,9 +81,9 @@ func noChartRepoError(repoName string) string {
 }
 
 // Do install or upgrade releases
-func (s Stevedore) Do(ctx context.Context, manifestFiles ManifestFiles, helmTimeout int64) (Responses, error) {
+func (s Stevedore) Do(ctx context.Context, manifestFiles ManifestFiles, helmTimeout int64, helmAtomic bool) (Responses, error) {
 	responseCh := make(chan Response)
-	go s.createResponses(ctx, manifestFiles, responseCh, helmTimeout)
+	go s.createResponses(ctx, manifestFiles, responseCh, helmTimeout, helmAtomic)
 
 	var acc Responses
 	for response := range responseCh {
@@ -99,10 +99,10 @@ func (s Stevedore) Do(ctx context.Context, manifestFiles ManifestFiles, helmTime
 	return acc, nil
 }
 
-func (s Stevedore) createResponses(ctx context.Context, manifestFiles ManifestFiles, responseCh chan<- Response, helmTimeout int64) {
+func (s Stevedore) createResponses(ctx context.Context, manifestFiles ManifestFiles, responseCh chan<- Response, helmTimeout int64, helmAtomic bool) {
 	var wg sync.WaitGroup
 	proceed := make(chan bool)
-	s.response(ctx, manifestFiles, &wg, responseCh, proceed, helmTimeout)
+	s.response(ctx, manifestFiles, &wg, responseCh, proceed, helmTimeout, helmAtomic)
 	wg.Wait()
 	close(responseCh)
 }
@@ -124,7 +124,7 @@ func (s Stevedore) buildChartIfNeeded(ctx context.Context, releaseSpecification 
 	return builtApplication, nil
 }
 
-func (s Stevedore) response(ctx context.Context, manifestFiles ManifestFiles, wg *sync.WaitGroup, responseCh chan<- Response, proceed chan bool, helmTimeout int64) {
+func (s Stevedore) response(ctx context.Context, manifestFiles ManifestFiles, wg *sync.WaitGroup, responseCh chan<- Response, proceed chan bool, helmTimeout int64, helmAtomic bool) {
 	for _, request := range manifestFiles {
 		for _, releaseSpecification := range request.Manifest.Spec {
 			releaseSpecification, err := s.buildChartIfNeeded(ctx, releaseSpecification)
@@ -142,7 +142,7 @@ func (s Stevedore) response(ctx context.Context, manifestFiles ManifestFiles, wg
 				continue
 			}
 			wg.Add(1)
-			go s.Upstaller.Upstall(ctx, s.Client, releaseSpecification, request.File, responseCh, proceed, wg, s.Opts, helmTimeout)
+			go s.Upstaller.Upstall(ctx, s.Client, releaseSpecification, request.File, responseCh, proceed, wg, s.Opts, helmTimeout, helmAtomic)
 			if !<-proceed {
 				return
 			}

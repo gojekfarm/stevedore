@@ -35,16 +35,16 @@ func (m *MockClient) EXPECT() *MockClientMockRecorder {
 }
 
 // Upstall mocks base method
-func (m *MockClient) Upstall(ctx context.Context, releaseName, chartName, chartVersion string, plannedReleaseVersion int32, namespace, values string, dryRun bool, timeout int64) (helm.UpstallResponse, error) {
+func (m *MockClient) Upstall(ctx context.Context, releaseName, chartName, chartVersion string, plannedReleaseVersion int32, namespace, values string, dryRun bool, timeout int64, atomic bool) (helm.UpstallResponse, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Upstall", ctx, releaseName, chartName, chartVersion, plannedReleaseVersion, namespace, values, dryRun, timeout)
+	ret := m.ctrl.Call(m, "Upstall", ctx, releaseName, chartName, chartVersion, plannedReleaseVersion, namespace, values, dryRun, timeout, atomic)
 	ret0, _ := ret[0].(helm.UpstallResponse)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // Upstall indicates an expected call of Upstall
-func (mr *MockClientMockRecorder) Upstall(ctx, releaseName, chartName, chartVersion, plannedReleaseVersion, namespace, values, dryRun, timeout interface{}) *gomock.Call {
+func (mr *MockClientMockRecorder) Upstall(ctx, releaseName, chartName, chartVersion, plannedReleaseVersion, namespace, values, dryRun, timeout, atomic interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Upstall", reflect.TypeOf((*MockClient)(nil).Upstall), ctx, releaseName, chartName, chartVersion, plannedReleaseVersion, namespace, values, dryRun, timeout)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Upstall", reflect.TypeOf((*MockClient)(nil).Upstall), ctx, releaseName, chartName, chartVersion, plannedReleaseVersion, namespace, values, dryRun, timeout, atomic)
 }

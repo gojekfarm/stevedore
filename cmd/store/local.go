@@ -12,7 +12,7 @@ type Local struct{}
 func (ls Local) Fetch() map[string]interface{} {
 	envs := map[string]interface{}{}
 	for _, env := range os.Environ() {
-		pair := strings.Split(env, "=")
+		pair := strings.SplitN(env, "=", 2)
 		envs[pair[0]] = pair[1]
 	}
 	return envs

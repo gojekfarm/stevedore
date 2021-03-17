@@ -7,6 +7,6 @@ spec:
   - release:
       name: redis
       namespace: default
-      chart: stable/redis
+      chart: bitnami/redis
       values:
         password: ${REDIS_PASSWORD}

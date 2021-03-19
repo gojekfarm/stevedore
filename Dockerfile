@@ -11,6 +11,8 @@ RUN helm repo add stable https://charts.helm.sh/stable
 RUN helm repo update
 
 COPY --from=builder /go/src/github.com/gojekfarm/stevedore/out/stevedore /usr/local/bin/
+RUN addgroup -S appgroup && adduser -S stevedore -G appgroup
+USER stevedore
 WORKDIR /workdir
 ENTRYPOINT [ "stevedore" ]
 CMD ["version"]

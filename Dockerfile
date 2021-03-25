@@ -10,9 +10,11 @@ RUN chmod +x /usr/local/bin/helm
 RUN helm repo add stable https://charts.helm.sh/stable
 RUN helm repo update
 
+ARG UID=stevedore
+ARG GID=stevedore
+RUN addgroup -S $GID && adduser -S $UID -G $GID
 COPY --from=builder /go/src/github.com/gojekfarm/stevedore/out/stevedore /usr/local/bin/
-RUN addgroup -S appgroup && adduser -S stevedore -G appgroup
-USER stevedore
+USER $UID
 WORKDIR /workdir
 ENTRYPOINT [ "stevedore" ]
 CMD ["version"]

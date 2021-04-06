@@ -56,8 +56,9 @@ stevedore --help ## Verify the installation
 
 ### Use Docker image
 ```
-alias stevedore="docker run -it -v ~/.config/stevedore:/root/.config/stevedore -v ~/.kube:/root/.kube -v $PWD:/workdir thecasualcoder/stevedore"
-stevedore --help
+docker build -t stevedore .
+alias stevedore="docker run -it -v ~/.config/stevedore:/home/stevedore/.config/stevedore -v ~/.kube:/home/stevedore/.kube -v $PWD:/home/stevedore stevedore"
+stevedore config get-contexts
 ```
 
 Note: In the above command, we are mounting

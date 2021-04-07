@@ -8,5 +8,6 @@ spec:
       name: redis
       namespace: default
       chart: bitnami/redis
+      chartVersion: 12.10.0
       values:
         password: ${REDIS_PASSWORD}

@@ -57,7 +57,7 @@ func (c *DefaultClient) Upstall(ctx context.Context, releaseName, chartName, cha
 	histClient := action.NewHistory(cfg)
 	histClient.Max = 1
 	if _, err := histClient.Run(releaseName); err == driver.ErrReleaseNotFound {
-		releaseValue, err := install(cfg, releaseName, namespace, chartName, values, dryRun, atomic)
+		releaseValue, err := install(cfg, releaseName, namespace, chartName, chartVersion, values, dryRun, atomic)
 		if err != nil {
 			return UpstallResponse{}, fmt.Errorf("error installing: %v", err)
 		}
@@ -75,7 +75,7 @@ func (c *DefaultClient) Upstall(ctx context.Context, releaseName, chartName, cha
 		}, nil
 	}
 	client := action.NewGet(cfg)
-	newRelease, err := upgrade(cfg, releaseName, namespace, chartName, values, dryRun, atomic)
+	newRelease, err := upgrade(cfg, releaseName, namespace, chartName, chartVersion, values, dryRun, atomic)
 
 	if err != nil {
 		return UpstallResponse{}, fmt.Errorf("error upgrading: %v", err)
@@ -99,12 +99,13 @@ func (c *DefaultClient) Upstall(ctx context.Context, releaseName, chartName, cha
 	}, nil
 }
 
-func install(cfg *action.Configuration, releaseName string, namespace string, chartName string, values string, dryRun bool, atomic bool) (*release.Release, error) {
+func install(cfg *action.Configuration, releaseName, namespace, chartName, chartVersion, values string, dryRun, atomic bool) (*release.Release, error) {
 	client := action.NewInstall(cfg)
 	client.DryRun = dryRun
 	client.ReleaseName = releaseName
 	client.Namespace = namespace
 	client.Atomic = atomic
+	client.ChartPathOptions.Version = chartVersion
 
 	settings := cli.New()
 	cp, err := client.ChartPathOptions.LocateChart(chartName, settings)
@@ -163,11 +164,12 @@ func install(cfg *action.Configuration, releaseName string, namespace string, ch
 	return client.Run(chartRequested, valuesMap)
 }
 
-func upgrade(cfg *action.Configuration, releaseName string, namespace, chartName string, values string, dryRun bool, atomic bool) (*release.Release, error) {
+func upgrade(cfg *action.Configuration, releaseName, namespace, chartName, chartVersion, values string, dryRun, atomic bool) (*release.Release, error) {
 	client := action.NewUpgrade(cfg)
 	client.DryRun = dryRun
 	client.Namespace = namespace
 	client.Atomic = atomic
+	client.ChartPathOptions.Version = chartVersion
 
 	cp, err := client.ChartPathOptions.LocateChart(chartName, settings)
 	if err != nil {

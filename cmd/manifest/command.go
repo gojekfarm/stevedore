@@ -134,11 +134,13 @@ func (actionCmd *Command) CobraCommand() (*cobra.Command, error) {
 			}
 			cli.Infof(ctx.String())
 
-			resolvedKubeconfig, err := kubeconfig.ResolveAndValidate(kubeconfig.OSHomeDirResolver, actionCmd.kubeconfig, actionCmd.fs, ctx)
-			if err != nil {
-				return err
+			if actionCmd.kubeconfigRequired {
+				resolvedKubeconfig, err := kubeconfig.ResolveAndValidate(kubeconfig.OSHomeDirResolver, actionCmd.kubeconfig, actionCmd.fs, ctx)
+				if err != nil {
+					return err
+				}
+				actionCmd.kubeconfig = resolvedKubeconfig
 			}
-			actionCmd.kubeconfig = resolvedKubeconfig
 
 			if actionCmd.askConfirmation && !actionCmd.confirm {
 				_, err := promptConfirmation()

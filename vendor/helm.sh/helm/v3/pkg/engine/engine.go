@@ -40,7 +40,7 @@ type Engine struct {
 	Strict bool
 	// In LintMode, some 'required' template values may be missing, so don't fail
 	LintMode bool
-	// the rest config to connect to te kubernetes api
+	// the rest config to connect to the kubernetes api
 	config *rest.Config
 }
 
@@ -171,6 +171,16 @@ func (e Engine) initFunMap(t *template.Template, referenceTpls map[string]render
 			}
 		}
 		return val, nil
+	}
+
+	// Override sprig fail function for linting and wrapping message
+	funcMap["fail"] = func(msg string) (string, error) {
+		if e.LintMode {
+			// Don't fail when linting
+			log.Printf("[INFO] Fail: %s", msg)
+			return "", nil
+		}
+		return "", errors.New(warnWrap(msg))
 	}
 
 	// If we are not linting and have a cluster connection, provide a Kubernetes-backed

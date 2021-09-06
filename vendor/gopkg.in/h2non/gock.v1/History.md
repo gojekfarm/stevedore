@@ -1,3 +1,28 @@
+## v1.1.2 / 2021-08-03
+
+  * fix(mock): fix race condition in mock.go file (#92)
+
+## v1.1.1 / 2021-07-14
+
+  * feat(matchers): Support custom MIME types (#88)
+
+## v1.1.0 / 2021-06-02
+  
+  * Add context expiration cancellation support (#86)
+
+## v1.0.16 / 2020-11-23
+  
+  * Fix regexp matching issues in headers (#59)
+
+## v1.0.15 / 2019-07-03
+  
+  * NewMatcher() will now return objects that completely separate one another. (#55)
+  * add request Options (#49)
+  * fix typo: function -> func (#52)
+  * feat(docs): change note
+  * feat(docs): add net/http support
+  * Add Basic Auth (#47)
+  * Update LICENSE (#46)
 
 ## v1.0.14 / 2019-01-31
 

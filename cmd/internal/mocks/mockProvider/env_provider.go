@@ -5,35 +5,36 @@
 package mockProvider
 
 import (
+	reflect "reflect"
+
 	provider "github.com/gojek/stevedore/client/provider"
 	gomock "github.com/golang/mock/gomock"
-	reflect "reflect"
 )
 
-// MockEnvProvider is a mock of EnvProvider interface
+// MockEnvProvider is a mock of EnvProvider interface.
 type MockEnvProvider struct {
 	ctrl     *gomock.Controller
 	recorder *MockEnvProviderMockRecorder
 }
 
-// MockEnvProviderMockRecorder is the mock recorder for MockEnvProvider
+// MockEnvProviderMockRecorder is the mock recorder for MockEnvProvider.
 type MockEnvProviderMockRecorder struct {
 	mock *MockEnvProvider
 }
 
-// NewMockEnvProvider creates a new mock instance
+// NewMockEnvProvider creates a new mock instance.
 func NewMockEnvProvider(ctrl *gomock.Controller) *MockEnvProvider {
 	mock := &MockEnvProvider{ctrl: ctrl}
 	mock.recorder = &MockEnvProviderMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockEnvProvider) EXPECT() *MockEnvProviderMockRecorder {
 	return m.recorder
 }
 
-// Envs mocks base method
+// Envs mocks base method.
 func (m *MockEnvProvider) Envs() (provider.EnvsFiles, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Envs")
@@ -42,7 +43,7 @@ func (m *MockEnvProvider) Envs() (provider.EnvsFiles, error) {
 	return ret0, ret1
 }
 
-// Envs indicates an expected call of Envs
+// Envs indicates an expected call of Envs.
 func (mr *MockEnvProviderMockRecorder) Envs() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Envs", reflect.TypeOf((*MockEnvProvider)(nil).Envs))

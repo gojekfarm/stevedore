@@ -5,103 +5,104 @@
 package mockManifest
 
 import (
+	reflect "reflect"
+
 	provider "github.com/gojek/stevedore/client/provider"
 	stevedore "github.com/gojek/stevedore/pkg/stevedore"
 	gomock "github.com/golang/mock/gomock"
-	reflect "reflect"
 )
 
-// MockReporter is a mock of Reporter interface
+// MockReporter is a mock of Reporter interface.
 type MockReporter struct {
 	ctrl     *gomock.Controller
 	recorder *MockReporterMockRecorder
 }
 
-// MockReporterMockRecorder is the mock recorder for MockReporter
+// MockReporterMockRecorder is the mock recorder for MockReporter.
 type MockReporterMockRecorder struct {
 	mock *MockReporter
 }
 
-// NewMockReporter creates a new mock instance
+// NewMockReporter creates a new mock instance.
 func NewMockReporter(ctrl *gomock.Controller) *MockReporter {
 	mock := &MockReporter{ctrl: ctrl}
 	mock.recorder = &MockReporterMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockReporter) EXPECT() *MockReporterMockRecorder {
 	return m.recorder
 }
 
-// ReportContext mocks base method
+// ReportContext mocks base method.
 func (m *MockReporter) ReportContext(arg0 stevedore.Context) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "ReportContext", arg0)
 }
 
-// ReportContext indicates an expected call of ReportContext
+// ReportContext indicates an expected call of ReportContext.
 func (mr *MockReporterMockRecorder) ReportContext(arg0 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReportContext", reflect.TypeOf((*MockReporter)(nil).ReportContext), arg0)
 }
 
-// ReportIgnores mocks base method
-func (m *MockReporter) ReportIgnores(ignores stevedore.Ignores) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "ReportIgnores", ignores)
-}
-
-// ReportIgnores indicates an expected call of ReportIgnores
-func (mr *MockReporterMockRecorder) ReportIgnores(ignores interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReportIgnores", reflect.TypeOf((*MockReporter)(nil).ReportIgnores), ignores)
-}
-
-// ReportOverrides mocks base method
-func (m *MockReporter) ReportOverrides(overrides stevedore.Overrides) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "ReportOverrides", overrides)
-}
-
-// ReportOverrides indicates an expected call of ReportOverrides
-func (mr *MockReporterMockRecorder) ReportOverrides(overrides interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReportOverrides", reflect.TypeOf((*MockReporter)(nil).ReportOverrides), overrides)
-}
-
-// ReportManifest mocks base method
-func (m *MockReporter) ReportManifest(files stevedore.ManifestFiles) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "ReportManifest", files)
-}
-
-// ReportManifest indicates an expected call of ReportManifest
-func (mr *MockReporterMockRecorder) ReportManifest(files interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReportManifest", reflect.TypeOf((*MockReporter)(nil).ReportManifest), files)
-}
-
-// ReportSkipped mocks base method
-func (m *MockReporter) ReportSkipped(components stevedore.IgnoredReleases) {
-	m.ctrl.T.Helper()
-	m.ctrl.Call(m, "ReportSkipped", components)
-}
-
-// ReportSkipped indicates an expected call of ReportSkipped
-func (mr *MockReporterMockRecorder) ReportSkipped(components interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReportSkipped", reflect.TypeOf((*MockReporter)(nil).ReportSkipped), components)
-}
-
-// ReportEnvs mocks base method
+// ReportEnvs mocks base method.
 func (m *MockReporter) ReportEnvs(files provider.EnvsFiles) {
 	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "ReportEnvs", files)
 }
 
-// ReportEnvs indicates an expected call of ReportEnvs
+// ReportEnvs indicates an expected call of ReportEnvs.
 func (mr *MockReporterMockRecorder) ReportEnvs(files interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReportEnvs", reflect.TypeOf((*MockReporter)(nil).ReportEnvs), files)
+}
+
+// ReportIgnores mocks base method.
+func (m *MockReporter) ReportIgnores(ignores stevedore.Ignores) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "ReportIgnores", ignores)
+}
+
+// ReportIgnores indicates an expected call of ReportIgnores.
+func (mr *MockReporterMockRecorder) ReportIgnores(ignores interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReportIgnores", reflect.TypeOf((*MockReporter)(nil).ReportIgnores), ignores)
+}
+
+// ReportManifest mocks base method.
+func (m *MockReporter) ReportManifest(files stevedore.ManifestFiles) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "ReportManifest", files)
+}
+
+// ReportManifest indicates an expected call of ReportManifest.
+func (mr *MockReporterMockRecorder) ReportManifest(files interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReportManifest", reflect.TypeOf((*MockReporter)(nil).ReportManifest), files)
+}
+
+// ReportOverrides mocks base method.
+func (m *MockReporter) ReportOverrides(overrides stevedore.Overrides) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "ReportOverrides", overrides)
+}
+
+// ReportOverrides indicates an expected call of ReportOverrides.
+func (mr *MockReporterMockRecorder) ReportOverrides(overrides interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReportOverrides", reflect.TypeOf((*MockReporter)(nil).ReportOverrides), overrides)
+}
+
+// ReportSkipped mocks base method.
+func (m *MockReporter) ReportSkipped(components stevedore.IgnoredReleases) {
+	m.ctrl.T.Helper()
+	m.ctrl.Call(m, "ReportSkipped", components)
+}
+
+// ReportSkipped indicates an expected call of ReportSkipped.
+func (mr *MockReporterMockRecorder) ReportSkipped(components interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReportSkipped", reflect.TypeOf((*MockReporter)(nil).ReportSkipped), components)
 }

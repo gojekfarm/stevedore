@@ -8,7 +8,7 @@ import (
 	"github.com/olekukonko/tablewriter"
 
 	"github.com/fatih/color"
-	"golang.org/x/crypto/ssh/terminal"
+	"golang.org/x/term"
 	"gopkg.in/yaml.v2"
 )
 
@@ -132,7 +132,7 @@ func Fatalf(format string, value ...interface{}) {
 // IsTTY returns true if the terminal is an interactive tty
 // and false if not
 func IsTTY() bool {
-	return terminal.IsTerminal(int(os.Stdout.Fd()))
+	return term.IsTerminal(int(os.Stdout.Fd()))
 }
 
 // ColorForced returns true if "FORCE_COLOR" is enabled

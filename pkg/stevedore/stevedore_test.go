@@ -17,7 +17,7 @@ import (
 
 func TestStevedoreDo(t *testing.T) {
 	var timeout int64 = 10
-	var atomic bool = false
+	var atomic = false
 
 	t.Run("should do nothing for empty releaseSpecifications", func(t *testing.T) {
 		ctrl := gomock.NewController(t)

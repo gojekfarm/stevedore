@@ -18,7 +18,7 @@ func TestUpstaller_upstall(t *testing.T) {
 	var currentReleaseVersion int32
 	chartVersion := ""
 	var timeout int64 = 10
-	var atomic bool = true
+	var atomic = true
 	t.Run("should create helm response when helm upstall succeeds", func(t *testing.T) {
 		t.Run("with parallel true", func(t *testing.T) {
 			opts := stevedore.Opts{Parallel: true, DryRun: true}

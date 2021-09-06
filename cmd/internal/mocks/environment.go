@@ -5,48 +5,35 @@
 package mocks
 
 import (
-	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
+
+	gomock "github.com/golang/mock/gomock"
 )
 
-// MockEnvironment is a mock of Environment interface
+// MockEnvironment is a mock of Environment interface.
 type MockEnvironment struct {
 	ctrl     *gomock.Controller
 	recorder *MockEnvironmentMockRecorder
 }
 
-// MockEnvironmentMockRecorder is the mock recorder for MockEnvironment
+// MockEnvironmentMockRecorder is the mock recorder for MockEnvironment.
 type MockEnvironmentMockRecorder struct {
 	mock *MockEnvironment
 }
 
-// NewMockEnvironment creates a new mock instance
+// NewMockEnvironment creates a new mock instance.
 func NewMockEnvironment(ctrl *gomock.Controller) *MockEnvironment {
 	mock := &MockEnvironment{ctrl: ctrl}
 	mock.recorder = &MockEnvironmentMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockEnvironment) EXPECT() *MockEnvironmentMockRecorder {
 	return m.recorder
 }
 
-// Fetch mocks base method
-func (m *MockEnvironment) Fetch() map[string]interface{} {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Fetch")
-	ret0, _ := ret[0].(map[string]interface{})
-	return ret0
-}
-
-// Fetch indicates an expected call of Fetch
-func (mr *MockEnvironmentMockRecorder) Fetch() *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockEnvironment)(nil).Fetch))
-}
-
-// Cwd mocks base method
+// Cwd mocks base method.
 func (m *MockEnvironment) Cwd() (string, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Cwd")
@@ -55,8 +42,22 @@ func (m *MockEnvironment) Cwd() (string, error) {
 	return ret0, ret1
 }
 
-// Cwd indicates an expected call of Cwd
+// Cwd indicates an expected call of Cwd.
 func (mr *MockEnvironmentMockRecorder) Cwd() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Cwd", reflect.TypeOf((*MockEnvironment)(nil).Cwd))
+}
+
+// Fetch mocks base method.
+func (m *MockEnvironment) Fetch() map[string]interface{} {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Fetch")
+	ret0, _ := ret[0].(map[string]interface{})
+	return ret0
+}
+
+// Fetch indicates an expected call of Fetch.
+func (mr *MockEnvironmentMockRecorder) Fetch() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Fetch", reflect.TypeOf((*MockEnvironment)(nil).Fetch))
 }

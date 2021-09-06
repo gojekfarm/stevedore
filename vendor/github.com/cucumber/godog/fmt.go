@@ -6,28 +6,18 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"github.com/cucumber/messages-go/v10"
+	"github.com/cucumber/godog/colors"
+	"github.com/cucumber/godog/formatters"
+	internal_fmt "github.com/cucumber/godog/internal/formatters"
+	"github.com/cucumber/godog/internal/models"
+	"github.com/cucumber/godog/internal/storage"
 )
-
-type registeredFormatter struct {
-	name        string
-	description string
-	fmt         FormatterFunc
-}
-
-var formatters []*registeredFormatter
 
 // FindFmt searches available formatters registered
 // and returns FormaterFunc matched by given
 // format name or nil otherwise
 func FindFmt(name string) FormatterFunc {
-	for _, el := range formatters {
-		if el.name == name {
-			return el.fmt
-		}
-	}
-
-	return nil
+	return formatters.FindFmt(name)
 }
 
 // Format registers a feature suite output
@@ -35,24 +25,14 @@ func FindFmt(name string) FormatterFunc {
 // FormatterFunc constructor function, to initialize
 // formatter with the output recorder.
 func Format(name, description string, f FormatterFunc) {
-	formatters = append(formatters, &registeredFormatter{
-		name:        name,
-		fmt:         f,
-		description: description,
-	})
+	formatters.Format(name, description, f)
 }
 
 // AvailableFormatters gives a map of all
 // formatters registered with their name as key
 // and description as value
 func AvailableFormatters() map[string]string {
-	fmts := make(map[string]string, len(formatters))
-
-	for _, f := range formatters {
-		fmts[f.name] = f.description
-	}
-
-	return fmts
+	return formatters.AvailableFormatters()
 }
 
 // Formatter is an interface for feature runner
@@ -62,43 +42,17 @@ func AvailableFormatters() map[string]string {
 // suite results in different ways. These new
 // formatters needs to be registered with a
 // godog.Format function call
-type Formatter interface {
-	TestRunStarted()
-	Feature(*messages.GherkinDocument, string, []byte)
-	Pickle(*messages.Pickle)
-	Defined(*messages.Pickle, *messages.Pickle_PickleStep, *StepDefinition)
-	Failed(*messages.Pickle, *messages.Pickle_PickleStep, *StepDefinition, error)
-	Passed(*messages.Pickle, *messages.Pickle_PickleStep, *StepDefinition)
-	Skipped(*messages.Pickle, *messages.Pickle_PickleStep, *StepDefinition)
-	Undefined(*messages.Pickle, *messages.Pickle_PickleStep, *StepDefinition)
-	Pending(*messages.Pickle, *messages.Pickle_PickleStep, *StepDefinition)
-	Summary()
-}
-
-// ConcurrentFormatter is an interface for a Concurrent
-// version of the Formatter interface.
-//
-// Deprecated: The formatters need to handle concurrency
-// instead of being copied and synchronized for each thread.
-type ConcurrentFormatter interface {
-	Formatter
-	Copy(ConcurrentFormatter)
-	Sync(ConcurrentFormatter)
-}
+type Formatter = formatters.Formatter
 
 type storageFormatter interface {
-	setStorage(*storage)
+	SetStorage(*storage.Storage)
 }
 
 // FormatterFunc builds a formatter with given
 // suite name and io.Writer to record output
-type FormatterFunc func(string, io.Writer) Formatter
+type FormatterFunc = formatters.FormatterFunc
 
-func isLastStep(pickle *messages.Pickle, step *messages.Pickle_PickleStep) bool {
-	return pickle.Steps[len(pickle.Steps)-1].Id == step.Id
-}
-
-func printStepDefinitions(steps []*StepDefinition, w io.Writer) {
+func printStepDefinitions(steps []*models.StepDefinition, w io.Writer) {
 	var longest int
 	for _, def := range steps {
 		n := utf8.RuneCountInString(def.Expr.String())
@@ -109,12 +63,62 @@ func printStepDefinitions(steps []*StepDefinition, w io.Writer) {
 
 	for _, def := range steps {
 		n := utf8.RuneCountInString(def.Expr.String())
-		location := def.definitionID()
+		location := internal_fmt.DefinitionID(def)
 		spaces := strings.Repeat(" ", longest-n)
-		fmt.Fprintln(w, yellow(def.Expr.String())+spaces, blackb("# "+location))
+		fmt.Fprintln(w,
+			colors.Yellow(def.Expr.String())+spaces,
+			colors.Bold(colors.Black)("# "+location))
 	}
 
 	if len(steps) == 0 {
 		fmt.Fprintln(w, "there were no contexts registered, could not find any step definition..")
 	}
 }
+
+// NewBaseFmt creates a new base formatter.
+func NewBaseFmt(suite string, out io.Writer) *BaseFmt {
+	return internal_fmt.NewBase(suite, out)
+}
+
+// NewProgressFmt creates a new progress formatter.
+func NewProgressFmt(suite string, out io.Writer) *ProgressFmt {
+	return internal_fmt.NewProgress(suite, out)
+}
+
+// NewPrettyFmt creates a new pretty formatter.
+func NewPrettyFmt(suite string, out io.Writer) *PrettyFmt {
+	return &PrettyFmt{Base: NewBaseFmt(suite, out)}
+}
+
+// NewEventsFmt creates a new event streaming formatter.
+func NewEventsFmt(suite string, out io.Writer) *EventsFmt {
+	return &EventsFmt{Base: NewBaseFmt(suite, out)}
+}
+
+// NewCukeFmt creates a new Cucumber JSON formatter.
+func NewCukeFmt(suite string, out io.Writer) *CukeFmt {
+	return &CukeFmt{Base: NewBaseFmt(suite, out)}
+}
+
+// NewJUnitFmt creates a new JUnit formatter.
+func NewJUnitFmt(suite string, out io.Writer) *JUnitFmt {
+	return &JUnitFmt{Base: NewBaseFmt(suite, out)}
+}
+
+// BaseFmt exports Base formatter.
+type BaseFmt = internal_fmt.Base
+
+// ProgressFmt exports Progress formatter.
+type ProgressFmt = internal_fmt.Progress
+
+// PrettyFmt exports Pretty formatter.
+type PrettyFmt = internal_fmt.Pretty
+
+// EventsFmt exports Events formatter.
+type EventsFmt = internal_fmt.Events
+
+// CukeFmt exports Cucumber JSON formatter.
+type CukeFmt = internal_fmt.Cuke
+
+// JUnitFmt exports JUnit formatter.
+type JUnitFmt = internal_fmt.JUnit

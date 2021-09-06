@@ -6,35 +6,36 @@ package mocks
 
 import (
 	context "context"
+	reflect "reflect"
+
 	helm "github.com/gojek/stevedore/pkg/helm"
 	gomock "github.com/golang/mock/gomock"
-	reflect "reflect"
 )
 
-// MockClient is a mock of Client interface
+// MockClient is a mock of Client interface.
 type MockClient struct {
 	ctrl     *gomock.Controller
 	recorder *MockClientMockRecorder
 }
 
-// MockClientMockRecorder is the mock recorder for MockClient
+// MockClientMockRecorder is the mock recorder for MockClient.
 type MockClientMockRecorder struct {
 	mock *MockClient
 }
 
-// NewMockClient creates a new mock instance
+// NewMockClient creates a new mock instance.
 func NewMockClient(ctrl *gomock.Controller) *MockClient {
 	mock := &MockClient{ctrl: ctrl}
 	mock.recorder = &MockClientMockRecorder{mock}
 	return mock
 }
 
-// EXPECT returns an object that allows the caller to indicate expected use
+// EXPECT returns an object that allows the caller to indicate expected use.
 func (m *MockClient) EXPECT() *MockClientMockRecorder {
 	return m.recorder
 }
 
-// Upstall mocks base method
+// Upstall mocks base method.
 func (m *MockClient) Upstall(ctx context.Context, releaseName, chartName, chartVersion string, plannedReleaseVersion int32, namespace, values string, dryRun bool, timeout int64, atomic bool) (helm.UpstallResponse, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Upstall", ctx, releaseName, chartName, chartVersion, plannedReleaseVersion, namespace, values, dryRun, timeout, atomic)
@@ -43,7 +44,7 @@ func (m *MockClient) Upstall(ctx context.Context, releaseName, chartName, chartV
 	return ret0, ret1
 }
 
-// Upstall indicates an expected call of Upstall
+// Upstall indicates an expected call of Upstall.
 func (mr *MockClientMockRecorder) Upstall(ctx, releaseName, chartName, chartVersion, plannedReleaseVersion, namespace, values, dryRun, timeout, atomic interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Upstall", reflect.TypeOf((*MockClient)(nil).Upstall), ctx, releaseName, chartName, chartVersion, plannedReleaseVersion, namespace, values, dryRun, timeout, atomic)

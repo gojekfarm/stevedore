@@ -54,21 +54,31 @@ type MockMatcher struct {
 // NewMatcher creates a new mock matcher
 // using the default matcher functions.
 func NewMatcher() *MockMatcher {
-	return &MockMatcher{Matchers: Matchers}
+	m := NewEmptyMatcher()
+	for _, matchFn := range Matchers {
+		m.Add(matchFn)
+	}
+	return m
 }
 
 // NewBasicMatcher creates a new matcher with header only mock matchers.
 func NewBasicMatcher() *MockMatcher {
-	return &MockMatcher{Matchers: MatchersHeader}
+	m := NewEmptyMatcher()
+	for _, matchFn := range MatchersHeader {
+		m.Add(matchFn)
+	}
+	return m
 }
 
-// NewEmptyMatcher creates a new empty matcher with out default amtchers.
+// NewEmptyMatcher creates a new empty matcher without default matchers.
 func NewEmptyMatcher() *MockMatcher {
 	return &MockMatcher{Matchers: []MatchFunc{}}
 }
 
 // Get returns a slice of registered function matchers.
 func (m *MockMatcher) Get() []MatchFunc {
+	mutex.Lock()
+	defer mutex.Unlock()
 	return m.Matchers
 }
 
@@ -85,6 +95,15 @@ func (m *MockMatcher) Set(stack []MatchFunc) {
 // Flush flushes the current matcher
 func (m *MockMatcher) Flush() {
 	m.Matchers = []MatchFunc{}
+}
+
+// Clone returns a separate MockMatcher instance that has a copy of the same MatcherFuncs
+func (m *MockMatcher) Clone() *MockMatcher {
+	m2 := NewEmptyMatcher()
+	for _, mFn := range m.Get() {
+		m2.Add(mFn)
+	}
+	return m2
 }
 
 // Match matches the given http.Request with a mock request

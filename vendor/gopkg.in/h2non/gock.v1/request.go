@@ -1,6 +1,7 @@
 package gock
 
 import (
+	"encoding/base64"
 	"io"
 	"io/ioutil"
 	"net/http"
@@ -31,6 +32,9 @@ type Request struct {
 
 	// Persisted stores if the current mock should be always active.
 	Persisted bool
+
+	// Options stores options for current Request.
+	Options Options
 
 	// URLStruct stores the parsed URL as *url.URL struct.
 	URLStruct *url.URL
@@ -172,13 +176,19 @@ func (r *Request) XML(data interface{}) *Request {
 }
 
 // MatchType defines the request Content-Type MIME header field.
-// Supports type alias. E.g: json, xml, form, text...
+// Supports custom MIME types and type aliases. E.g: json, xml, form, text...
 func (r *Request) MatchType(kind string) *Request {
 	mime := BodyTypeAliases[kind]
 	if mime != "" {
 		kind = mime
 	}
 	r.Header.Set("Content-Type", kind)
+	return r
+}
+
+// BasicAuth defines a username and password for HTTP Basic Authentication
+func (r *Request) BasicAuth(username, password string) *Request {
+	r.Header.Set("Authorization", "Basic "+basicAuth(username, password))
 	return r
 }
 
@@ -244,6 +254,12 @@ func (r *Request) Persist() *Request {
 	return r
 }
 
+// WithOptions sets the options for the request.
+func (r *Request) WithOptions(options Options) *Request {
+	r.Options = options
+	return r
+}
+
 // Times defines the number of times that the current HTTP mock should remain active.
 func (r *Request) Times(num int) *Request {
 	r.Counter = num
@@ -296,4 +312,14 @@ func (r *Request) ReplyError(err error) *Response {
 func (r *Request) ReplyFunc(replier func(*Response)) *Response {
 	replier(r.Response)
 	return r.Response
+}
+
+// See 2 (end of page 4) https://www.ietf.org/rfc/rfc2617.txt
+// "To receive authorization, the client sends the userid and password,
+// separated by a single colon (":") character, within a base64
+// encoded string in the credentials."
+// It is not meant to be urlencoded.
+func basicAuth(username, password string) string {
+	auth := username + ":" + password
+	return base64.StdEncoding.EncodeToString([]byte(auth))
 }

@@ -18,7 +18,7 @@ ifeq ($(BUILD),)
 endif
 
 GOLANGCI_LINT=$(shell command -v golangci-lint 2> /dev/null)
-GOLANGCI_LINT_VERSION=v1.31.0
+GOLANGCI_LINT_VERSION=v1.42.1
 ifeq ($(GOLANGCI_LINT),)
 	GOLANGCI_LINT=$(shell command -v $(PWD)/bin/golangci-lint 2> /dev/null)
 endif

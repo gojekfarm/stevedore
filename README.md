@@ -4,14 +4,16 @@
 
 ![logo](/logo/logo_readme.png)
 
-Stevedore a tool to load the cluster with containers for kubernetes to orchestrate. It is a wrapper on Helm, gets all the features of helm, defines a workflow through which helm charts can be deployed and managed. It offers,
+Stevedore a tool to load the cluster with containers for kubernetes to orchestrate. It is a wrapper on Helm, gets all
+the features of helm, defines a workflow through which helm charts can be deployed and managed. It offers,
 
 - **Declarative way** to mange dependencies.
 - Terraform style **plan and apply** to see what exactly going to change
 - Ability to specify overrides for any given environment at ease
 - Support storing of configurations multiple config store (Plugin support for custom stores)
 
-**TLDR;** Kubernetes follows a declarative style of configuring infrastructure. Stevedore provides a way through which helm interactions can be done declarative through a YAML configuration.
+**TLDR;** Kubernetes follows a declarative style of configuring infrastructure. Stevedore provides a way through which
+helm interactions can be done declarative through a YAML configuration.
 
 ![demo](demo.gif)
 
@@ -20,17 +22,17 @@ Stevedore a tool to load the cluster with containers for kubernetes to orchestra
 * [Installation](#installation)
 * [Getting Started](#getting-started)
 
-   * [Stevedore Context](#stevedore-context)
+    * [Stevedore Context](#stevedore-context)
 
-   * [Manifest](#Manifest)
+    * [Manifest](#Manifest)
 
-   * [Plan](#plan)
+    * [Plan](#plan)
 
-   * [Apply](#apply)
+    * [Apply](#apply)
 
-   * [Using Override](#using-override)
+    * [Using Override](#using-override)
 
-   * [Using Env](#using-env)
+    * [Using Env](#using-env)
 
 * [Terminology](#terminology)
 
@@ -47,6 +49,7 @@ stevedore --help ## Verify the installation
 ```
 
 ### Install from source
+
 ```
 git clone git@github.com:gojekfarm/stevedore.git
 cd stevedore
@@ -55,6 +58,7 @@ stevedore --help ## Verify the installation
 ```
 
 ### Use Docker image
+
 ```
 docker build -t stevedore .
 alias stevedore="docker run -it -v ~/.config/stevedore:/home/stevedore/.config/stevedore -v ~/.kube:/home/stevedore/.kube -v $PWD:/home/stevedore stevedore"
@@ -62,6 +66,7 @@ stevedore config get-contexts
 ```
 
 Note: In the above command, we are mounting
+
 1. `~/.config/stevedore` for stevedore to store the stevedore context
 2. `~/.kube` for stevedore to connect to kubernetes cluster
 3. `$PWD` for running plan/apply using yaml files in current working directory
@@ -302,9 +307,11 @@ spec:
 
 ## Terminology
 
-**StevedoreManifest** use this to define the release manifest which is interpreted by the stevedore and perform install / upgrade
+**StevedoreManifest** use this to define the release manifest which is interpreted by the stevedore and perform install
+/ upgrade
 
-**StevedoreEnv** use this to define environment/context/cluster specific value (eg., database connection string, password, replica count etc.,)
+**StevedoreEnv** use this to define environment/context/cluster specific value (eg., database connection string,
+password, replica count etc.,)
 
 **StevedoreOverride** use this to define overrides for an environment/context/cluster
 
@@ -315,7 +322,8 @@ spec:
 1. `go` version: `1.14`
 2. Clone the repo to `$GOPATH/src/github.com/gojekfarm/stevedore`
 3. Run `make build` to build dependencies, format, vet, lint, test and compile
-4. Run `make compile` to compile for local development machine (use `compile-linux` to compile for linux os amd64 architecture)
+4. Run `make compile` to compile for local development machine (use `compile-linux` to compile for linux os amd64
+   architecture)
 5. Run `make install` to install stevedore \$GOPATH/bin
 
 ## Credits
@@ -327,14 +335,11 @@ you can reach out him at [@hajaarfunda](https://twitter.com/hajaarfunda)
 
 Copyright 2018-2020, GO-JEK Tech (http://gojek.tech)
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the
+License. You may obtain a copy of the License at
 
     http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "
+AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+language governing permissions and limitations under the License.

@@ -1,5 +1,7 @@
 {
-  "Enable": ["golint"],
+  "Enable": [
+    "golint"
+  ],
   "Disable": [
     "maligned",
     "deadcode",
@@ -30,5 +32,7 @@
     "vet",
     "vetshadow"
   ],
-  "Skip": ["vendor"]
+  "Skip": [
+    "vendor"
+  ]
 }

@@ -1,36 +1,36 @@
 name: Check
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   lint:
     runs-on: ubuntu-20.04
     steps:
-    - name: Install Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.14.x
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Lint
-      run: make lint
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.14.x
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Lint
+        run: make lint
 
   test:
     runs-on: ubuntu-20.04
     steps:
-    - name: Install Go
-      uses: actions/setup-go@v2
-      with:
-        go-version: 1.14.x
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Unit Tests
-      run: make test-cover-html
-    - name: Store coverage report
-      uses: actions/upload-artifact@v2
-      with:
-        name: coverage-report
-        path: |
-          ./out/coverage
-          ./out/coverage.html
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: 1.14.x
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Unit Tests
+        run: make test-cover-html
+      - name: Store coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage-report
+          path: |
+            ./out/coverage
+            ./out/coverage.html
 

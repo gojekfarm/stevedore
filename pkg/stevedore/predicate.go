@@ -31,10 +31,5 @@ func NewPredicate(releaseSpecification ReleaseSpecification, context Context) Pr
 
 // NewPredicateFromContext returns a predicate based on context
 func NewPredicateFromContext(context Context) Predicate {
-	predicate := Predicate{conditions: Conditions{}}
-	predicate.add(ConditionEnvironment, context.Environment)
-	predicate.add(ConditionEnvironmentType, context.EnvironmentType)
-	predicate.add(ConditionContextName, context.Name)
-	predicate.add(ConditionContextType, context.Type)
-	return predicate
+	return Predicate{conditions: context.Conditions()}
 }

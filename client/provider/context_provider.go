@@ -11,6 +11,7 @@ import (
 // ContextProvider is the Context ProviderImpl interface
 type ContextProvider interface {
 	Context() (stevedore.Context, error)
+	Labels() (stevedore.Labels, error)
 }
 
 // DefaultContextProvider represents the default context provider
@@ -19,6 +20,15 @@ type DefaultContextProvider struct {
 	fs          afero.Fs
 	file        string
 	environment config.Environment
+}
+
+// Labels returns the user defined labels
+func (provider DefaultContextProvider) Labels() (stevedore.Labels, error) {
+	configurations, err := stevedore.NewConfigurationFromFile(provider.fs, provider.file, provider.environment)
+	if err != nil {
+		return stevedore.Labels{}, fmt.Errorf("[currentContext] %v", err)
+	}
+	return configurations.Labels(), nil
 }
 
 // Context returns the current context which is in use

@@ -169,9 +169,11 @@ func TestMatchedIgnores(t *testing.T) {
 		envComponentsProductionCtx := stevedore.Context{
 			Name:              "env-components-production",
 			KubernetesContext: "gke://env-components-production",
-			Type:              "components",
-			EnvironmentType:   "production",
-			Environment:       "production",
+			Labels: stevedore.Conditions{
+				"contextType":     "components",
+				"environmentType": "production",
+				"environment":     "production",
+			},
 		}
 
 		predicate := stevedore.NewPredicate(rideServiceApp, envComponentsProductionCtx)
@@ -207,9 +209,11 @@ func TestMatchedIgnores(t *testing.T) {
 		envComponentsProductionCtx := stevedore.Context{
 			Name:              "env-components-production",
 			KubernetesContext: "gke://env-components-production",
-			Type:              "components",
-			EnvironmentType:   "test-environment",
-			Environment:       "production",
+			Labels: stevedore.Conditions{
+				"type":            "components",
+				"environmentType": "test-environment",
+				"environment":     "production",
+			},
 		}
 
 		predicate := stevedore.NewPredicate(abcServiceApp, envComponentsProductionCtx)

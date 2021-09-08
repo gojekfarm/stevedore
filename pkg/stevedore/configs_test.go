@@ -30,7 +30,7 @@ func TestConfigsFetch(t *testing.T) {
 			"app-env":  "staging",
 		}
 
-		stevedoreContext := stevedore.Context{Environment: "staging"}
+		stevedoreContext := stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}
 
 		pluginAConfigProvider := mockPlugin.NewMockConfigInterface(ctrl)
 		pluginAConfigProvider.EXPECT().Type().Return(pkgPlugin.TypeConfig, nil)
@@ -69,7 +69,7 @@ func TestConfigsFetch(t *testing.T) {
 
 		pluginConfigs := []map[string]interface{}{{"name": "plugin"}}
 
-		stevedoreContext := stevedore.Context{Environment: "staging"}
+		stevedoreContext := stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}}
 		contextAsMap, _ := stevedoreContext.Map()
 
 		pluginConfigProvider := mockPlugin.NewMockConfigInterface(ctrl)

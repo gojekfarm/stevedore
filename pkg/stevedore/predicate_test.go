@@ -18,9 +18,11 @@ func TestNewPredicate(t *testing.T) {
 		ctx := Context{
 			Name:              "components",
 			KubernetesContext: "gke://components",
-			Type:              "components",
-			EnvironmentType:   "staging",
-			Environment:       "staging",
+			Labels: Conditions{
+				"contextType":     "components",
+				"environmentType": "staging",
+				"environment":     "staging",
+			},
 		}
 
 		expectedPredicate := Predicate{
@@ -44,9 +46,11 @@ func TestNewPredicateFromContext(t *testing.T) {
 		ctx := Context{
 			Name:              "components",
 			KubernetesContext: "gke://components",
-			Type:              "components",
-			EnvironmentType:   "staging",
-			Environment:       "staging",
+			Labels: Conditions{
+				"contextType":     "components",
+				"environmentType": "staging",
+				"environment":     "staging",
+			},
 		}
 
 		expectedPredicate := Predicate{
@@ -76,9 +80,11 @@ func TestPredicateContains(t *testing.T) {
 	ctx := Context{
 		Name:              "components",
 		KubernetesContext: "gke://components",
-		Type:              "components",
-		EnvironmentType:   "staging",
-		Environment:       "staging",
+		Labels: Conditions{
+			"type":            "components",
+			"environmentType": "staging",
+			"environment":     "staging",
+		},
 	}
 
 	predicate := NewPredicate(app, ctx)

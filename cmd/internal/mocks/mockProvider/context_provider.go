@@ -48,3 +48,18 @@ func (mr *MockContextProviderMockRecorder) Context() *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Context", reflect.TypeOf((*MockContextProvider)(nil).Context))
 }
+
+// Labels mocks base method.
+func (m *MockContextProvider) Labels() (stevedore.Labels, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UserLabels")
+	ret0, _ := ret[0].(stevedore.Labels)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Labels indicates an expected call of Labels.
+func (mr *MockContextProviderMockRecorder) Labels() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UserLabels", reflect.TypeOf((*MockContextProvider)(nil).Labels))
+}

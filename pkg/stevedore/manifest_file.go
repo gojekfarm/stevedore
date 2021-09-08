@@ -85,13 +85,14 @@ func (manifestFiles ManifestFiles) Enrich(
 	envs Substitute,
 	ignores Ignores,
 	providers config.Providers,
+	labels Labels,
 ) (ManifestFiles, IgnoredReleases, error) {
 	result := ManifestFiles{}
 	manifestErrors := file.Errors{}
 	filteredManifests, ignoredComponents := manifestFiles.Filter(ignores, stevedoreContext)
 
 	for _, manifest := range filteredManifests {
-		enrichedManifest := manifest.EnrichWith(stevedoreContext, overrides)
+		enrichedManifest := manifest.EnrichWith(stevedoreContext, overrides, labels)
 		populatedManifest, err := enrichedManifest.Replace(stevedoreContext, envs, providers)
 		if err != nil {
 			manifestErrors = append(manifestErrors, file.Error{Filename: manifest.File, Reason: err})

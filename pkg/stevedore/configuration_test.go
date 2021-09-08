@@ -73,23 +73,41 @@ func TestNewConfigurationFromFile(t *testing.T) {
 current: services
 contexts:
   - name: components
-    environment: env
     kubernetesContext: components
-    environmentType: staging
-    type: components
+    labels:
+      environment: env
+      environmentType: staging
+      type: components
   - name: services
-    environment: env
     kubernetesContext: services
-    environmentType: production
-    type: services`
+    labels:
+      environment: env
+      environmentType: production
+      type: services`
 
 		memFs := saveConfig(configString)
 
 		expectedConfigurationConfig := Configuration{
 			Current: "services",
 			Contexts: []Context{
-				{Name: "components", Environment: "env", KubernetesContext: "components", Type: "components", EnvironmentType: "staging"},
-				{Name: "services", Environment: "env", KubernetesContext: "services", Type: "services", EnvironmentType: "production"},
+				{
+					Name:              "components",
+					KubernetesContext: "components",
+					Labels: Conditions{
+						"environment":     "env",
+						"type":            "components",
+						"environmentType": "staging",
+					},
+				},
+				{
+					Name:              "services",
+					KubernetesContext: "services",
+					Labels: Conditions{
+						"environment":     "env",
+						"type":            "services",
+						"environmentType": "production",
+					},
+				},
 			},
 			filename: ConfigFileName,
 			fs:       memFs,
@@ -114,19 +132,33 @@ contexts:
 current: services
 contexts:
   - name: components
-    environment: env
     kubernetesContext: components
+    labels:
+      environment: env
   - name: services
-    environment: env
-    kubernetesContext: services`
+    kubernetesContext: services
+    labels:
+      environment: env`
 
 		memFs := saveConfig(configString)
 
 		expectedConfigurationConfig := Configuration{
 			Current: "components",
 			Contexts: []Context{
-				{Name: "components", Environment: "env", KubernetesContext: "components"},
-				{Name: "services", Environment: "env", KubernetesContext: "services"},
+				{
+					Name:              "components",
+					KubernetesContext: "components",
+					Labels: Conditions{
+						"environment": "env",
+					},
+				},
+				{
+					Name:              "services",
+					KubernetesContext: "services",
+					Labels: Conditions{
+						"environment": "env",
+					},
+				},
 			},
 			filename: ConfigFileName,
 			fs:       memFs,
@@ -185,8 +217,8 @@ func TestConfigurationUse(t *testing.T) {
 			},
 			filename: ConfigFileName,
 		}
-		filecontent, _ := yaml.Marshal(stevedore)
-		memFs := saveConfig(string(filecontent))
+		fileContent, _ := yaml.Marshal(stevedore)
+		memFs := saveConfig(string(fileContent))
 		stevedore.fs = memFs
 
 		err := stevedore.Use("services")
@@ -215,8 +247,8 @@ func TestConfigurationUse(t *testing.T) {
 			},
 			filename: ConfigFileName,
 		}
-		filecontent, _ := yaml.Marshal(stevedore)
-		memFs := saveConfig(string(filecontent))
+		fileContent, _ := yaml.Marshal(stevedore)
+		memFs := saveConfig(string(fileContent))
 		stevedore.fs = memFs
 
 		err := stevedore.Use("not-a-valid-context")
@@ -247,11 +279,19 @@ func TestConfigurationAdd(t *testing.T) {
 			},
 			filename: ConfigFileName,
 		}
-		filecontent, _ := yaml.Marshal(stevedore)
-		memFs := saveConfig(string(filecontent))
+		fileContent, _ := yaml.Marshal(stevedore)
+		memFs := saveConfig(string(fileContent))
 		stevedore.fs = memFs
 
-		ctx := Context{Name: "services", KubernetesContext: "services", Environment: "env", Type: "services", EnvironmentType: "staging"}
+		ctx := Context{
+			Name:              "services",
+			KubernetesContext: "services",
+			Labels: Conditions{
+				"environment":     "env",
+				"type":            "services",
+				"environmentType": "staging",
+			},
+		}
 
 		err := stevedore.Add(ctx)
 
@@ -269,7 +309,15 @@ func TestConfigurationAdd(t *testing.T) {
 
 		expectedContexts := Contexts{
 			Context{Name: "components"},
-			Context{Name: "services", KubernetesContext: "services", Environment: "env", Type: "services", EnvironmentType: "staging"},
+			Context{
+				Name:              "services",
+				KubernetesContext: "services",
+				Labels: Conditions{
+					"environment":     "env",
+					"type":            "services",
+					"environmentType": "staging",
+				},
+			},
 		}
 
 		assert.Equal(t, expectedContexts, savedConfiguration.Contexts)
@@ -283,11 +331,17 @@ func TestConfigurationAdd(t *testing.T) {
 			},
 			filename: ConfigFileName,
 		}
-		filecontent, _ := yaml.Marshal(stevedore)
-		memFs := saveConfig(string(filecontent))
+		fileContent, _ := yaml.Marshal(stevedore)
+		memFs := saveConfig(string(fileContent))
 		stevedore.fs = memFs
 
-		ctx := Context{Name: "components", KubernetesContext: "components", Environment: "env"}
+		ctx := Context{
+			Name:              "components",
+			KubernetesContext: "components",
+			Labels: Conditions{
+				"environment": "env",
+			},
+		}
 
 		err := stevedore.Add(ctx)
 
@@ -322,8 +376,8 @@ func TestConfigurationDelete(t *testing.T) {
 			},
 			filename: ConfigFileName,
 		}
-		filecontent, _ := yaml.Marshal(stevedore)
-		memFs := saveConfig(string(filecontent))
+		fileContent, _ := yaml.Marshal(stevedore)
+		memFs := saveConfig(string(fileContent))
 		stevedore.fs = memFs
 
 		err := stevedore.Delete("services")
@@ -348,8 +402,8 @@ func TestConfigurationDelete(t *testing.T) {
 			},
 			filename: ConfigFileName,
 		}
-		filecontent, _ := yaml.Marshal(stevedore)
-		memFs := saveConfig(string(filecontent))
+		fileContent, _ := yaml.Marshal(stevedore)
+		memFs := saveConfig(string(fileContent))
 		stevedore.fs = memFs
 
 		err := stevedore.Delete("services")
@@ -368,8 +422,8 @@ func TestConfigurationDelete(t *testing.T) {
 			},
 			filename: ConfigFileName,
 		}
-		filecontent, _ := yaml.Marshal(stevedore)
-		memFs := saveConfig(string(filecontent))
+		fileContent, _ := yaml.Marshal(stevedore)
+		memFs := saveConfig(string(fileContent))
 		stevedore.fs = memFs
 
 		err := stevedore.Delete("Some-random-context")
@@ -395,8 +449,8 @@ func TestConfigurationRename(t *testing.T) {
 			},
 			filename: ConfigFileName,
 		}
-		filecontent, _ := yaml.Marshal(stevedore)
-		memFs := saveConfig(string(filecontent))
+		fileContent, _ := yaml.Marshal(stevedore)
+		memFs := saveConfig(string(fileContent))
 		stevedore.fs = memFs
 
 		err := stevedore.Rename("services", "dev-services")
@@ -421,8 +475,8 @@ func TestConfigurationRename(t *testing.T) {
 			},
 			filename: ConfigFileName,
 		}
-		filecontent, _ := yaml.Marshal(stevedore)
-		memFs := saveConfig(string(filecontent))
+		fileContent, _ := yaml.Marshal(stevedore)
+		memFs := saveConfig(string(fileContent))
 		stevedore.fs = memFs
 
 		err := stevedore.Rename("some-random-context", "dev-services")
@@ -446,8 +500,8 @@ func TestConfigurationRename(t *testing.T) {
 			},
 			filename: ConfigFileName,
 		}
-		filecontent, _ := yaml.Marshal(stevedore)
-		memFs := saveConfig(string(filecontent))
+		fileContent, _ := yaml.Marshal(stevedore)
+		memFs := saveConfig(string(fileContent))
 		stevedore.fs = memFs
 
 		err := stevedore.Rename("services", "components")
@@ -471,8 +525,8 @@ func TestConfigurationRename(t *testing.T) {
 			},
 			filename: ConfigFileName,
 		}
-		filecontent, _ := yaml.Marshal(stevedore)
-		memFs := saveConfig(string(filecontent))
+		fileContent, _ := yaml.Marshal(stevedore)
+		memFs := saveConfig(string(fileContent))
 		stevedore.fs = memFs
 
 		err := stevedore.Rename("components", "dev-components")
@@ -517,5 +571,53 @@ func TestConfigurationCurrentContext(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.Equal(t, Context{Name: "services"}, ctx)
+	})
+}
+
+func TestConfiguration_Labels(t *testing.T) {
+	t.Run("should add context, environment, applicationName", func(t *testing.T) {
+		configuration := Configuration{
+			UserLabels: Labels{
+				{Name: "one"},
+				{Name: "two"},
+				{Name: "three"},
+			},
+		}
+
+		expected := Labels{
+			{Name: "one"},
+			{Name: "two"},
+			{Name: "three"},
+			{Name: ConditionEnvironment},
+			{Name: ConditionContextName},
+			{Name: ConditionApplicationName},
+		}
+
+		actual := configuration.Labels()
+
+		assert.Equal(t, expected, actual)
+	})
+
+	t.Run("should add context, environment, applicationName and assign weights accordingly", func(t *testing.T) {
+		configuration := Configuration{
+			UserLabels: Labels{
+				{Name: "one", Weight: 2},
+				{Name: "two", Weight: 3},
+				{Name: "three", Weight: 1},
+			},
+		}
+
+		expected := Labels{
+			{Name: "one", Weight: 2},
+			{Name: "two", Weight: 3},
+			{Name: "three", Weight: 1},
+			{Name: ConditionEnvironment, Weight: 4},
+			{Name: ConditionContextName, Weight: 5},
+			{Name: ConditionApplicationName, Weight: 6},
+		}
+
+		actual := configuration.Labels()
+
+		assert.Equal(t, expected, actual)
 	})
 }

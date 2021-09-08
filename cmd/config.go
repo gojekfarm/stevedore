@@ -54,7 +54,7 @@ var configGetContextsCmd = &cobra.Command{
 		}
 
 		table := cli.NewTableRenderer(os.Stdout)
-		table.SetHeader([]string{"CURRENT", "NAME", "KUBERNETES CONTEXT", "TYPE", "ENVIRONMENT", "ENVIRONMENT TYPE"})
+		table.SetHeader([]string{"CURRENT", "NAME", "KUBERNETES CONTEXT", "LABELS"})
 
 		if givenContext != "" {
 			for _, ctx := range stevedoreConfig.Contexts {
@@ -63,7 +63,11 @@ var configGetContextsCmd = &cobra.Command{
 					current = "*"
 				}
 				if ctx.Name == givenContext {
-					table.Append([]string{current, ctx.Name, ctx.KubernetesContext, ctx.Type, ctx.Environment, ctx.EnvironmentType})
+					labels := strings.Builder{}
+					for key, value := range ctx.Labels {
+						labels.WriteString(fmt.Sprintf("%s: %s\n", key, value))
+					}
+					table.Append([]string{current, ctx.Name, ctx.KubernetesContext, labels.String()})
 					break
 				}
 			}
@@ -73,7 +77,11 @@ var configGetContextsCmd = &cobra.Command{
 				if ctx.Name == stevedoreConfig.Current {
 					current = "*"
 				}
-				table.Append([]string{current, ctx.Name, ctx.KubernetesContext, ctx.Type, ctx.Environment, ctx.EnvironmentType})
+				labels := strings.Builder{}
+				for key, value := range ctx.Labels {
+					labels.WriteString(fmt.Sprintf("%s: %s\n", key, value))
+				}
+				table.Append([]string{current, ctx.Name, ctx.KubernetesContext, labels.String()})
 			}
 		}
 		table.Render()
@@ -116,17 +124,12 @@ var ctx = stevedore.Context{}
 var localStore store.Local
 
 const (
-	nameFlag            = "name"
-	typeFlag            = "type"
-	environmentFlag     = "environment"
-	environmentTypeFlag = "environment-type"
-	kubeContextFlag     = "kube-context"
+	nameFlag        = "name"
+	kubeContextFlag = "kube-context"
 )
 
 var addCtxtErrors = map[string]string{
 	"Name":              fmt.Sprintf("Provide a name for stevedore context using --%s", nameFlag),
-	"Environment":       fmt.Sprintf("Provide a environment for stevedore context using --%s", environmentFlag),
-	"EnvironmentType":   fmt.Sprintf("Provide a environment type for stevedore context using --%s", environmentTypeFlag),
 	"KubernetesContext": fmt.Sprintf("Provide a kubecontext for stevedore context using --%s", kubeContextFlag),
 }
 
@@ -174,12 +177,15 @@ var configAddContextCmd = &cobra.Command{
 
 		fmt.Println("Successfully added the below context:")
 
+		labels := strings.Builder{}
+		for key, value := range ctx.Labels {
+			labels.WriteString(fmt.Sprintf("%s:%s\n", key, value))
+		}
+
 		table := cli.NewTableRenderer(os.Stdout)
 		table.Append([]string{"Name", ctx.Name})
-		table.Append([]string{"Type", ctx.Type})
-		table.Append([]string{"Environment", ctx.Environment})
-		table.Append([]string{"Environment Type", ctx.EnvironmentType})
 		table.Append([]string{"Kubernetes Context", ctx.KubernetesContext})
+		table.Append([]string{"Labels", fmt.Sprintf("\n%s", labels.String())})
 		table.Render()
 
 		err = stevedoreConfig.Use(ctx.Name)
@@ -272,9 +278,6 @@ func init() {
 	rootCmd.AddCommand(configCmd)
 
 	configAddContextCmd.PersistentFlags().StringVar(&ctx.Name, nameFlag, "", "Stevedore context name")
-	configAddContextCmd.PersistentFlags().StringVar(&ctx.Type, typeFlag, "", "Type of kubernetes cluster of the stevedore context")
-	configAddContextCmd.PersistentFlags().StringVar(&ctx.Environment, environmentFlag, "", "Environment of the stevedore context")
-	configAddContextCmd.PersistentFlags().StringVar(&ctx.EnvironmentType, environmentTypeFlag, "", "Type of Environment of stevedore context (eg. staging|production)")
 	configAddContextCmd.PersistentFlags().StringVar(&ctx.KubernetesContext, kubeContextFlag, "", "Kubernetes cluster of the stevedore context")
 
 	configCmd.AddCommand(configViewCmd)

@@ -50,7 +50,7 @@ func TestEnvsFilesFilter(t *testing.T) {
 			},
 		}
 
-		filteredEnvsFiles := envsFiles.Filter(stevedore.Context{Environment: "staging"})
+		filteredEnvsFiles := envsFiles.Filter(stevedore.Context{Labels: stevedore.Conditions{"environment": "staging"}})
 
 		assert.NotNil(t, filteredEnvsFiles)
 		assert.Equal(t, expected, filteredEnvsFiles)
@@ -84,7 +84,7 @@ func TestEnvsFilesFilter(t *testing.T) {
 
 		expected := provider.EnvsFiles{}
 
-		filteredEnvsFiles := envsFiles.Filter(stevedore.Context{Environment: "uat"})
+		filteredEnvsFiles := envsFiles.Filter(stevedore.Context{Labels: stevedore.Conditions{"environment": "uat"}})
 
 		assert.NotNil(t, filteredEnvsFiles)
 		assert.Equal(t, expected, filteredEnvsFiles)
@@ -130,7 +130,14 @@ func TestEnvsFilesSortAndMerge(t *testing.T) {
 			},
 		}
 
-		actual, err := envsFiles.SortAndMerge(stevedore.Substitute{"readonly": "false"})
+		labels := stevedore.Labels{
+			{Name: "environmentType"},
+			{Name: "environment"},
+			{Name: "contextType"},
+			{Name: "contextName"},
+			{Name: "applicationName"},
+		}
+		actual, err := envsFiles.SortAndMerge(stevedore.Substitute{"readonly": "false"}, labels)
 
 		assert.NoError(t, err)
 		assert.Equal(t, stevedore.Substitute{"name": "x-env", "size": "8Gi", "persistence": "true", "readonly": "false", "primary_slot_name": "readonly_cluster"}, actual)

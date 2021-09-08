@@ -21,15 +21,17 @@ func TestDefaultContextProvider(t *testing.T) {
 current: components
 contexts:
   - name: components
-    environment: env
     kubernetesContext: components
-    environmentType: staging
-    type: components
+    labels:
+      environment: env
+      environmentType: staging
+      type: components
   - name: services
-    environment: env
     kubernetesContext: services
-    environmentType: production
-    type: services`
+    labels:
+      environment: env
+      environmentType: production
+      type: services`
 
 		contextFile := "/mock/contextFile"
 		mockEnvironment := mocks.NewMockEnvironment(ctrl)
@@ -40,10 +42,12 @@ contexts:
 		_ = afero.WriteFile(memFs, contextFile, []byte(contextString), 0644)
 		expected := stevedore.Context{
 			Name:              "components",
-			Type:              "components",
-			Environment:       "env",
 			KubernetesContext: "components",
-			EnvironmentType:   "staging",
+			Labels: stevedore.Conditions{
+				"type":            "components",
+				"environment":     "env",
+				"environmentType": "staging",
+			},
 		}
 
 		contextProvider := provider.NewContextProvider(memFs, contextFile, mockEnvironment)

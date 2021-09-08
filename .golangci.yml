@@ -3,7 +3,9 @@ run:
   modules-download-mode: vendor
 linters:
   enable:
-    - golint
     - gofmt
+    - revive
+  disable:
+    - golint
 issues:
   exclude-use-default: false

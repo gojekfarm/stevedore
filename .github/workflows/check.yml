@@ -12,6 +12,8 @@ jobs:
           go-version: 1.16.x
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Fetch go modules
+        run: go mod vendor
       - name: Lint
         run: make lint
 
@@ -24,6 +26,8 @@ jobs:
           go-version: 1.16.x
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Fetch go modules
+        run: go mod vendor
       - name: Unit Tests
         run: make test-cover-html
       - name: Store coverage report
